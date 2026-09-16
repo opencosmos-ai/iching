@@ -1,0 +1,21 @@
+{
+  "name": "@opencosmos/iching",
+  "private": true,
+  "description": "The I Ching translation project \u2014 text, glossary, principles, and the tooling that verifies them",
+  "license": "CC0-1.0",
+  "scripts": {
+    "build": "tsx scripts/build-iching.ts",
+    "principles": "tsx scripts/build-iching-principles.ts",
+    "import-sources": "tsx scripts/import-iching-sources.ts",
+    "seed": "tsx scripts/seed-iching.ts"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.1"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20",
+    "tsx": "^4.21.0",
+    "typescript": "^5"
+  }
+}

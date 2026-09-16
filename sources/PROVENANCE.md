@@ -168,13 +168,13 @@ transcribed: 2026-09-11
 ```
 # the primary — Tesseract, 300 DPI, single-column mode
 brew install tesseract
-scripts/xenso/ocr-tesseract.sh knowledge/iching/sources/.cache/mcclatchie-1876.pdf \
-    knowledge/iching/sources/.cache/mcclatchie-1876-tesseract.txt
+scripts/ocr-tesseract.sh sources/.cache/mcclatchie-1876.pdf \
+    sources/.cache/mcclatchie-1876-tesseract.txt
 
 # the witness — Apple Vision, no install and no network
-swiftc -O scripts/xenso/ocr-pdf.swift -o /tmp/ocr-pdf -framework PDFKit -framework Vision -framework AppKit
-/tmp/ocr-pdf knowledge/iching/sources/.cache/mcclatchie-1876.pdf \
-    knowledge/iching/sources/.cache/mcclatchie-1876-vision.txt --scale 3 --langs en-US,zh-Hant
+swiftc -O scripts/ocr-pdf.swift -o /tmp/ocr-pdf -framework PDFKit -framework Vision -framework AppKit
+/tmp/ocr-pdf sources/.cache/mcclatchie-1876.pdf \
+    sources/.cache/mcclatchie-1876-vision.txt --scale 3 --langs en-US,zh-Hant
 
 pnpm xenso:import-iching --only mcclatchie
 ```

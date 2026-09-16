@@ -2,7 +2,7 @@
 
 Sixty-four hexagrams and eight trigrams, held as a **keyed lookup table** rather than as corpus prose — and, beside them, the public-domain evidence a rendering has to answer to.
 
-This is deliberate, and the reasoning is recorded in the Xensō canon at [`docs/corpus-wanted.md`](https://github.com/shalomormsby/xenso) § The oracular layer: *"The I Ching is a lookup system: sixty-four hexagrams with fixed keys, consulted by a cast rather than by similarity. The chunk-and-embed pipeline serves it badly. It wants a different data shape — closer to `knowledge/quotes/`."* So it sits beside the corpus, not inside it, and it is never embedded — `scripts/knowledge/embed-knowledge.ts` skips this whole directory by name.
+This is deliberate, and the reasoning is recorded in the Xensō canon at [`docs/corpus-wanted.md`](https://github.com/shalomormsby/xenso) § The oracular layer: *"The I Ching is a lookup system: sixty-four hexagrams with fixed keys, consulted by a cast rather than by similarity. The chunk-and-embed pipeline serves it badly. It wants a different data shape — closer to `the corpus's `quotes/``."* So it sits beside the corpus, not inside it, and it is never embedded — the corpus embedder in [opencosmos-ai/knowledge](https://github.com/opencosmos-ai/knowledge) skips it by name.
 
 ## The arrangement
 
@@ -43,7 +43,7 @@ sources/PROVENANCE.md             what may live here, and on what authority
 Generated from the decisions, and checked in:
 
 ```
-apps/web/lib/iching-data.ts   GENERATED — do not edit
+generated/iching-data.ts   GENERATED — do not edit
 ```
 
 It is generated *into the app* rather than read from disk, because the cast happens on the client and `apps/web/lib/knowledge.ts`'s fs-from-cwd pattern is server-only. Sixty-four rows is a rounding error in the bundle.
@@ -51,7 +51,7 @@ It is generated *into the app* rather than read from disk, because the cast happ
 ```bash
 pnpm xenso:seed-iching            # one-time; refuses to clobber anything past `status: draft`
 pnpm xenso:import-iching --fetch  # vendor the sources, and verify them against the table
-pnpm xenso:build-iching           # markdown → apps/web/lib/iching-data.ts
+pnpm xenso:build-iching           # markdown → generated/iching-data.ts
 pnpm xenso:check-iching           # the verification below
 pnpm xenso:principles             # principles/INDEX.md, and verify every evidence link
 ```

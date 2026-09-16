@@ -1,6 +1,6 @@
 # WORKLIST — what this translation still owes
 
-*The single forward-looking file for `knowledge/iching/`. Everything here has a status that
+*The single forward-looking file for ``. Everything here has a status that
 needs keeping current. When an item closes it leaves the list and becomes one line in the
 ledger at the foot — the reasoning already lives somewhere permanent, and repeating it here
 is how a debt list goes stale.*
@@ -59,12 +59,12 @@ not by position: the eight trigrams, then the verdict vocabulary as one decision
 | B3 | ⏸ | **The Chinese half of McClatchie is not transcribed** — a rule, not a shortfall. Route named: `brew install tesseract-lang`, `chi_tra_vert` | `sources/` | 1 |
 | B4 | ⬜ | **Legge's footnotes not vendored** | `sources/legge-1882/` | 1 |
 | B6 | ⬜ | **王弼's 周易略例 not vendored** — [`tao-te-ching-relation.md`](tao-te-ching-relation.md) §2 and §8 quote 得意忘象 **from memory**. Vendor it before the phrase binds any decision | `sources/` | 1 |
-| B7 | ⬜ | **The two-corpus measurements have no script** — computed once by hand; until they are `pnpm xenso:`-something they are a claim, not a grade | `scripts/xenso/` | 1 |
+| B7 | ⬜ | **The two-corpus measurements have no script** — computed once by hand; until they are `pnpm xenso:`-something they are a claim, not a grade | `scripts/` | 1 |
 | B5 | ⬜ | **`prescrves-the «`-class errors** — multi-token blocks straddling a line break are left alone by design; a proofreading pass would need the scan | `disputed.yaml` | — |
 | | | **C · Tooling** | | |
-| C1 | ⬜ | **No glossary index generator** — the parent has one; `glossary/` here has none | `scripts/xenso/` | 1 |
-| C2 | ⬜ | **`build-iching.ts` does not check `glossary_refs:` resolve** — a rendering can cite an entry that does not exist | `scripts/xenso/` | 1 |
-| C3 | ⬜ | **No check that a rendering respects the locks** — 47 locked terms, enforced by reading rather than by code | `scripts/xenso/` | 1 |
+| C1 | ⬜ | **No glossary index generator** — the parent has one; `glossary/` here has none | `scripts/` | 1 |
+| C2 | ⬜ | **`build-iching.ts` does not check `glossary_refs:` resolve** — a rendering can cite an entry that does not exist | `scripts/` | 1 |
+| C3 | ⬜ | **No check that a rendering respects the locks** — 47 locked terms, enforced by reading rather than by code | `scripts/` | 1 |
 | C4 | ✅ | ~~Two OCR witnesses, corpus and scan adjudication~~ — closed 2026-09-12 | — | — |
 | C5 | ✅ | ~~`mcPageBody` truncating pages at the first long line~~ — closed 2026-09-12 | — | — |
 
