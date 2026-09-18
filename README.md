@@ -2,7 +2,7 @@
 
 Sixty-four hexagrams and eight trigrams, held as a **keyed lookup table** rather than as corpus prose — and, beside them, the public-domain evidence a rendering has to answer to.
 
-This is deliberate, and the reasoning is recorded in the Xensō canon at [`docs/corpus-wanted.md`](https://github.com/shalomormsby/xenso) § The oracular layer: *"The I Ching is a lookup system: sixty-four hexagrams with fixed keys, consulted by a cast rather than by similarity. The chunk-and-embed pipeline serves it badly. It wants a different data shape — closer to `the corpus's `quotes/``."* So it sits beside the corpus, not inside it, and it is never embedded — the corpus embedder in [opencosmos-ai/knowledge](https://github.com/opencosmos-ai/knowledge) skips it by name.
+This is deliberate, and the reasoning is recorded in the Xensō canon at [`docs/corpus-wanted.md`](https://github.com/shalomormsby/xenso) § The oracular layer: *"The I Ching is a lookup system: sixty-four hexagrams with fixed keys, consulted by a cast rather than by similarity. The chunk-and-embed pipeline serves it badly. It wants a different data shape — closer to the corpus's `quotes/`."* So it sits beside the corpus, not inside it, and it is never embedded — the corpus embedder in [opencosmos-ai/knowledge](https://github.com/opencosmos-ai/knowledge) skips it by name.
 
 ## The arrangement
 
