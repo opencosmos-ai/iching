@@ -1,0 +1,28 @@
+name: Checks
+
+# opencosmos copies generated/iching-data.ts, so a drifted table here becomes
+# a wrong cast on the site. `check` fails on that drift. The taoteching
+# repository runs the same kind of gate.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - run: npm ci
+
+      - name: Hexagram table, trigrams, and the generated file
+        run: npm run check
+
+      - name: Principles — anchors resolve and every entry is shaped to run
+        run: npm run principles -- --check
