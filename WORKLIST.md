@@ -12,7 +12,7 @@ The **rendering** goes in `hexagrams/NN.md` / `trigrams/*.md` as `render:`. **Ev
 [`principles/`](principles/INDEX.md). **Research that is not yet a ruling** is a dated brief —
 so far one, [`tao-te-ching-relation.md`](tao-te-ching-relation.md). Nothing belongs in two of those.
 
-**Last updated:** 2026-09-12
+**Last updated:** 2026-09-24
 
 ---
 
@@ -68,8 +68,8 @@ not by position: the eight trigrams, then the verdict vocabulary as one decision
 | C4 | ✅ | ~~Two OCR witnesses, corpus and scan adjudication~~ — closed 2026-09-12 | — | — |
 | C5 | ✅ | ~~`mcPageBody` truncating pages at the first long line~~ — closed 2026-09-12 | — | — |
 | C6 | ✅ | ~~**The principles were argued well and reached by nobody**~~ — closed 2026-09-24: all thirteen on the parent's new shape, every scope loaded where its work begins, and `npm run principles -- --check` refuses an entry that is not shaped to run. `iching-principle-entry` skill added | `principles/` · `scripts/` | 13 |
-| C7 | ⬜ | **`check-iching` did not come with the extraction** — `README.md` → *Verification* describes the bijection, King Wen pair, trigram and founding-cast checks, and nothing in this repository runs them. `build-iching.ts` orders by King Wen number but asserts none of it | `scripts/` | 1 |
-| C8 | ⬜ | **`pnpm xenso:*` survives the extraction in ~20 places** — script headers, `sources/PROVENANCE.md`, the McClatchie YAML comments, and two paths under `scripts/xenso/` that no longer exist. The commands are `npm run build · principles · import-sources · seed`. Fixed so far only in `README.md`'s command block and the principles build | repo-wide | 20 |
+| C7 | ✅ | ~~**`check-iching` did not come with the extraction**~~ — closed 2026-09-24: `npm run check` runs the table half, reading the frontmatter, and fails if `generated/` has drifted from it. The engine half stays in opencosmos with the engine | `scripts/` | 1 |
+| C8 | ⬜ | **`pnpm xenso:*` survives the extraction in ~20 places** — script headers, `sources/PROVENANCE.md`, the McClatchie YAML comments, and two paths under `scripts/xenso/` that no longer exist. The commands are `npm run build · principles · import-sources · seed`. Fixed so far only in `README.md`'s command block and *Verification* section, and the principles build | repo-wide | 20 |
 | C9 | ⬜ | **Two measurements of the McClatchie OCR, not reconciled** — `principles/an-instrument-is-not-a-witness-to-itself.md` gives Vision one word in five wrong and a 3.9% consensus residual; `scripts/ocr-consensus.ts`'s header gives one in eight and 2.8%. Probably two runs; `sources/PROVENANCE.md` should say which is current | `scripts/` · `principles/` | 1 |
 
 ---
@@ -98,6 +98,9 @@ sentence from the trigram's name, and 鼎 is a cauldron on a **wood** fire. Queu
 
 ## Closed — the ledger
 
+- **2026-09-24** · **The table checks itself again** (C7) — `npm run check`: bijection, King Wen
+  pairs, trigram agreement, the founding cast, and that `generated/` matches the frontmatter.
+  The engine half stays in opencosmos with the engine. → [CHANGELOG](CHANGELOG.md)
 - **2026-09-12** · **The eight trigrams rendered** (A1, A2) — sky · earth · thunder · wind ·
   water · fire · mountain · lake. The project's first English. → [glossary](glossary/)
 - **2026-09-12** · **澤 → `lake`** (A3). 47 困 澤无水 shows 澤 is the hollow, not the water;

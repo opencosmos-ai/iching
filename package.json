@@ -5,6 +5,7 @@
   "license": "CC0-1.0",
   "scripts": {
     "build": "tsx scripts/build-iching.ts",
+    "check": "tsx scripts/check-iching.ts",
     "principles": "tsx scripts/build-iching-principles.ts",
     "import-sources": "tsx scripts/import-iching-sources.ts",
     "seed": "tsx scripts/seed-iching.ts"

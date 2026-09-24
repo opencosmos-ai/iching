@@ -52,6 +52,7 @@ It is generated *into the app* rather than read from disk, because the cast happ
 npm run seed                       # one-time; refuses to clobber anything past `status: draft`
 npm run import-sources -- --fetch  # vendor the sources, and verify them against the table
 npm run build                      # markdown → generated/iching-data.ts
+npm run check                      # the table checks itself — see Verification
 npm run principles                 # principles/INDEX.md, and verify every link and every entry's shape
 ```
 
@@ -61,7 +62,7 @@ npm run principles                 # principles/INDEX.md, and verify every link 
 npm run principles -- --applies tooling
 ```
 
-*The commands above were `pnpm xenso:*` scripts in the opencosmos monorepo this project was extracted from. **`check-iching` — the verification described under* Verification *below — did not come with the extraction**, and has no equivalent here yet; see `WORKLIST.md`.*
+*The commands above were `pnpm xenso:*` scripts in the opencosmos monorepo this project was extracted from.*
 
 ## What is a fact here, and what is a decision
 
@@ -154,15 +155,19 @@ Thomas McClatchie's *A translation of the Confucian 易經*, Shanghai 1876, all 
 
 ## Verification
 
-`pnpm xenso:check-iching` asserts, on every run:
+`npm run check` asserts, on every run, reading the frontmatter rather than the generated file:
 
-- **Bijection** — 64 distinct figures covering all 64 possible.
-- **The King Wen pair invariant** — consecutive pairs (1,2), (3,4) … (63,64) are each other's inversions, except the eight figures that are their own inversion, which pair by complement instead. A single transposed row breaks it, which makes the table self-checking and worth more than proofreading.
-- **Trigram agreement** — lower ++ upper equals the figure, every time.
-- **Engine behaviour** — coin arithmetic, the non-uniform odds (1/8, 3/8, 3/8, 1/8 — not even, and this is the check that says so), moving-line resolution, and `relating: null` when nothing moves.
-- **The founding cast** — the six throws Shalom logged on 2024-02-23 asking *"What will help bring Xenso into the world?"*, recorded in the Xensō archive and never resolved, must come out at hexagram 60 moving at line one, becoming 29. It also asserts that reading those throws top-down would give 59 instead — because **lines read bottom to top**, and getting that backwards produces a plausible wrong answer with no error to notice.
+- **Bijection** — 64 distinct figures covering all 64 possible, numbered 1 … 64 once each.
+- **The King Wen pair invariant** — consecutive pairs (1,2), (3,4) … (63,64) are each other's inversions, except the eight figures that are their own inversion, which pair by complement instead. A single transposed row breaks it, which makes the table self-checking and worth more than proofreading. A swap *within* a pair cannot break it — 59 and 60 are each other's inversion — which is why the next two checks are not redundant.
+- **Trigram agreement** — the eight trigrams cover the eight three-line figures, every hexagram names two that exist, and lower ++ upper equals the figure, every time.
+- **The founding cast** — the six throws Shalom logged on 2024-02-23 asking *"What will help bring Xenso into the world?"*, recorded in the Xensō archive and never resolved, give lines 9 7 8 8 7 8, which must come out at hexagram 60 moving at line one, becoming 29. It also asserts that reading those lines top-down would give 59 instead — because **lines read bottom to top**, and getting that backwards produces a plausible wrong answer with no error to notice.
+- **The generated file is current** — `generated/iching-data.ts` agrees with the frontmatter row for row, so the copy the app carries cannot drift from the decisions unnoticed.
 
-`pnpm xenso:import-iching` adds two more, and fails the run rather than writing an unverified file:
+Each of these has been seen to fail: a transposed row across pairs, a swap within a pair, a wrong trigram, and a rendering edited without a rebuild each exit non-zero.
+
+**The cast engine is checked where it lives.** Coin arithmetic, the non-uniform odds (1/8, 3/8, 3/8, 1/8 — not even, and that check is what says so), moving-line resolution and `relating: null` when nothing moves are properties of `apps/web/lib/iching.ts`, not of this table, and `pnpm xenso:check-iching` in [opencosmos](https://github.com/opencosmos-ai/opencosmos/blob/main/scripts/README.md) still tests them — against the app's copy of the generated file.
+
+`npm run import-sources` adds two more, and fails the run rather than writing an unverified file:
 
 - **Trigram agreement, from outside.** Each Zhouyi page prints its own decomposition — 兌下坎上, *dui below, kan above* — which must equal the `trigrams:` in our table. **64 of 64.**
 - **The figure, read back out of the line labels.** The classical labels name each line's polarity: 九 is a solid line, 六 a broken one, so 初九 九二 六三 六四 九五 上六 spells `110010` and nothing else. Reassembling every figure from its labels checks **all 384 line values against a source that has no idea what our table says.** This is the check that a transposed row cannot survive, and it now passes 64 of 64.
