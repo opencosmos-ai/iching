@@ -2,11 +2,17 @@
 
 *[`README.md`](README.md) says what is here. [`sources/PROVENANCE.md`](sources/PROVENANCE.md) says what may be here and on what authority. This file says **how to turn the one into the other**.*
 
-It is a local adaptation of the Tao Te Ching project's [`process/method.md`](https://github.com/opencosmos-ai/taoteching), and it inherits that project's [principles](https://github.com/opencosmos-ai/taoteching) wholesale — twenty-seven of them, each firing on a stated trigger. **Where this file and those principles disagree, the principles win and this file is the bug.**
+It is a local adaptation of the Tao Te Ching project's [`process/method.md`](https://github.com/opencosmos-ai/taoteching), and it inherits that project's [principles](https://github.com/opencosmos-ai/taoteching) wholesale, each firing on a stated trigger. **Where this file and those principles disagree, the principles win and this file is the bug.**
 
 ---
 
 ## 0. The stance
+
+**Load the rules for how this work is done together, every session:**
+
+```bash
+npm run principles -- --applies process
+```
 
 > ### Meet the image. Grasp the meaning. Forget the image.
 
@@ -49,6 +55,12 @@ Not a chapter. Four things, in this order of scope:
 ---
 
 ## 2. Triangulating meaning — the four corners
+
+**Before rendering anything, load the rules drafting has already learned** — this project's own, and then the Tao Te Ching project's, which apply here in full (§ 6):
+
+```bash
+npm run principles -- --applies drafting
+```
 
 The rule that makes this both original and legally clean is the parent project's, unchanged:
 
@@ -170,7 +182,7 @@ Use them. Do not copy them.
 
 **Two sets, and they do not overlap.**
 
-**The Tao Te Ching project's twenty-seven apply here in full.** They are not restated in this repository — [`principles/README.md`](principles/README.md) explains why not, and the rule against copying them is itself one of the local ones. These are the inherited ones this book will trip hardest:
+**The Tao Te Ching project's principles apply here in full.** They are not restated in this repository — [`principles/README.md`](principles/README.md) explains why not, and the rule against copying them is itself one of the local ones. These are the inherited ones this book will trip hardest:
 
 - [`repeat-yourself`](https://github.com/opencosmos-ai/taoteching) — §3. The governing constraint.
 - [`already-spoken-for`](https://github.com/opencosmos-ai/taoteching) — **sharpened almost to breaking point here.** Sixty-four hexagrams need sixty-four *distinct* single-word renders, plus eight for the trigrams. The English words for difficulty, obstruction, hardship, adversity and danger will run out before the hexagrams do — 3, 29, 39, 47 and 12 all compete for them. This needs a register kept across all seventy-two, not decided one file at a time.

@@ -2,7 +2,7 @@
 
 Notable changes to this repository. The root [`CHANGELOG.md`](https://github.com/opencosmos-ai/opencosmos/blob/main/CHANGELOG.md) covers the monorepo; this one covers a directory that has its own method, its own admission rules and its own principles, and whose changes would otherwise be legible only by reading a whole session back.
 
-**Last updated:** 2026-09-12
+**Last updated:** 2026-09-24
 
 ## What goes here, and what does not
 
@@ -40,6 +40,17 @@ This is a **chronological spine that points into them**, never a second copy.
 **Entries are milestones, not commits.** `git log` holds every change; this holds the ones that changed the shape of the work.
 
 ---
+
+## 2026-09-24 — The principles are brought onto the parent's new shape, and made to run
+
+The Tao Te Ching project changed the form of a principle this week, and this directory's README promised the form was *"identical to the parent's, and the generator enforces it."* That promise had just become false — so this is the inheritance kept, not a new decision.
+
+- **All thirteen on the new shape**: *Why this holds · Why this principle exists · How it is implemented · Where it does not fire · What it obliges*. **The failure story is told once**, in *Why this principle exists*; five stories that sat in *Why this holds* moved there, and the rest of each entry says what the rule is and how it runs. The shape is the parent's — [its README](https://github.com/opencosmos-ai/taoteching/blob/main/process/principles/README.md#the-shape-of-an-entry) — and `principles/README.md` now says only where this project differs.
+- **How it is implemented, for all thirteen** — grounded in what the scripts actually do: the importer's grade tests, `lines_found:` and `located_by:`; `ocr-consensus.ts`; the McClatchie Chinese-pages manifest. Most rules are judgment, and now say so.
+- **Every kind of work loads its principles where it begins.** Nothing did before: this repository has no skills and no `CLAUDE.md`, so no principle reached anyone. Now `npm run principles -- --applies <scope>` sits in `method.md` § 0 (process) and § 2 (drafting), `glossary/README.md`, `sources/PROVENANCE.md` → *The admission rules*, and `README.md` (tooling). `notes` is dropped from the scopes — there is no notes layer here.
+- **The build enforces all of it.** `npm run principles -- --check` refuses an entry missing a section, out of order, naming a `check:` tool its implementation does not mention, or applying to work nothing loads, and refuses a scope nothing loads. Any failure now writes nothing — before, the index was written even on failure.
+- **`iching-principle-entry`**, in `.claude/skills/` — the parent's procedure bound to this repository's paths, scopes and build, with the reasoning linked rather than copied. Named apart from the parent's `principle-entry` so the two never compete in a workspace that opens both.
+- **Stale names from the extraction, fixed where this work touched them**: the build is `npm run principles`, not `pnpm xenso:principles`; four `check:` fields named `xenso:` scripts; and *"the Tao Te Ching project's twenty-seven"* was a hand-kept count of another repository's directory, which now holds thirty. The rest is `WORKLIST.md` C8 — and C7, because **`check-iching` did not come with the extraction at all**.
 
 ## 2026-09-12 — The first English, and the rule that got it there
 

@@ -4,6 +4,12 @@
 evidence, vendored and never hand-edited; everything here is a decision, authored, argued
 and signed with a date. The two never mix.
 
+**Before ruling on a term**, load the rules this project has learned about deciding words:
+
+```bash
+npm run principles -- --applies glossary
+```
+
 ## Where a rendering lives, and why it lives in two places
 
 | | |

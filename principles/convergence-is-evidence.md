@@ -32,11 +32,24 @@ supersedes: []
 
 ---
 
-## The cases
+## Why this principle exists
 
 **澤 was ruled toward *marsh* partly on the ground that "lake is Wilhelm's, and excluded."** That reasoning fused two unrelated rules. Wilhelm–Baynes is not vendored because it is a modern translation in copyright — an admission rule about files, in [`../sources/PROVENANCE.md`](../sources/PROVENANCE.md), which places no word out of reach. *Lake* had to be re-argued on the evidence, and it turns out to survive 澤无水 (47) and 澤上有水 (60) at least as well as *marsh* does. → [method.md](../method.md#2-triangulating-meaning--the-four-corners)
 
 **"Never for a word" stood in `method.md` §2 for a day and would have forbidden *thunder* for 雷.** The inherited rule says never for *phrasing*; compressing it to *a word* made an English term of art unreachable because Legge reached it first. → [glossary/README](../glossary/README.md#what-an-entry-owes)
+
+---
+
+## How it is implemented
+
+| Where | What it does |
+|---|---|
+| **`glossary/`** | each entry carries its derivation, so a reading's independence from any one translator is visible on the page rather than asserted |
+| **`method.md` § 2** | `npm run principles -- --applies drafting` lists it before anything is rendered |
+| **`sources/PROVENANCE.md`** → *The admission rules* | `--applies sources` lists it before anything is vendored, graded or re-imported |
+| **`method.md` § 0** | `--applies process` lists it at the start of every session |
+
+**Not enforced.** It governs what counts as a reason, which is judgment.
 
 ---
 

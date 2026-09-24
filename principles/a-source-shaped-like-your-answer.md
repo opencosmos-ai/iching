@@ -32,11 +32,24 @@ supersedes: []
 
 ---
 
-## The cases
+## Why this principle exists
 
 **雜卦 is named as the sleeper in the source list** — the tersest gloss the tradition gives each hexagram, and *"the closest thing in the classical corpus to the single word `render` is asking for."* → [README](../README.md#十翼--the-wings)
 
 **說卦 and the trigram images**, where the trap is stated in full: the Wings are the oldest interpretation in existence and are still interpretation. *"Use them. Do not copy them."* → [method § 5](../method.md#5-the-wings-are-commentary)
+
+---
+
+## How it is implemented
+
+| Where | What it does |
+|---|---|
+| **`method.md` § 5**, *The Wings are commentary* | states the hazard for 說卦 and 雜卦 — *use them, do not copy them* |
+| **`trigrams/*.md`** | each draft note names the temptation in the file where it will be met |
+| **`method.md` § 2** | `npm run principles -- --applies drafting` lists it before anything is rendered |
+| **`sources/PROVENANCE.md`** → *The admission rules* | `--applies sources` lists it before anything is vendored, graded or re-imported |
+
+**Not enforced.** A borrowed `render:` looks exactly like an argued one and leaves no trace for a tool to find.
 
 ---
 

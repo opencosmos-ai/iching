@@ -49,12 +49,19 @@ generated/iching-data.ts   GENERATED — do not edit
 It is generated *into the app* rather than read from disk, because the cast happens on the client and `apps/web/lib/knowledge.ts`'s fs-from-cwd pattern is server-only. Sixty-four rows is a rounding error in the bundle.
 
 ```bash
-pnpm xenso:seed-iching            # one-time; refuses to clobber anything past `status: draft`
-pnpm xenso:import-iching --fetch  # vendor the sources, and verify them against the table
-pnpm xenso:build-iching           # markdown → generated/iching-data.ts
-pnpm xenso:check-iching           # the verification below
-pnpm xenso:principles             # principles/INDEX.md, and verify every evidence link
+npm run seed                       # one-time; refuses to clobber anything past `status: draft`
+npm run import-sources -- --fetch  # vendor the sources, and verify them against the table
+npm run build                      # markdown → generated/iching-data.ts
+npm run principles                 # principles/INDEX.md, and verify every link and every entry's shape
 ```
+
+**Before changing anything in `scripts/`**, load the rules the tooling has already learned:
+
+```bash
+npm run principles -- --applies tooling
+```
+
+*The commands above were `pnpm xenso:*` scripts in the opencosmos monorepo this project was extracted from. **`check-iching` — the verification described under* Verification *below — did not come with the extraction**, and has no equivalent here yet; see `WORKLIST.md`.*
 
 ## What is a fact here, and what is a decision
 

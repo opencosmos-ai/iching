@@ -8,7 +8,7 @@ applies: [tooling, sources]
 evidence:
   - "../sources/PROVENANCE.md#harlez-1889--le-yih-king"
   - "../sources/PROVENANCE.md#mcclatchie-1876--vendored--updated-2026-09-11"
-check: xenso:import-iching
+check: import-sources
 supersedes: []
 ---
 
@@ -32,11 +32,23 @@ supersedes: []
 
 ---
 
-## The cases
+## Why this principle exists
 
 **de Harlez 1889.** The scan renders `Koua LIII.` as `LLLI`, and spaces others apart as `XL VI.` The sixty-four headings are taken in document order; **63 of 64 numerals decode and agree with their position**, and the one that will not decode falls back to position and is named in the run report. → [PROVENANCE](../sources/PROVENANCE.md#harlez-1889--le-yih-king)
 
 **McClatchie 1876.** Worse: hexagram 7 prints as `E.`, 9 as `De`, 46 as `1G.`, 64 as `GI.` Sections are located in page order; **57 of 64 printed numbers agree**; the four that disagree are named, and three sections that lost their heading entirely were found by the one thing every section does — its paragraph numbering restarting at 1. → [PROVENANCE](../sources/PROVENANCE.md#mcclatchie-1876--vendored--updated-2026-09-11)
+
+---
+
+## How it is implemented
+
+| Where | What it does |
+|---|---|
+| **`scripts/import-iching-sources.ts`** (`npm run import-sources`) | establishes the count before any assignment and fails if it is wrong, reports the rate at which printed numbers agree with position, names each disagreement, and writes `located_by:` into any section placed by position alone |
+| **`README.md`** | `--applies tooling` lists it before anything in `scripts/` changes |
+| **`sources/PROVENANCE.md`** → *The admission rules* | `--applies sources` lists it before anything is vendored, graded or re-imported |
+
+**Enforced by the importer.**
 
 ---
 

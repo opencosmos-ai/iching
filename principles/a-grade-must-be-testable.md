@@ -8,7 +8,7 @@ applies: [sources, tooling]
 evidence:
   - "../sources/PROVENANCE.md#legge-1882--the-yî-king"
   - "../sources/PROVENANCE.md#mcclatchie-1876--vendored--updated-2026-09-11"
-check: xenso:import-iching
+check: import-sources
 supersedes: []
 ---
 
@@ -24,19 +24,33 @@ supersedes: []
 
 **A file that looks proofread and is not is more dangerous than a file that is obviously OCR.** Damaged OCR announces itself: a reader meets `Dingram` and `frults` and calibrates accordingly. A page carrying a proofread badge is read at face value, and an error in it propagates with the badge's authority attached. **The grade is a promise to a later reader, and an untested promise is worse than none.**
 
-**Provenance is a property of the channel; quality is a property of the artefact**, and the two come apart. English Wikisource's mainspace is genuinely a human-proofread channel. One of its pages was nonetheless a broken transclusion returning a fragment of the translation plus the *neighbouring hexagram's* footnote — and nothing about its provenance would have caught that. Only counting what came out did.
+**Provenance is a property of the channel; quality is a property of the artefact**, and the two come apart. A genuinely human-proofread channel can still deliver a page that is not what it claims to be, and nothing about where the page came from will catch it. Only counting what came out will.
 
-**The test can be cheap and still be decisive.** Legge prints six numbered paragraphs per hexagram and seven for the first two. Requiring exactly that of a "proofread" page is three lines of code, and it is what demoted hexagram 32 to the OCR grade rather than shipping it as the best-graded file in the set.
+**The test can be cheap and still be decisive.** Where a source prints a fixed structure — Legge's six numbered paragraphs per hexagram, seven for the first two — requiring exactly that of a "proofread" page is three lines of code.
 
-**And where grades differ, the better one is also the measuring stick for the worse.** Running the OCR extractor over the stretch where a proofread answer already existed produced a number — 99.3% word agreement — before it was trusted with the stretch where none did. The grade was earned rather than asserted.
+**And where grades differ, the better one is also the measuring stick for the worse.** Run the lower-grade extractor over a stretch where a proofread answer already exists, and it produces a number before it is trusted with the stretch where none does. The grade is then earned rather than asserted.
 
 ---
 
-## The cases
+## Why this principle exists
+
+English Wikisource's Legge is a human-proofread channel, and one of its pages was nonetheless a broken transclusion — a fragment of the translation plus the *neighbouring hexagram's* footnote. Nothing about its provenance could have caught that. Requiring the full paragraph count did: it demoted hexagram 32 to the OCR grade rather than shipping it as the best-graded file in the set. And the OCR extractor earned its own grade the same way, scoring 99.3% word agreement on the stretch where a proofread answer existed before it was trusted with the stretch where none did.
 
 **Legge 1882 is vendored at two grades, and hexagram 32 was demoted between them.** Its English Wikisource page looks finished and is not; the importer now requires every proofread page to yield its full paragraph count, and anything short falls back to the scan. → [PROVENANCE](../sources/PROVENANCE.md#legge-1882--the-yî-king)
 
 **McClatchie's grade is the lowest here and is stated in every file.** A scan of a photo-reproduction, OCR'd locally; 40 of 64 sections yield all six line paragraphs, and each file carries `lines_found:` and `sections:` saying exactly what it has. → [PROVENANCE](../sources/PROVENANCE.md#mcclatchie-1876--vendored--updated-2026-09-11)
+
+---
+
+## How it is implemented
+
+| Where | What it does |
+|---|---|
+| **`scripts/import-iching-sources.ts`** (`npm run import-sources`) | tests each grade before writing it: a proofread Legge page must yield its full paragraph count, and one that falls short is imported at the OCR grade instead. The grade goes into the file's own frontmatter |
+| **`sources/PROVENANCE.md`** → *The admission rules* | `--applies sources` lists it before anything is vendored, graded or re-imported |
+| **`README.md`** | `--applies tooling` lists it before anything in `scripts/` changes |
+
+**Enforced by the importer** for every grade it writes. A new source needs its own test; nothing forces one to be written.
 
 ---
 

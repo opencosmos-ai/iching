@@ -28,15 +28,27 @@ supersedes: []
 
 **And it is proof against the search being repeated badly.** The parent project records its Guodian search for exactly this reason, in a section that opens *"the search is recorded so nobody repeats it"* — having already been wrong once about a licence and having chosen to print the correction rather than quietly edit it away.
 
-**This rule paid for itself inside a single session**, which is the strongest argument available for it. A sweep across archive.org, OpenLibrary, the Google Books API and open web search concluded that McClatchie's 1876 translation had no reachable digitisation. That conclusion was wrong, and Shalom found the volume on HathiTrust. **Because the search had been written down — naming the four places looked and what each returned — the correction was a paragraph rather than an argument**, and the record now shows both the miss and where it was found.
-
 ---
 
-## The cases
+## Why this principle exists
+
+A sweep across archive.org, OpenLibrary, the Google Books API and open web search concluded that McClatchie's 1876 translation had no reachable digitisation. That was wrong, and Shalom found the volume on HathiTrust. Because the search had been written down — the four places looked and what each returned — the correction was a paragraph rather than an argument, and the record now shows both the miss and where it was found.
 
 **The three translations that were not vendored at first**, each with what was searched and what blocks it. The section is headed *what is reachable, and what is not* rather than *what is unavailable*, which is the distinction this rule is about. → [PROVENANCE](../sources/PROVENANCE.md#the-other-translations--what-is-reachable-and-what-is-not)
 
 **Wilhelm 1924**, where the text is free and the available transcription is not — the case where naming the *kind* of blocker is the whole value, since it tells a later reader precisely what to look for. → [PROVENANCE](../sources/PROVENANCE.md#wilhelm-1924--the-text-is-free-the-available-transcription-is-not)
+
+---
+
+## How it is implemented
+
+| Where | What it does |
+|---|---|
+| **`sources/PROVENANCE.md`** → *The other translations — what is reachable, and what is not* | the dated search: where each translation was looked for, and what blocked it, by kind |
+| **`sources/PROVENANCE.md`** → *The admission rules* | `--applies sources` lists it before anything is vendored, graded or re-imported |
+| **`method.md` § 0** | `--applies process` lists it at the start of every session |
+
+**Not enforced.** A search nobody records leaves no artefact to check.
 
 ---
 

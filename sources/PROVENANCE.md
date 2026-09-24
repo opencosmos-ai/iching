@@ -21,6 +21,12 @@ The Zhouyi is roughly three thousand years old; the Ten Wings are Warring States
 
 ## The admission rules
 
+**Before vendoring, grading or re-importing anything**, load the rules the evidence has taught:
+
+```bash
+npm run principles -- --applies sources
+```
+
 **A file may be added only if all four hold.**
 
 1. **The work itself is public domain by age** — pre-modern, or its author long dead.
