@@ -41,6 +41,15 @@ This is a **chronological spine that points into them**, never a second copy.
 
 ---
 
+## 2026-09-24 — The table checks itself again
+
+`README.md` → *Verification* described five checks under `pnpm xenso:check-iching`, and nothing in this repository ran any of them. The script had not been lost — it is still in opencosmos, at `scripts/xenso/iching-check.ts`, left there deliberately because it imports the cast engine. But half of what it checks is this table, and it checked the app's *copy* of the table, so a wrong row here would pass until someone rebuilt and copied it across.
+
+- **`npm run check`** — [`scripts/check-iching.ts`](scripts/check-iching.ts). The table half, reading the frontmatter rather than the generated file: bijection, the King Wen pair invariant, trigram agreement, and the founding cast (60 becoming 29, and 59 if read top-down).
+- **One check the original did not have: `generated/iching-data.ts` must match the frontmatter**, row for row. It is the file the app carries, and a rendering edited without `npm run build` would otherwise reach nobody, silently.
+- **Seen to fail, not only to pass** — a transposed row across pairs, a swap within a pair (which the pair invariant cannot see, since 59 and 60 are each other's inversion), a wrong trigram, and an unbuilt edit each exit non-zero. [An instrument is not a witness to itself](principles/an-instrument-is-not-a-witness-to-itself.md).
+- **The engine half stays with the engine** — coin odds, moving-line resolution and random casts are properties of `apps/web/lib/iching.ts`, and opencosmos's check still tests them. The README now says which is where.
+
 ## 2026-09-24 — The principles are brought onto the parent's new shape, and made to run
 
 The Tao Te Ching project changed the form of a principle this week, and this directory's README promised the form was *"identical to the parent's, and the generator enforces it."* That promise had just become false — so this is the inheritance kept, not a new decision.
