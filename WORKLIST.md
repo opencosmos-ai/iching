@@ -67,6 +67,10 @@ not by position: the eight trigrams, then the verdict vocabulary as one decision
 | C3 | ⬜ | **No check that a rendering respects the locks** — 47 locked terms, enforced by reading rather than by code | `scripts/` | 1 |
 | C4 | ✅ | ~~Two OCR witnesses, corpus and scan adjudication~~ — closed 2026-09-12 | — | — |
 | C5 | ✅ | ~~`mcPageBody` truncating pages at the first long line~~ — closed 2026-09-12 | — | — |
+| C6 | ✅ | ~~**The principles were argued well and reached by nobody**~~ — closed 2026-09-24: all thirteen on the parent's new shape, every scope loaded where its work begins, and `npm run principles -- --check` refuses an entry that is not shaped to run. `iching-principle-entry` skill added | `principles/` · `scripts/` | 13 |
+| C7 | ⬜ | **`check-iching` did not come with the extraction** — `README.md` → *Verification* describes the bijection, King Wen pair, trigram and founding-cast checks, and nothing in this repository runs them. `build-iching.ts` orders by King Wen number but asserts none of it | `scripts/` | 1 |
+| C8 | ⬜ | **`pnpm xenso:*` survives the extraction in ~20 places** — script headers, `sources/PROVENANCE.md`, the McClatchie YAML comments, and two paths under `scripts/xenso/` that no longer exist. The commands are `npm run build · principles · import-sources · seed`. Fixed so far only in `README.md`'s command block and the principles build | repo-wide | 20 |
+| C9 | ⬜ | **Two measurements of the McClatchie OCR, not reconciled** — `principles/an-instrument-is-not-a-witness-to-itself.md` gives Vision one word in five wrong and a 3.9% consensus residual; `scripts/ocr-consensus.ts`'s header gives one in eight and 2.8%. Probably two runs; `sources/PROVENANCE.md` should say which is current | `scripts/` · `principles/` | 1 |
 
 ---
 

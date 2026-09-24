@@ -31,11 +31,25 @@ supersedes: []
 
 ---
 
-## The cases
+## Why this principle exists
 
 **The Legge reversal.** This project's README argued against vendoring Legge, then reversed — and the reversal is on the record with both arguments, because the reasoning that produced the first position was real even though the conclusion was wrong. → [README](../README.md#legge-1882--a-reference-read-with-the-overlay-in-view)
 
 *One case. `status: provisional` until a second, per the evidence threshold — the rule is stated, and it has not yet been tested anywhere but here.*
+
+---
+
+## How it is implemented
+
+| Where | What it does |
+|---|---|
+| **`sources/`** | vendors all three translations rather than the least contaminated one, each file opening with a note on its translator's lens — Legge's missionary vocabulary, de Harlez's *texte primitif rétabli*, McClatchie's *Model Man* |
+| **`sources/PROVENANCE.md`** → *The other translations* | the survey of what else exists, made before anything was excluded |
+| **`sources/PROVENANCE.md`** → *The admission rules* | `--applies sources` lists it before anything is vendored, graded or re-imported |
+| **`method.md` § 2** | `npm run principles -- --applies drafting` lists it before anything is rendered |
+| **`method.md` § 0** | `--applies process` lists it at the start of every session |
+
+**Not enforced.** Which witnesses to hold is a decision, recorded where the sources are admitted.
 
 ---
 

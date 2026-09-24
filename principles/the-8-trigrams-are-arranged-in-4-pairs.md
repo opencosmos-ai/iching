@@ -64,14 +64,13 @@ settlement. **The arrangement is what converts a majority into a ruling** — or
 interchangeable.** That rule is about the **English**: decide the set together, because the set is
 what the reader meets, and the coherence of your own output is evidence. This one is about the
 **Chinese**: the source has already grouped its terms, and the grouping is a ruling it made
-before you arrived. The two met on 巽 — Shalom read the seven renderings already made and saw that
-*wind* completes a register *wood* breaks; the text turned out to have said so in ch 3 — and when
-both point the same way, the decision is as secure as this book gets. But this one fires on terms
+before you arrived. When both point the same way — as they
+do on 巽 — the decision is as secure as this book gets. But this one fires on terms
 belonging to no closed set at all, wherever the text lines its words up.
 
 ---
 
-## The cases
+## Why this principle exists
 
 **巽 — 風 rather than 木, decided by structure against a count.** On the tally it is 風 in ten
 大象傳 and 木 in five, and choosing *wind* costs 鼎 (50) the cauldron on a **wood** fire that its
@@ -96,6 +95,19 @@ against 健 once, 順 twice, 入 twice, 麗 once, and 動 陷 止 說 not at all
 forbade *"the Gentle"*, *"the Receptive"*, *"the Abysmal"* and *"the Joyous"* in one stroke, none
 of them argued on its own. →
 [乾](../glossary/乾-qian.md#the-rendering-is-the-image-not-the-action)
+
+---
+
+## How it is implemented
+
+| Where | What it does |
+|---|---|
+| **The trigram entries in `glossary/`** | each quotes the arrangement that governs it — 說卦 ch 3 for the pairs — with its chapter, so the structural ruling is checkable on the page |
+| **`method.md` § 2** | `npm run principles -- --applies drafting` lists it before anything is rendered |
+| **`glossary/README.md`** | `--applies glossary` lists it before a term is ruled on |
+| **`sources/PROVENANCE.md`** → *The admission rules* | `--applies sources` lists it before anything is vendored, graded or re-imported |
+
+**Not enforced.** Finding the text's own arrangements is reading.
 
 ---
 

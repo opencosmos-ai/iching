@@ -32,11 +32,25 @@ supersedes: []
 
 ---
 
-## The cases
+## Why this principle exists
 
 **The Chinese half of McClatchie 1876 is not transcribed.** The 1876 edition sets Chinese and English on facing pages; the Chinese is vertical columnar type and comes back from Vision as a running head and nothing else. `chinese-pages.yaml` maps every scan page to its hexagram so a page can be opened and looked at, and the text is not produced. → [PROVENANCE](../sources/PROVENANCE.md#mcclatchie-1876--vendored--updated-2026-09-11)
 
 **The 102 inline trigram figures are marked, not resolved.** McClatchie sets trigram figures inside his English prose and the scanner renders each as `(E)` or `(EE)`. The hexagram's actual trigrams are in this project's own table — so they *could* have been substituted, correctly, every time. They are marked `⟦trigram figure⟧` instead, with the real trigrams in the file's frontmatter, beside the sentence rather than inside it. → [PROVENANCE](../sources/PROVENANCE.md#mcclatchie-1876--vendored--updated-2026-09-11)
+
+---
+
+## How it is implemented
+
+| Where | What it does |
+|---|---|
+| **`sources/mcclatchie-1876/chinese-pages.yaml`** | the manifest of McClatchie's Chinese pages: which they are, why they are not transcribed, and the route by which they could be |
+| **Frontmatter counts** — `lines_found:`, `sections:` | put what is known beside the source, never inside it |
+| **`sources/PROVENANCE.md`** → *The admission rules* | `--applies sources` lists it before anything is vendored, graded or re-imported |
+| **`README.md`** | `--applies tooling` lists it before anything in `scripts/` changes |
+| **`method.md` § 2** | `npm run principles -- --applies drafting` lists it before anything is rendered |
+
+**Not enforced by a tool.** It is the line the AI collaborator does not cross, and it holds by being stated where the gap is.
 
 ---
 

@@ -24,19 +24,35 @@ supersedes: []
 
 **Inheritance is the whole reason this project can move fast**, and it only works if the two rulebooks can be compared. The moment a difference goes unrecorded, nobody can tell whether a rule here is the parent's, an adaptation of the parent's, or something invented locally and never examined — and the parent's rule then can't be improved without silently breaking something here.
 
-**An unmarked difference is usually a mistake rather than a decision.** The costly case was in this directory's own README, which argued that Legge's *I Ching* was ruled out as a source. The parent's `process/method.md` § 3 says the opposite in terms — *"consult sources for meaning, never for phrasing"* — and names Legge explicitly among the pre-1931 translations in scope. **He was never excluded there. He was excluded here by a rule this directory invented for itself and did not notice it was inventing.**
+**An unmarked difference is usually a mistake rather than a decision.** A rule that quietly departs from its parent was rarely chosen; it was invented locally and not noticed, and nothing distinguishes it from the parent's rule until someone compares the two.
 
-**Stricter is not automatically safer.** That invented rule cost the project its only English cross-check for months, in a field where every witness is missionary work — see [[no-neutral-witness]]. Extra strictness has a price, and the price is only visible when the difference is on the record where someone can weigh it.
+**Stricter is not automatically safer.** Extra strictness has a price — a source excluded, a cross-check lost — and the price is only visible when the difference is on the record where someone can weigh it.
 
 **Where a difference *is* deliberate, saying so makes it defensible.** The admission rules here permit vendoring old translations, where the parent consults them and never vendors. That is a real departure with a real reason — three candidates rather than eight, none neutral, so putting the overlay on the page labelled beats consulting it from memory. Written down, it is a decision. Unwritten, it would look like drift.
 
 ---
 
-## The cases
+## Why this principle exists
+
+This directory's own README once argued that Legge's *I Ching* was ruled out as a source. The parent's `process/method.md` § 3 says the opposite in terms — *"consult sources for meaning, never for phrasing"* — and names Legge among the pre-1931 translations in scope. He was never excluded there; he was excluded here, by a rule this directory invented for itself without noticing, and it cost the project its only English cross-check for months, in a field where every witness is missionary work.
 
 **The Legge reversal**, which states plainly that the old stance *"was stricter than the parent project's own rule, without saying so"* and quotes the parent's rule against it. → [README](../README.md#legge-1882--a-reference-read-with-the-overlay-in-view)
 
 **The admission rules**, which carry an explicit *"one difference from the parent project"* paragraph covering the vendoring of translations. → [PROVENANCE](../sources/PROVENANCE.md#the-admission-rules)
+
+---
+
+## How it is implemented
+
+| Where | What it does |
+|---|---|
+| **`principles/README.md`** → *The first rule of this directory* | the test to run before writing any rule here: is it the parent's, a sharpening of the parent's, or genuinely new? |
+| **`method.md` § 6** | links the inherited principles and notes each sharpening under the rule it sharpens |
+| **`.claude/skills/iching-principle-entry`** | this project's principle procedure, which takes the parent's and states only what differs — this rule applied to its own tooling |
+| **`method.md` § 0** | `--applies process` lists it at the start of every session |
+| **`sources/PROVENANCE.md`** → *The admission rules* | `--applies sources` lists it before anything is vendored, graded or re-imported |
+
+**Not enforced.** Whether a departure is marked is a reading question.
 
 ---
 

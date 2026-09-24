@@ -32,11 +32,23 @@ supersedes: []
 
 ---
 
-## The cases
+## Why this principle exists
 
 **The measurement that produced the rule** — the graph counts, and what they imply for the order of work. → [method § 3](../method.md#3-what-makes-this-book-different-from-the-tao-te-ching)
 
 **The order of work it dictates**: the eight trigrams, then the eleven verdict words as a single decision, then 君子 (*jūnzǐ*) and 小人 (*xiǎorén*) as a pair, then the sixty-four names with the whole set in view, then the judgments and lines. → [method § 7](../method.md#7-the-order-of-work)
+
+---
+
+## How it is implemented
+
+| Where | What it does |
+|---|---|
+| **`method.md` § 3 and § 7** | the measured counts, and the order of work they produce — formulae before particulars, and not from hexagram 1 |
+| **`method.md` § 2** | `npm run principles -- --applies drafting` lists it before anything is rendered |
+| **`method.md` § 0** | `--applies process` lists it at the start of every session |
+
+**Not enforced.** It governs sequence, which is a decision taken once and recorded in the method.
 
 ---
 

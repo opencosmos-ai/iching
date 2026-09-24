@@ -8,17 +8,17 @@
 
 ---
 
-## The first rule of this directory: do not restate the twenty-seven
+## The first rule of this directory: do not restate the parent's
 
 This project **inherits the Tao Te Ching project's principles wholesale**, and `../method.md` § 6 names the ones that fire hardest on this book. [`repeat-yourself`](https://github.com/opencosmos-ai/taoteching), [`already-spoken-for`](https://github.com/opencosmos-ai/taoteching), [`commentary-is-not-a-rendering`](https://github.com/opencosmos-ai/taoteching), [`renders-no-character`](https://github.com/opencosmos-ai/taoteching) and the rest apply here in full force and **are not repeated here**.
 
-Copying them across would rebuild exactly the failure the parent's README warns about: two copies of a rule, one of which goes stale. **An entry belongs here only if the twenty-seven do not already contain it.**
+Copying them across would rebuild exactly the failure the parent's README warns about: two copies of a rule, one of which goes stale. **An entry belongs here only if the parent's do not already contain it.** *(The parent's are not counted here: a hand-kept count of another repository's directory is exactly the second copy that goes stale.)*
 
 The honest test, asked in this order:
 
-1. **Is it in the twenty-seven?** Then link to it from `../method.md` § 6 and stop.
-2. **Is it a sharpening of one of the twenty-seven?** Then it goes in that section of `../method.md`, under the inherited principle, as a note on how this book bites harder. `already-spoken-for` needing seventy-two distinct English words is a sharpening, not a new rule.
-3. **Does it tell you something about work nobody has started yet, that the twenty-seven do not?** Then it belongs here.
+1. **Is it one of the parent's?** Then link to it from `../method.md` § 6 and stop.
+2. **Is it a sharpening of one of the parent's?** Then it goes in that section of `../method.md`, under the inherited principle, as a note on how this book bites harder. `already-spoken-for` needing seventy-two distinct English words is a sharpening, not a new rule.
+3. **Does it tell you something about work nobody has started yet, that the parent's do not?** Then it belongs here.
 
 ---
 
@@ -44,7 +44,7 @@ The parent project's principles are overwhelmingly about **drafting** — how to
 
 **Here the hard part came first, and it was the evidence itself.** Five sources were vendored before a single word was rendered, and every one of them arrived damaged in a different way: a wiki page that looked proofread and was a broken transclusion; a scan whose roman numerals read `LI 1 1.`; a book whose printed hexagram numbers were less reliable than the order they sat in; a PDF with no text layer at all; a bilingual edition whose Chinese half no OCR here can read.
 
-So most of what this project has learned so far is about **how to turn damaged evidence into something a later reader may safely treat as evidence** — and none of it is in the twenty-seven, because the Tao Te Ching never had to.
+So most of what this project has learned so far is about **how to turn damaged evidence into something a later reader may safely treat as evidence** — and none of it is in the parent's, because the Tao Te Ching never had to.
 
 That will change. When the renderings start, the entries that follow them will be about drafting, and at that point the balance in `applies:` should shift. **If it does not, that is a sign this project is still building instruments instead of translating.**
 
@@ -61,7 +61,7 @@ title: "Where the label is the damaged thing, order assigns and the label checks
 status: active
 since: 2026-09-11
 trigger: "a source carries both a position and an identifier, and you are about to trust the identifier"
-applies: [tooling, notes]
+applies: [tooling, sources]
 evidence: ["../sources/PROVENANCE.md#harlez-1889--le-yih-king", "../sources/PROVENANCE.md#mcclatchie-1876--vendored--updated-2026-09-11"]
 check: none
 supersedes: []
@@ -75,35 +75,48 @@ supersedes: []
 | `status` | `provisional` · `active` · `superseded` |
 | `since` | the date the rule was first stated |
 | `trigger` | **what makes it actionable.** Written so someone about to do the thing recognises themselves |
-| `applies` | `drafting` · `glossary` · `sources` · `tooling` · `notes` · `process` |
+| `applies` | `drafting` · `glossary` · `sources` · `tooling` · `process` — **must include one that something loads**, and the build checks |
 | `evidence` | links to the decisions that produced it — **the build verifies every anchor resolves** |
 | `check` | the tool that enforces it, or `none` |
 | `supersedes` | ids this replaces |
 
 **The evidence threshold is the parent's and is enforced here by the generator:** `status: active` requires **two or more independent cases**. One case is an observation. A build that finds an `active` entry with fewer than two fails.
 
-`applies: [sources]` is the one addition — the parent has no category for it because it has no equivalent of `../sources/PROVENANCE.md` as a separate authority.
+**Two differences from the parent's scopes.** `sources` is added — the parent has no category for it because it has no equivalent of `../sources/PROVENANCE.md` as a separate authority. And `notes` is absent — this project has no notes layer; a decision lives in its hexagram, trigram or glossary file.
 
 ---
 
-## Writing the entry
+## The shape of an entry
 
-The parent's rules, unchanged:
+**The parent's, unchanged, and enforced here by the same checks.** Read [its README → *The shape of an entry*](https://github.com/opencosmos-ai/taoteching/blob/main/process/principles/README.md#the-shape-of-an-entry) for the reasoning; this section says only what differs.
 
-1. **Open with the rule, then the trigger.** Not with the case that produced it.
-2. **Argue it generally.** Why is this true of scanned books, of classical Chinese, of this kind of work — rather than true of that one file?
-3. **Give the case in two sentences and link out.** The full account is already written in PROVENANCE or method; do not restate it.
-4. **Name where it does not fire.** A rule with no boundary is a slogan.
-5. **Say what it obliges.** A principle that changes nothing is an observation with better formatting.
-6. **Gloss every Chinese character, every time** — 貞 (*zhēn*), never bare 貞.
-7. **Lowercase everything but the Tao.**
+In short: **The rule.** and **When it fires.** at the top, then five sections in this order — *Why this holds · Why this principle exists · How it is implemented · Where it does not fire · What it obliges*. **The failure story is told once**, in *Why this principle exists*; every other section says what the rule is and how it works, in the present tense. *How it is implemented* names the place the rule is met, what enforces it if anything, and the loader that surfaces it — and says honestly when nothing enforces it.
+
+### Where each kind of work loads its principles here
+
+| `applies:` | Loaded by | When |
+|---|---|---|
+| `drafting` | `../method.md` § 2 | before anything is rendered |
+| `glossary` | `../glossary/README.md` | before a term is ruled on |
+| `sources` | `../sources/PROVENANCE.md` → *The admission rules* | before anything is vendored, graded or re-imported |
+| `tooling` | `../README.md` | before anything in `scripts/` changes |
+| `process` | `../method.md` § 0 | every session |
+
+Each loader is one line — `npm run principles -- --applies <scope>` — at the moment that work begins. **The build refuses an entry none of whose scopes is loaded, and refuses a scope that nothing loads.** The command lists this project's principles only; `../method.md` § 6 names the parent's that fire hardest here.
+
+### And the writing itself
+
+The parent's rules, with this book's examples: argue generally — why the rule is true of scanned books, of classical Chinese, of this kind of work, rather than of one file. Gloss every Chinese character, every time: 貞 (*zhēn*), never bare 貞. Lowercase everything but the Tao.
+
+`../.claude/skills/iching-principle-entry` is the procedure that produces an entry of this shape.
 
 ---
 
 ## Finish — every time
 
 ```bash
-pnpm xenso:principles
+npm run principles              # build, verify, write INDEX.md and principles.yaml
+npm run principles -- --check   # verify only, write nothing
 ```
 
-Regenerates `INDEX.md` and `principles.yaml`, checks the evidence threshold on every `active` entry, and **verifies every `evidence:` anchor resolves to a real heading in the file it names**. A reworded heading in `PROVENANCE.md` becomes a build error rather than a dead link.
+Regenerates `INDEX.md` and `principles.yaml`, checks the evidence threshold on every `active` entry, **verifies every `evidence:` anchor resolves to a real heading in the file it names**, and **verifies every entry's shape and that every scope is loaded**. Any failure writes nothing. A reworded heading in `PROVENANCE.md` becomes a build error rather than a dead link.

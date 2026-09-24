@@ -9,7 +9,7 @@ evidence:
   - "../sources/PROVENANCE.md#legge-1882--the-yî-king"
   - "../sources/PROVENANCE.md#harlez-1889--le-yih-king"
   - "../sources/PROVENANCE.md#mcclatchie-1876--vendored--updated-2026-09-11"
-check: xenso:import-iching
+check: import-sources
 supersedes: []
 ---
 
@@ -33,13 +33,25 @@ supersedes: []
 
 ---
 
-## The cases
+## Why this principle exists
 
 **Legge, hexagram 39.** A numeral the scanner could not read, so one paragraph runs on into the next; the file carries `incomplete:` saying exactly that, and the run output names it. → [PROVENANCE](../sources/PROVENANCE.md#legge-1882--the-yî-king)
 
 **de Harlez, hexagrams 49, 59 and 62.** The `Texte II.` heading was lost outright, so the line texts had been filed as commentary. They were recovered on the rule that three ascending ordinals in a row is a line-text run, and the three files carry `recovered_by:` marking the assignment as a guess about the layout rather than about the words. → [PROVENANCE](../sources/PROVENANCE.md#harlez-1889--le-yih-king)
 
 **McClatchie, twenty-four of sixty-four.** A line label lost, so that line's text runs on into the one before it; `lines_found:` in every file, and the twenty-four named in the run output. **No text is lost, only a boundary** — which is the sentence the whole principle compresses to. → [PROVENANCE](../sources/PROVENANCE.md#mcclatchie-1876--vendored--updated-2026-09-11)
+
+---
+
+## How it is implemented
+
+| Where | What it does |
+|---|---|
+| **`scripts/import-iching-sources.ts`** (`npm run import-sources`) | keeps text under the nearest preceding marker when a boundary is missing, writes `lines_found:` and `incomplete:` into the file, and names the affected units in its run output |
+| **`README.md`** | `--applies tooling` lists it before anything in `scripts/` changes |
+| **`sources/PROVENANCE.md`** → *The admission rules* | `--applies sources` lists it before anything is vendored, graded or re-imported |
+
+**Enforced by the importer.**
 
 ---
 

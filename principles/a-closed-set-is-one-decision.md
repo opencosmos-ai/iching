@@ -30,7 +30,7 @@ supersedes: []
 
 ---
 
-## The cases
+## Why this principle exists
 
 **巽 — marginal alone, clear as the eighth of eight.** On its own evidence it is 風 in ten 大象傳 and 木 in five, which is a majority and not a settlement; the cost of choosing wind is that 鼎 (50), 井 (48) and three others lose the image their hexagram is built on. Shalom read the seven already rendered — sky · earth · thunder · water · fire · mountain · lake — and observed that *wind* completes them and *wood* does not belong to that register. The text then turned out to agree. → [巽](../glossary/巽-xun.md#the-ruling--wind-shaloms-call-2026-09-12)
 
@@ -38,9 +38,22 @@ supersedes: []
 
 ---
 
+## How it is implemented
+
+| Where | What it does |
+|---|---|
+| **`method.md` § 7**, *The order of work* | orders the work by set — the eight trigrams, then the verdict vocabulary as one decision, then 君子/小人 as one entry |
+| **The trigram entries in `glossary/`** | each names the constraint the set put on it; `兌-dui` records that *water* was unavailable because 坎 already holds it |
+| **`method.md` § 2** | `npm run principles -- --applies drafting` lists it before anything is rendered |
+| **`method.md` § 0** | `--applies process` lists it at the start of every session |
+
+**Not enforced, and cannot be.** A set's coherence is invisible from inside any one member, which is the rule's whole point.
+
+---
+
 ## Where it does not fire
 
-**A hard member is often a sign the decision is at the wrong level, not that the set needs an exception.** 巽 looked like it needed two renderings until it became clear that `render:` and `image:` are different fields answering different sentences — the trigram's name, and that hexagram's 大象傳. Before adding machinery for a member that resists, check whether one slot is being asked to do two jobs. Widening the data shape to fit one case is the expensive answer to a question that usually has a free one.
+**A hard member is often a sign the decision is at the wrong level, not that the set needs an exception.** Where a member seems to need two renderings, check whether one slot is being asked to answer two sentences. 巽 carries both `render:` and `image:` because they are different questions — the trigram's name, and that hexagram's 大象傳. Before adding machinery for a member that resists, check whether one slot is being asked to do two jobs. Widening the data shape to fit one case is the expensive answer to a question that usually has a free one.
 
 **And coherence is not uniformity.** The set must read at one level of abstraction; it need not be tidy. Where the Chinese genuinely puts a member out of step, [[never-supply-what-the-source-withheld]] and `divergence-stays-open` still hold — say so rather than smoothing it.
 
