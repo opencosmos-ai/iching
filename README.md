@@ -18,6 +18,7 @@ hexagrams/01.md … 64.md      the sixty-four, in King Wen order
 trigrams/01-qian.md … 08-kun.md
 glossary/                    one entry per ruled term — the argument behind a `render:`
 glossary/INDEX.md            GENERATED — `npm run glossary`
+glossary/NAMES.md            GENERATED — `npm run names`; the 64 names against the locks, read before drafting one
 ```
 
 **The record** — what changed and when, pointing into the layers below rather than restating them.
@@ -60,6 +61,7 @@ npm run build                      # markdown → generated/iching-data.ts
 npm run check                      # the table checks itself — see Verification
 npm run principles                 # principles/INDEX.md, and verify every link and every entry's shape
 npm run glossary                   # glossary/INDEX.md, from each entry's frontmatter
+npm run names                      # glossary/NAMES.md — the 64 names against the locks
 npm run measure                    # recompute tao-te-ching-relation.md's figures; needs ../taoteching
 ```
 

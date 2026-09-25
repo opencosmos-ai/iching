@@ -51,8 +51,9 @@ not by position: the eight trigrams, then the verdict vocabulary as one decision
 | A6 | ⬜ | **貞 (111×) · 亨 (48×) · 孚 (42×)** — the divinatory/ethical fork, the deepest open question in the project. Read all three translators before touching any of them | `glossary/` | 3 |
 | A7 | ⬜ | **The 64 hexagram names** | `hexagrams/` | 64 |
 | A8 | ⬜ | **The judgments and line texts** — 64 × 8 | `hexagrams/` | 512 |
-| A9 | ⬜ | **Hexagram-name concordance against the locks**, before any name is drafted | — | 1 |
+| A9 | ✅ | ~~**Hexagram-name concordance against the locks**~~ — closed 2026-09-24: [`glossary/NAMES.md`](glossary/NAMES.md), `npm run names`. 6 of 64 names carry a lock; 53 recur as a word in their own lines | `glossary/` | 1 |
 | A10 | 🔴 | **ADR 0016 — the Wings are the lens, and it is declared** — `Proposed`. Fixes whether this translates the Bronze Age core text or the book the Wings made of it; the trigram renderings already assume an answer. Accepting it adds a stated lens to `README.md` | [`0016`](https://github.com/opencosmos-ai/opencosmos/blob/main/docs/decisions/0016-the-i-ching-is-read-through-the-wings-and-the-lens-is-declared.md) | 1 |
+| A11 | 🔴 | **Does the lock on 無 bind 无?** — the Zhouyi writes the negative 无 (158× in the core, 138× in the Wings) where the parent's lock is written on 無 (2× and 5×). Same word, two graphs; until it is ruled the lock reaches almost nothing here. Decides 25 无妄 and 无咎 (A4) together | `glossary/` | 1 |
 | | | **B · Evidence — what the sources still owe** | | |
 | B1 | ⬜ | **1,075 OCR disputes still unsettled** in McClatchie — both engines disagree and neither the book's vocabulary nor the scan pass could resolve it. The live count is the file's `summary:` | `sources/mcclatchie-1876/disputed.yaml` | 1075 |
 | B2 | ⬜ | **說文解字 not vendored** — corner 3 of the four. Until it is, argue from the graph and say that is what you are doing | `sources/` | 1 |
