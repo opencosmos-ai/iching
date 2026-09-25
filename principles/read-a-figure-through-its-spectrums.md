@@ -1,7 +1,7 @@
 ---
 id: read-a-figure-through-its-spectrums
 title: "Read a figure through its spectrums — as a check on the English, never its source"
-status: provisional
+status: active
 since: 2026-09-24
 trigger: "you are about to settle the English for a hexagram, or for one of its lines, without having placed its two trigrams on their spectrums"
 applies: [drafting, glossary]
@@ -58,6 +58,12 @@ four pairs of qualities led to the three 說卦 chapters, the odd-line logic, th
 the canon frame, all measured on 2026-09-24 — and to the recognition that the draft had been using
 the frame informally and unevenly. Shalom asked that it be made central.
 → [`../hexagram-names.md`](../hexagram-names.md#the-pattern-in-the-formation)
+
+**It is `active` by Shalom's ruling, 2026-09-24, not by the two-case threshold.** Its evidence so
+far is one investigation, which by [`../principles/README.md`](README.md) counts as one case. He
+promoted it on the strength of the structure itself — stated three times by 說卦 and now enforced
+by `npm run check` — rather than on its record in use. The first hexagram names drafted under it
+are the second case this entry is owed.
 
 ---
 
