@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: How to contribute
+    url: https://github.com/opencosmos-ai/iching/blob/main/CONTRIBUTING.md
+    about: Four ways in — the easiest needs no Chinese at all.
+  - name: How a rendering gets made
+    url: https://github.com/opencosmos-ai/iching/blob/main/method.md
+    about: The four corners, the locks, and why the verse stays the translator's own.
+  - name: The Tao Te Ching
+    url: https://github.com/opencosmos-ai/taoteching/issues/new/choose
+    about: The sibling translation, whose method and locks this one inherits.

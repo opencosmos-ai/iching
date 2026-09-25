@@ -4,6 +4,9 @@ Sixty-four hexagrams and eight trigrams, held as a **keyed lookup table** rather
 
 This is deliberate, and the reasoning is recorded in the Xensō canon at [`docs/corpus-wanted.md`](https://github.com/shalomormsby/xenso) § The oracular layer: *"The I Ching is a lookup system: sixty-four hexagrams with fixed keys, consulted by a cast rather than by similarity. The chunk-and-embed pipeline serves it badly. It wants a different data shape — closer to the corpus's `quotes/`."* So it sits beside the corpus, not inside it, and it is never embedded — the corpus embedder in [opencosmos-ai/knowledge](https://github.com/opencosmos-ai/knowledge) skips it by name.
 
+
+**Contributing:** you're welcome here, and much of the work needs no Chinese. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## The arrangement
 
 Two halves, and the line between them is the only structural idea here worth remembering.
