@@ -38,6 +38,19 @@ its image**, which is §1's constraint stated as a reason; the ruling is in
 character, which is usually just as concrete — a pit, a pair of jaws, a well
 ([`the-image-names-the-trigram-the-lines-name-the-hexagram`](principles/the-image-names-the-trigram-the-lines-name-the-hexagram.md)).
 
+> ### The polarity is in the lines. The words describe it.
+
+**The second half of the stance, and Shalom's (2026-09-25).** The book's oppositions are drawn, not
+spoken: a trigram's partner is the figure with every line changed, and that is exact. The English
+for each pole — image, action, name — says what **that pole is**, and is never picked as the
+dictionary opposite of its partner's word. *Stopping* is not the antonym of *releasing*; they are
+what mountain and lake each do at the edge where their lines differ. **Where the Chinese sets two
+words as opposites (損 and 益, 否 and 泰), the English may follow; where the opposition lives only in
+the lines, the English does not invent one — prose carries it instead.** This is what keeps a
+four-spectrum structure from becoming a machine for manufacturing antonyms, and it is the same
+discipline as meeting the image: let the figure do the work the figure does. The full statement
+is [`README.md` → *The polarity is in the lines*](README.md#the-polarity-is-in-the-lines).
+
 *This is not a principle and is deliberately not in [`principles/`](principles/INDEX.md) — it has no
 trigger, or rather it fires on everything, which is that directory's own test for what does not
 belong there. It is the stance the principles serve. Its argument, and 王弼's, are in

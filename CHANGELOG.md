@@ -41,6 +41,18 @@ This is a **chronological spine that points into them**, never a second copy.
 
 ---
 
+## 2026-09-25 — The polarity is in the lines
+
+A core stance, Shalom's, written where every reader starts: the book's oppositions are drawn in the figures, and the English describes each pole on its own ground.
+
+- **[`README.md` → *The polarity is in the lines*](README.md#the-polarity-is-in-the-lines)**, and its twin in [`method.md`](method.md) § 0 beside 王弼's. A trigram's partner is the figure with every line changed; the words (image, action, name) say what one pole is, and are never chosen as the dictionary opposite of their partner's word. Real dichotomies are carried in prose, not forced into paired single words. Where the Chinese itself sets two words as opposites (損/益, 否/泰), the English may follow.
+- **The spectrum table is rebuilt on it.** Each spectrum is named by where its odd line sits and what that height is: the base (how a thing begins), the core (what it holds at heart), the edge (how it meets what is beyond). ↔ now joins figures only; · separates each pole's own word.
+- **Three vocabulary decisions follow, all aligned with the Tao Te Ching translation.**
+  - The mountain's 止 is *stopping*, as in the Laozi's 知止 ("knowing when to stop"). *Holding* belongs to the locks on 持 and 守, and *stillness* to 靜.
+  - 險 is *hazard* (Shalom), because the Laozi keeps *danger* for 殆 alone.
+  - 厲 takes *peril* as its working gloss, pending A4.
+  - These are applied across the README, the brief, the principle and the 64 signature readings. Two stray glosses of 貞 as *perseverance*, a word the 強 lock forbids, are corrected.
+
 ## 2026-09-25 — Every hexagram read through its signature
 
 A reading of what each figure's place on the four spectrums implies, written into all 64 files, to support drafting names and, later, Shalom's own versions of the 64.
