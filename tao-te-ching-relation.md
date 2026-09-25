@@ -202,26 +202,27 @@ was not taken on authority here. It was measured.
 
 Three corpora, all vendored: the Daodejing in the Wang Bi recension; the Zhouyi **core text**
 (卦辭 and 爻辭 only, all 64); and the **Wings** as this project holds them (彖傳, 大象傳, 小象傳,
-文言傳 inside the hexagram files, plus 繫辭上下, 說卦, 序卦, 雜卦 in `sources/wings/`).
+文言傳 inside the hexagram files, plus 繫辭上下, 說卦, 序卦, 雜卦 in `sources/wings/`). Every figure below is
+recomputed by `npm run measure`, which says exactly how each is counted.
 
 | | Daodejing | Zhouyi core | Ten Wings |
 |---|---|---|---|
-| characters | 5,158 | 4,935 | 15,298 |
-| distinct graphs | 787 | 797 | 1,246 |
-| graphs shared with the Daodejing | — | 312 — **24.5%** of the union | 523 — **34.6%** of the union |
-| share of the Daodejing written in graphs it also uses | — | 69.7% | **90.8%** |
+| characters | 5,296 | 4,935 | 15,298 |
+| distinct graphs | 798 | 797 | 1,246 |
+| graphs shared with the Daodejing | — | 315 — **24.6%** of the union | 529 — **34.9%** of the union |
+| share of the Daodejing written in graphs it also uses | — | 69.6% | **90.9%** |
 
-**The locked terms say it far more sharply.** These are the 47 terms the Tao Te Ching glossary has
+**The locked terms say it far more sharply.** These are terms the Tao Te Ching glossary has
 already settled, vendored here at [`sources/locks/terms.yaml`](sources/locks/README.md):
 
 | term | locked to | Daodejing | core | Wings |
 |---|---|---|---|---|
-| 道 (*dào*) | the Tao | 70 | **4** | 104 |
+| 道 (*dào*) | the Tao | 75 | **4** | 104 |
 | 天地 (*tiān dì*) | sky and earth | 9 | **0** | 50 |
 | 萬物 (*wàn wù*) | the countless things | 20 | **0** | 41 |
-| 常 (*cháng*) | the ever-present | 28 | **0** | 11 |
-| 善 (*shàn*) | masterful | 44 | **0** | 18 |
-| 器 (*qì*) · 仁 (*rén*) · 極 (*jí*) | vessel · humaneness · the far end | 12 · 7 · 5 | **0 · 0 · 0** | 12 · 10 · 9 |
+| 常 (*cháng*) | the ever-present | 30 | **0** | 11 |
+| 善 (*shàn*) | masterful | 52 | **0** | 18 |
+| 器 (*qì*) · 仁 (*rén*) · 極 (*jí*) | vessel · humaneness · the far end | 12 · 8 · 6 | **0 · 0 · 0** | 12 · 10 · 9 |
 | 無為 · 自然 · 樸 · 慈 · 知足 · 復命 | — | present | **0** | **0** |
 
 And the two books' cast of characters is not the same cast:
@@ -229,7 +230,7 @@ And the two books' cast of characters is not the same cast:
 | | Daodejing | core | Wings |
 |---|---|---|---|
 | 聖人 (*shèng rén* — the sage) | **30** | **0** | 38 |
-| 君子 (*jūn zǐ*) | 3 | 20 | 109 |
+| 君子 (*jūn zǐ*) | 3 | 20 | 108 |
 | 小人 (*xiǎo rén*) | **0** | 10 | 22 |
 | 陰 / 陽 (*yīn* / *yáng*) | 1 / 1 | **1 / 0** | 19 / 19 |
 | 貞 (*zhēn*) · 亨 (*hēng*) · 孚 (*fú*) | 1 · 0 · 0 | 111 · 48 · 42 | 65 · 52 · 27 |
@@ -296,8 +297,9 @@ Yijing's entire line-position logic.
 hexagram, the one traditionally said to have no bad line. The Laozi never writes the character and
 is about almost nothing else. **A shared idea with no shared word** — the exact inverse of 剛柔.
 
-**時 (*shí* — the season, the right moment).** Wings 58, Daodejing **0**. Timing is the Wings'
-obsession and is simply not in the Laozi's vocabulary.
+**時 (*shí* — the season, the right moment).** Wings 58, Daodejing **once** — 動善時, ch 8, in a
+list of seven things the masterful are masterful at. Timing is the Wings' obsession and, in the
+Laozi, one item in a list.
 
 **水 (*shuǐ* — water).** 坎 (*kǎn*) is water as the thing you fall into — 說卦 ch 7 glosses it 陷
 (*xiàn*, a pit) and the trigram is danger. Daodejing 8 is 上善若水, water as the model for conduct.
@@ -453,8 +455,9 @@ declaring it converts an invisible overlay into a stated method.
   The biography, the 裴徽 anecdote, the Lynn editions and the dating in § 2 all want the same
   treatment — none of it is load-bearing yet, and none of it may become load-bearing while it is
   still remembered rather than held.
-- **The measurements want a script.** They were computed once, by hand, in a scratch directory.
-  Until they are a script, they are a claim rather than a grade —
-  [`a-grade-must-be-testable`](principles/a-grade-must-be-testable.md).
+- ~~**The measurements want a script.**~~ They have one: `npm run measure` recomputes every
+  figure in § 3–5 and `--check` fails if the brief disagrees. Its first run, on 2026-09-24, found
+  15 of 87 figures wrong — the hand count's Daodejing was short by 138 characters, and 時 is in
+  the Laozi after all (ch 8). None moved a finding but § 5's sentence on timing, now corrected.
 - **君子 should be ruled here and promoted to the parent's lock table**, not written twice. It is
   the first term this project will settle that the Tao Te Ching project needs.

@@ -60,6 +60,7 @@ npm run build                      # markdown → generated/iching-data.ts
 npm run check                      # the table checks itself — see Verification
 npm run principles                 # principles/INDEX.md, and verify every link and every entry's shape
 npm run glossary                   # glossary/INDEX.md, from each entry's frontmatter
+npm run measure                    # recompute tao-te-ching-relation.md's figures; needs ../taoteching
 ```
 
 **Before changing anything in `scripts/`**, load the rules the tooling has already learned:

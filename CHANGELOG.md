@@ -41,6 +41,14 @@ This is a **chronological spine that points into them**, never a second copy.
 
 ---
 
+## 2026-09-24 — The brief's measurements have a script, and it corrected them
+
+[`tao-te-ching-relation.md`](tao-te-ching-relation.md) § 3–5 argues from counts — that the bridge between the books runs through the Wings, that yin-yang is not the core text's idea, that 君子 should be ruled here first. They were computed once, by hand, and nothing could recompute them.
+
+- **`npm run measure`** — [`scripts/measure-two-corpora.ts`](scripts/measure-two-corpora.ts) reads the Daodejing from the sibling `../taoteching`, and the core text and Wings from `sources/`, and recomputes every figure the brief states — 87 of them, listed in the script beside the sentence that makes each. `--check` fails if the brief disagrees; seen to. Not in CI, which does not check out the sibling.
+- **Its first run found 15 wrong.** The hand count's Daodejing was 138 characters short (5,158 against 5,296), which moved every Daodejing count and the shared-graph figures by a little; 君子 is 108 in the Wings, not 109. **No finding moved but one:** § 5 said 時, *the right moment*, never appears in the Laozi and that timing *"is simply not in the Laozi's vocabulary."* It appears once — 動善時, ch 8, one of seven things the masterful are masterful at. The sentence now says so.
+- **The hand count's Daodejing could not be identified.** No rule applied to the text reproduces 5,158, and dozens of pairs of dropped chapters would. That is the case for the script, made by the thing it replaces.
+
 ## 2026-09-24 — The glossary is indexed, and the locks are checked by code
 
 The README said *"the index is generated, the locks are machine-checked,"* and neither was true here: `glossary/` had no index, and the parent's locks were enforced by reading. Nothing checked that a `glossary_refs:` named a real entry either, or that the word in `render:` was the word its entry argued for.
