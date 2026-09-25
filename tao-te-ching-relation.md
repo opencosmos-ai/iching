@@ -10,8 +10,9 @@ marked apart throughout.** Every **count** was computed from files vendored in t
 in [shalomormsby/taoteching](https://github.com/opencosmos-ai/taoteching), and can be recomputed:
 the corpus tables in § 3, the contacts in § 4, and the edition counts in § 2 (97 divergent lemmas,
 175 collation notes) are all of that kind. The **biography, dating and scholarly history** in § 2,
-and 王弼's own words in § 8, are **not vendored** and are stated from memory; each such passage says
-so where it sits. See § 9, *What is owed*, before relying on any of it.
+are **not vendored** and are stated from memory; each such passage says so where it sits. **王弼's
+own words in § 8 are now held:** his 周易略例 is vendored at
+[`sources/wangbi/lueli.md`](sources/wangbi/lueli.md), and § 8 quotes it. See § 9, *What is owed*, before relying on any of it.
 
 ---
 
@@ -406,10 +407,19 @@ worth nothing.
 
 ## 8. 得意忘象, and the sentence this project answers it with
 
-王弼's 明象 runs, in substance: the image is what brings out the meaning, and the word is what
-clarifies the image; so the word exists to get the image — **get the image and forget the word**;
-and the image exists to hold the meaning — **得意忘象**, get the meaning and forget the image. He
-takes the figure from 莊子: the trap exists for the fish; get the fish and forget the trap.
+王弼's 明象 (*Clarifying the Images*), quoted from the vendored Song edition
+([`sources/wangbi/lueli.md`](sources/wangbi/lueli.md) § 明象, OCR graded 99.7% against a typed
+witness): 夫象者，出意者也；言者，明象者也 — *the image is what brings out the meaning; the word is
+what clarifies the image.* 故言者所以明象，**得象而忘言**；象者所以存意，**得意而忘象** — *so the word
+exists to clarify the image: get the image and forget the word; the image exists to hold the
+meaning: get the meaning and forget the image.* And the figure: 猶蹄者所以在兔，得兔而忘蹄；筌者所以
+在魚，得魚而忘筌也 — *as the snare is for the hare — get the hare, forget the snare; the trap is for the
+fish — get the fish, forget the trap.* *(That he takes the figure from 莊子 is remembered, not held:
+the 莊子 is not vendored.)*
+
+**The four-character slogan is not in his text.** He writes 得意而忘象 and, later in the chapter,
+得意在忘象 — *getting the meaning lies in forgetting the image*. 得意忘象 is the compression that
+travelled, which is § 8's point before it is made.
 
 **Taken as a slogan, it is the banner of the wrong side of this project's own argument.** It was
 the 義理 (*yìlǐ* — meaning-and-principle) school's weapon against 象數 (*xiàngshù* — image-and-number),
@@ -423,7 +433,7 @@ trigrams at once and recorded in [`glossary/乾-qian.md`](glossary/乾-qian.md).
 > **Meet the image. Grasp the meaning. Forget the image.**
 
 **It adds the first beat, and the first beat is the translator's entire job.** 得意忘象 assumes you
-already have the image — Wang Bi's full passage does say 尋象以觀意, *seek the image in order to see
+already have the image — Wang Bi's full passage does say 故可尋象以觀意, *so one may seek the image in order to see
 the meaning*, but the four-character version travels without it, and what travels is a discarding
 instruction. The three-beat version makes the sequence complete and makes the forgetting **earned**:
 you cannot forget what you never met.
@@ -452,7 +462,15 @@ declaring it converts an invisible overlay into a stated method.
 
 **What this brief owes before any of it is load-bearing:**
 
-- **王弼's 周易注 and 周易略例 are not vendored, and all of § 2 and § 8 is written from memory.**
+- **王弼's 周易注 is not vendored, and § 2 is written from memory.** His **周易略例** now is — the
+  Song edition in the 四部叢刊, OCR graded chapter by chapter against a typed witness
+  ([`sources/wangbi/lueli.md`](sources/wangbi/lueli.md)) — and § 8 quotes it. It also bears out § 2's
+  claim about 掃象 from the text itself: 明象 names the Han apparatus it rejects, 互體不足，遂及卦變，
+  變又不足，推致五行 — *the overlapping trigrams were not enough, so they reached for hexagram changes;
+  those not enough, they pushed on to the five phases.* The route to the 周易注 is the same printing:
+  卷一–卷五 in `Sibu Congkan0001-王弼-周易-2-1.djvu` (卷一 is pages 4–37), 卷六–卷九 in the
+  `…2-2.djvu` that holds the 略例 (卷六 from page 2). What remains of the bullet below is about that.
+- *The original bullet, kept for its route:* **王弼's 周易注 and 周易略例 are not vendored, and all of § 2 and § 8 is written from memory.**
   That is precisely what
   [`never-supply-what-the-source-withheld`](principles/never-supply-what-the-source-withheld.md)
   forbids in a rendering, and it is tolerable here only because the file is marked as a brief and

@@ -41,6 +41,15 @@ This is a **chronological spine that points into them**, never a second copy.
 
 ---
 
+## 2026-09-24 — 王弼's 周易略例 vendored, and § 8 of the brief quotes it
+
+[`tao-te-ching-relation.md`](tao-te-ching-relation.md) § 8 built an argument on 得意忘象 and said, three times, that it was quoting from memory. WORKLIST B6.
+
+- **[`sources/wangbi/lueli.md`](sources/wangbi/lueli.md)** — `npm run import-sources -- --only wangbi`. The 四部叢刊 facsimile of the Song printing, 周易 卷十, all seven chapters, with 邢璹's Tang notes kept in place and marked 〈…〉, and every scan page's revision recorded.
+- **Graded, because it is unproofread.** Wikisource's Page: text is bot OCR. Its typed mainspace 周易略例 names no edition and runs 邢璹's notes into Wang Bi's text unmarked — so it is not vendored, and is used instead to grade the OCR: **93.4% to 99.7%** of each chapter's Wang Bi is in the typed witness, in order, and the import fails below 90%.
+- **§ 8 now quotes the text, and the text corrects the slogan.** 得意忘象 is not in it. Wang Bi writes 得意而忘象, and later 得意在忘象 — the four-character form is the compression that travelled, which is the brief's own point made by the source. The chapter also names the Han apparatus it sweeps — 互體, 卦變, 五行 — so § 2's claim about 掃象 now rests on his words.
+- **The 周易注 is still owed** (B8): the same printing, over two scan files, and a larger job — the base text interleaves, and the notes are 韓康伯's as well as his.
+
 ## 2026-09-24 — 說文解字 vendored: the third corner
 
 [`method.md`](method.md) §2 argues a rendering from four corners, and the third — the characters themselves, in Xu Shen's c. 100 CE analysis — had no source here; the glossary argued *"from the graph"* and said so. WORKLIST B2.

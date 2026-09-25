@@ -43,6 +43,7 @@ sources/legge-1882/01.md … 64.md  Legge's English, as a reference
 sources/harlez-1889/01.md … 64.md de Harlez's French — the reading that disagrees
 sources/mcclatchie-1876/          McClatchie's English, his Wings, his Appendix, four plates
 sources/locks/                    the Tao Te Ching glossary, vendored
+sources/wangbi/lueli.md           王弼 周易略例 — the Song edition, 邢璹's notes marked
 sources/shuowen/entries.md        說文解字 — every Zhouyi character Xu Shen enters, parsed
 sources/PROVENANCE.md             what may live here, and on what authority
 ```

@@ -59,8 +59,9 @@ not by position: the eight trigrams, then the verdict vocabulary as one decision
 | B2 | ✅ | ~~**說文解字 not vendored**~~ — closed 2026-09-24: [`sources/shuowen/entries.md`](sources/shuowen/entries.md), 1,228 of 1,374 characters, by the parent's parser ported and checked against it. 146 unmatched, incl. 雷 (filed as 靁), 无, 亨 | `sources/` | 1 |
 | B3 | ⏸ | **The Chinese half of McClatchie is not transcribed** — a rule, not a shortfall. Route named: `brew install tesseract-lang`, `chi_tra_vert` | `sources/` | 1 |
 | B4 | ⬜ | **Legge's footnotes not vendored** | `sources/legge-1882/` | 1 |
-| B6 | ⬜ | **王弼's 周易略例 not vendored** — [`tao-te-ching-relation.md`](tao-te-ching-relation.md) §2 and §8 quote 得意忘象 **from memory**. Vendor it before the phrase binds any decision | `sources/` | 1 |
+| B6 | ✅ | ~~**王弼's 周易略例 not vendored**~~ — closed 2026-09-24: [`sources/wangbi/lueli.md`](sources/wangbi/lueli.md), the Song edition, OCR graded 93.4–99.7% per chapter. The brief's § 8 now quotes it — and the slogan 得意忘象 turns out not to be in it; he writes 得意而忘象 | `sources/` | 1 |
 | B7 | ✅ | ~~**The two-corpus measurements had no script**~~ — closed 2026-09-24: `npm run measure` recomputes all 87 figures in the brief; its first run corrected 15, and 時 turned out to be in the Laozi (ch 8) | `scripts/` | 1 |
+| B8 | ⬜ | **王弼's 周易注 not vendored** — the commentary itself, and the brief's § 2 still rests on memory without it. Same printing and same route as B6: 卷一–卷五 in `Sibu Congkan0001-…2-1.djvu`, 卷六–卷九 in `…2-2.djvu`. Larger — the notes are 韓康伯's as well as Wang Bi's, and the base text interleaves | `sources/` | 1 |
 | B5 | ⬜ | **`prescrves-the «`-class errors** — multi-token blocks straddling a line break are left alone by design; a proofreading pass would need the scan | `disputed.yaml` | — |
 | | | **C · Tooling** | | |
 | C1 | ✅ | ~~**No glossary index generator**~~ — closed 2026-09-24: `npm run glossary` writes `glossary/INDEX.md`, and CI fails if it is stale | `scripts/` | 1 |
@@ -101,6 +102,9 @@ sentence from the trigram's name, and 鼎 is a cauldron on a **wood** fire. Queu
 
 ## Closed — the ledger
 
+- **2026-09-24** · **The names concorded, 說文 and 王弼's 略例 vendored** (A9, B2, B6) — `glossary/NAMES.md`;
+  `sources/shuowen/`, by the parent's parser held to it; `sources/wangbi/lueli.md`, graded against a
+  typed witness. Two rulings surfaced: 無/无 (A11), and the 周易注 (B8). → [CHANGELOG](CHANGELOG.md)
 - **2026-09-24** · **The brief's measurements have a script** (B7) — `npm run measure`; 15 of 87 hand-counted
   figures were wrong, one of them an argument: 時 is in the Laozi, once. → [CHANGELOG](CHANGELOG.md)
 - **2026-09-24** · **The glossary is indexed, and the locks are checked by code** (C1, C2, C3, C10) —

@@ -41,7 +41,7 @@ const ORTHOGRAPHIC: Record<string, string> = {
   '踈': '疏', '柰': '奈', '䘮': '喪', '𥙷': '補', '轝': '輿', '田': '畋',
   '晩': '晚', '牗': '牖',
 }
-const fold = (s: string) =>
+export const fold = (s: string) =>
   (s.replace(/〔[^〕]*〕/gu, '').match(CJK_ALL) ?? []).map(c => ORTHOGRAPHIC[c] ?? c).join('')
 
 /**

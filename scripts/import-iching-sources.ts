@@ -5,7 +5,7 @@
  *
  *   npm run import-sources -- --fetch          # everything, from the network
  *   npm run import-sources                     # everything, from .cache/
- *   npm run import-sources -- --only zhouyi    # zhouyi | wings | legge | harlez | locks | shuowen
+ *   npm run import-sources -- --only zhouyi    # zhouyi | wings | legge | harlez | locks | shuowen | wangbi
  *   npm run import-sources -- --only mcclatchie --from <file>   # hand-carried; see below
  *
  * Three sources, three rights positions, and the frontmatter of every written
@@ -38,7 +38,7 @@ import { readFileSync, writeFileSync, readdirSync, mkdirSync, existsSync } from 
 import { join, resolve, dirname, basename } from 'node:path'
 import { createHash } from 'node:crypto'
 import { load } from 'js-yaml'
-import { build as shuowenBuild, row as shuowenRow, byCodePoint, VOLUMES as SHUOWEN_VOLUMES, volumeUrl as shuowenUrl } from './shuowen'
+import { build as shuowenBuild, row as shuowenRow, fold as shuowenFold, byCodePoint, VOLUMES as SHUOWEN_VOLUMES, volumeUrl as shuowenUrl } from './shuowen'
 
 const SHUOWEN_CJK = /[㐀-鿿豈-﫿\u{20000}-\u{2ebef}]/gu
 
@@ -2740,6 +2740,198 @@ async function importShuowen() {
   console.log('  → sources/shuowen/entries.md')
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// 王弼 周易略例 — Wang Bi's outline of the Changes, from the Song edition.
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * The text is the 四部叢刊 facsimile of the Song printing held at the 涵芬樓 —
+ * 周易 卷十, pages 88–116 of the scan — as Wikisource's Page: namespace holds it:
+ * bot OCR, unproofread (quality 1). The mainspace page 周易略例 is typed by a
+ * person but names no edition and runs 邢璹's Tang notes into Wang Bi's text
+ * unmarked, so it fails admission rule 2 and is never vendored. It is used for
+ * the one thing it is good for: grading the OCR, chapter by chapter.
+ */
+const LUELI_INDEX = 'Sibu Congkan0002-王弼-周易-2-2.djvu'
+const LUELI_PAGES = Array.from({ length: 29 }, (_, i) => 88 + i)
+const LUELI_CHAPTERS = ['明彖', '明爻通變', '明卦適變通爻', '明象', '辯位', '略例下', '卦略']
+/** Below this share of the witness's text, found in order, a chapter fails. */
+const LUELI_MIN_AGREEMENT = 0.9
+
+/** For comparison only — graphs the two transcriptions write differently for one word. */
+const LUELI_COMPARE: Record<string, string> = { 无: '無', 茍: '苟', '𩔖': '類', 僞: '偽', 隂: '陰', 㑹: '會', 巳: '已', 爲: '為' }
+
+async function pageSource(title: string): Promise<{ content: string; revid: number; quality: number | null }> {
+  return cached(`zh.wikisource.org-source-${title}`, async () => {
+    const j = await mediawiki('zh.wikisource.org', {
+      action: 'query', prop: 'revisions|proofread', rvprop: 'content|ids', rvslots: 'main', titles: title,
+    })
+    const page = j.query.pages[0]
+    if (page.missing) throw new Error(`missing on Wikisource: ${title}`)
+    const rev = page.revisions[0]
+    return { content: rev.slots.main.content as string, revid: rev.revid as number, quality: page.proofread?.quality ?? null }
+  })
+}
+
+/** Module:SKchar and Module:SKchar2 — Wikisource's own table for its glyph placeholders. */
+/** Numeric character references, which the tables and pages use for graphs outside the BMP. */
+const decodeRefs = (t: string) =>
+  t.replace(/&#(x[0-9a-f]+|\d+);/giu, (_, n: string) => String.fromCodePoint(n[0].toLowerCase() === 'x' ? parseInt(n.slice(1), 16) : parseInt(n, 10)))
+
+function skTable(lua: string): Map<string, { char: string; exact: boolean }> {
+  lua = decodeRefs(lua)
+  const out = new Map<string, { char: string; exact: boolean }>()
+  for (const m of lua.matchAll(/\['(\d+)'\]=\{(?:"([^"]*)"|nil)(?:,\s*"([^"]*)")?\}/gu)) {
+    if (m[2]) out.set(m[1], { char: m[2], exact: true })
+    else if (m[3]) out.set(m[1], { char: m[3], exact: false })
+  }
+  return out
+}
+
+/** Length of the longest common subsequence — how much of `a` the witness `b` carries, in order. */
+function lcs(a: string[], b: string[]): number {
+  let prev = new Uint32Array(b.length + 1)
+  let cur = new Uint32Array(b.length + 1)
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++)
+      cur[j] = a[i - 1] === b[j - 1] ? prev[j - 1] + 1 : Math.max(prev[j], cur[j - 1])
+    ;[prev, cur] = [cur, prev]
+  }
+  return prev[b.length]
+}
+
+async function importWangbiLueli() {
+  console.log('\n王弼 周易略例 — 四部叢刊, the Song edition')
+  const sk1 = skTable((await pageSource('Module:SKchar')).content)
+  const sk2 = skTable((await pageSource('Module:SKchar2')).content)
+
+  const pages: { n: number; text: string; revid: number; quality: number | null }[] = []
+  for (const n of LUELI_PAGES) {
+    const src = await pageSource(`Page:${LUELI_INDEX}/${n}`)
+    pages.push({ n, text: src.content, revid: src.revid, quality: src.quality })
+  }
+
+  // Placeholders first, then the notes: a note can contain a placeholder, and
+  // stripping the note first leaves the template's own name behind as text.
+  const approximate = new Set<string>()
+  let resolved = 0
+  const unresolved: string[] = []
+  const resolve = (t: string) =>
+    t.replace(/\{\{SKchar(2?)\|(\d+)(?:\|[^}]*)?\}\}/gu, (m, two: string, id: string) => {
+      const e = (two ? sk2 : sk1).get(id)
+      if (!e) {
+        unresolved.push(m)
+        return '□'
+      }
+      resolved++
+      if (e.exact) return e.char
+      approximate.add(`${m} → ${e.char}`)
+      return `⟨${e.char}⟩`
+    })
+  const body = pages.map(p => {
+    let t = resolve(decodeRefs(p.text.replace(/<noinclude>[\s\S]*?<\/noinclude>/gu, '')))
+    // 邢璹's double-line notes, 〈…〉 — both columns, in reading order.
+    t = t.replace(/\{\{雙行註文\|([^{}]*)\}\}/gu, (_, inner: string) => `〈${inner.split('|').join('')}〉`)
+    if (/\{\{|\}\}/u.test(t)) fail(`page ${p.n}: template markup survived — ${(t.match(/\{\{[^|}]*/u) ?? [''])[0]}`)
+    return `［${p.n}］` + t.split('\n').map(l => l.trim()).filter(Boolean).join('')
+  }).join('')
+    // A note the printing breaks across a column, or a page, is one note: the
+    // template closes at every column end, so rejoin what the layout split.
+    .replace(/〉(［\d+］)?〈/gu, (_, page?: string) => page ?? '')
+  if (unresolved.length) fail(`${unresolved.length} glyph placeholder(s) with no entry in Wikisource's table: ${[...new Set(unresolved)].join(' ')}`)
+
+  // The chapters, by their headings. The first carries the author's name after it.
+  // A heading graph the font cannot show arrives as its stand-in, ⟨彖⟩, and must still match.
+  const headingAt = (c: string, from: number) => {
+    const re = new RegExp([...c].map(g => `⟨?${g}⟩?`).join(''), 'gu')
+    re.lastIndex = from
+    const m = re.exec(body)
+    return m ? { index: m.index, length: m[0].length } : { index: -1, length: 0 }
+  }
+  const found: { index: number; length: number }[] = []
+  for (const c of LUELI_CHAPTERS) found.push(headingAt(c, found.length ? Math.max(found[found.length - 1].index, 0) + 1 : 0))
+  const at = found.map(f => f.index)
+  const inOrder = at.every((x, i) => x >= 0 && (i === 0 || x > at[i - 1]))
+  const chapters: { name: string; text: string }[] = []
+  if (!inOrder) {
+    // Lose the boundary, not the text.
+    fail(`chapter headings not all found in order (${LUELI_CHAPTERS.map((c, i) => `${c} ${at[i]}`).join(', ')}) — vendored unsegmented`)
+    chapters.push({ name: '周易略例', text: body })
+  } else {
+    LUELI_CHAPTERS.forEach((c, i) => {
+      let text = body.slice(at[i] + found[i].length, i + 1 < at.length ? at[i + 1] : undefined)
+      if (i === 0) text = text.replace(/^[\s　]*王弼/u, '')
+      // A page marker left dangling before the next heading belongs to it.
+      const tail = /(［\d+］)$/u.exec(text)
+      if (tail && i + 1 < LUELI_CHAPTERS.length) text = text.slice(0, -tail[1].length)
+      chapters.push({ name: c, text: text.replace(/^[\s　]+/u, '') })
+    })
+  }
+
+  // The grade: how much of the typed witness each chapter carries, in order.
+  const han = (t: string) => (t.match(SHUOWEN_CJK) ?? []).map(c => LUELI_COMPARE[c] ?? shuowenFold(c) ?? c)
+  const grades: Record<string, string> = {}
+  for (const ch of chapters) {
+    if (ch.name === '周易略例') break
+    const witness = await pageSource(`周易略例/${ch.name}`)
+    const wangbi = han(ch.text.replace(/〈[^〉]*〉/gu, '').replace(/［\d+］/gu, ''))
+    const typed = han(witness.content)
+    const share = lcs(typed, wangbi) / Math.max(typed.length, 1)
+    // The witness also carries 邢璹's notes unmarked, so measure what share of
+    // the Song text's Wang Bi it contains, too — the two together bound the error.
+    const back = lcs(wangbi, typed) / Math.max(wangbi.length, 1)
+    grades[ch.name] = `${(100 * back).toFixed(1)}% of the OCR's Wang Bi is in the typed witness, in order`
+    if (back < LUELI_MIN_AGREEMENT) fail(`${ch.name}: only ${(100 * back).toFixed(1)}% of the OCR text agrees with the typed witness`)
+    else pass(`${ch.name} — ${wangbi.length} graphs, ${(100 * back).toFixed(1)}% in the typed witness (it carries ${(100 * share).toFixed(1)}% of the witness, which includes 邢璹 unmarked)`)
+  }
+
+  // The reason this was vendored: 得意忘象, quoted from memory until now.
+  const mingxiang = chapters.find(c => c.name === '明象')?.text ?? body
+  if (mingxiang.includes('得意而忘象') && mingxiang.includes('得意在忘象')) pass('明象 carries 得意而忘象 and 得意在忘象 — the brief can quote the text now')
+  else fail('明象 does not carry 得意而忘象 — the passage the brief quotes is not where it should be')
+
+  const quality = new Set(pages.map(p => p.quality))
+  const md = [
+    '---',
+    'work: "周易略例"',
+    'work_english: "Outline of the Changes"',
+    'author: "王弼"',
+    'author_english: "Wang Bi"',
+    'author_dates: "226–249 CE"',
+    'annotator: "邢璹"',
+    'annotator_english: "Xing Shu, Tang dynasty"',
+    'edition: "四部叢刊初編 周易 卷十 — 景上海涵芬樓藏宋刊本, the Song printing, facsimile (1919–22)"',
+    `obtained: "https://zh.wikisource.org/wiki/Index:${LUELI_INDEX}"`,
+    `scan_pages: [${LUELI_PAGES[0]}, ${LUELI_PAGES[LUELI_PAGES.length - 1]}]`,
+    `revisions: { ${pages.map(p => `${p.n}: ${p.revid}`).join(', ')} }`,
+    `transcription: "machine OCR of the facsimile, unproofread — Wikisource Page: quality ${[...quality].join('/')}"`,
+    `graded_against: "the typed mainspace page 周易略例, which names no edition and is not vendored"`,
+    'grade:',
+    ...Object.entries(grades).map(([k, v]) => `  ${k}: "${v}"`),
+    'punctuation: "none in source, none added"',
+    'editorial_notes: "邢璹\'s double-line notes kept in place, marked 〈…〉; scan page numbers marked ［N］"',
+    `glyph_placeholders: "${resolved} resolved through Wikisource's Module:SKchar tables; ${approximate.size} only to a stand-in, marked ⟨…⟩"`,
+    'rights: "public domain by age (Wang Bi d. 249; Xing Shu, Tang); the facsimile printing is 1919–22"',
+    'standing: "Wang Bi\'s own account of reading the Changes — evidence for tao-te-ching-relation.md § 2 and § 8"',
+    `transcribed: ${TODAY}`,
+    '---',
+    '',
+    '# 周易略例 — 王弼',
+    '',
+    '> **Wang Bi\'s text, with 邢璹\'s Tang notes kept apart.** The notes are the small double-line annotations of the',
+    '> printing, marked 〈…〉 in place; everything outside them is Wang Bi. The OCR is unproofread, and each chapter',
+    '> carries a measured grade against a typed witness in the frontmatter. **Read with the scan open** before a',
+    '> character here binds a decision — the page number is marked ［N］ where each scan page begins.',
+    ...(approximate.size ? ['>', `> **${approximate.size} glyph${approximate.size === 1 ? '' : 's'} the font cannot show** are given as the stand-in Wikisource\'s own table names, marked ⟨…⟩: ${[...approximate].join('; ')}.`] : []),
+    '',
+    ...chapters.flatMap(c => [`## ${c.name}`, '', c.text, '']),
+  ].join('\n')
+  const out = join(SOURCES, 'wangbi')
+  mkdirSync(out, { recursive: true })
+  writeVendored(join(out, 'lueli.md'), md)
+  console.log('  → sources/wangbi/lueli.md')
+}
+
 async function main() {
   console.log(`\nimporting I Ching sources${FETCH ? ' (fetching)' : ' (from cache)'}`)
   mkdirSync(CACHE, { recursive: true })
@@ -2752,6 +2944,7 @@ async function main() {
   if (ONLY === 'mcclatchie') await importMcClatchie()
   if (want('locks')) await importLocks()
   if (want('shuowen')) await importShuowen()
+  if (want('wangbi')) await importWangbiLueli()
 
   if (unknownTemplates.size) {
     console.log(`\n  · wikitext templates dropped, unrecognised: ${[...unknownTemplates].join(', ')}`)
