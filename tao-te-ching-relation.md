@@ -175,6 +175,9 @@ the repair was needed.
 
 **Two further facts sharpen it.** His 周易注 covers the 64 hexagrams with the 彖傳, 象傳 and 文言傳 —
 **and stops.** The 繫辭傳, 說卦, 序卦 and 雜卦 were supplied a century later by 韓康伯 (*Hán Kāngbó*).
+*(The first two sentences are now held, not remembered: in the vendored Song edition,
+[`sources/wangbi/zhu/`](sources/wangbi/zhu/), 卷一–卷六 are headed 王弼注 and carry the 彖, 象 and 文言,
+and 卷七–卷九 are headed 韓康伯注. "A century later" is still memory.)*
 **說卦 ch 3, the four-pairs passage this project now builds on, is a Wing Wang Bi never commented
 on.** And the 周易參同契 shows where the other end of the road leads: hexagrams as a calendar for
 inner alchemy, a system in which everything can be made to mean whatever the system needs.
@@ -462,14 +465,17 @@ declaring it converts an invisible overlay into a stated method.
 
 **What this brief owes before any of it is load-bearing:**
 
-- **王弼's 周易注 is not vendored, and § 2 is written from memory.** His **周易略例** now is — the
+- **王弼's 周易注 and 周易略例 are both vendored now** — the commentary at
+  [`sources/wangbi/zhu/`](sources/wangbi/zhu/), one file per hexagram and one per Wing, graded twice: the
+  text against `sources/zhouyi/`, and the notes against the typed 周易正義. **What in § 2 is still
+  memory** is the biography, the dating, the 裴徽 anecdote and the Lynn editions — none of it in either
+  text. His **周易略例** is the
   Song edition in the 四部叢刊, OCR graded chapter by chapter against a typed witness
   ([`sources/wangbi/lueli.md`](sources/wangbi/lueli.md)) — and § 8 quotes it. It also bears out § 2's
   claim about 掃象 from the text itself: 明象 names the Han apparatus it rejects, 互體不足，遂及卦變，
   變又不足，推致五行 — *the overlapping trigrams were not enough, so they reached for hexagram changes;
-  those not enough, they pushed on to the five phases.* The route to the 周易注 is the same printing:
-  卷一–卷五 in `Sibu Congkan0001-王弼-周易-2-1.djvu` (卷一 is pages 4–37), 卷六–卷九 in the
-  `…2-2.djvu` that holds the 略例 (卷六 from page 2). What remains of the bullet below is about that.
+  those not enough, they pushed on to the five phases.* Both are one printing:
+  卷一–卷五 in `Sibu Congkan0001-王弼-周易-2-1.djvu`, 卷六–卷十 in `…2-2.djvu`.
 - *The original bullet, kept for its route:* **王弼's 周易注 and 周易略例 are not vendored, and all of § 2 and § 8 is written from memory.**
   That is precisely what
   [`never-supply-what-the-source-withheld`](principles/never-supply-what-the-source-withheld.md)

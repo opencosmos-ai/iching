@@ -41,6 +41,16 @@ This is a **chronological spine that points into them**, never a second copy.
 
 ---
 
+## 2026-09-24 — 王弼's 周易注 vendored, graded twice
+
+The commentary that made the Changes the received text, and that the parent project's Wang Bi continues on the Laozi. WORKLIST B8.
+
+- **[`sources/wangbi/zhu/`](sources/wangbi/zhu/)** — `npm run import-sources -- --only wangbi`. The same Song printing as the 略例, 228 scan pages: one file per hexagram with Wang Bi's notes in place, and one per Wing with **韓康伯's** — the printing names him at the head of 卷七–卷九, and the importer checks it.
+- **Divided where the printing divides it**, by the 64 trigram labels it sets after each figure, taken in order and checked against our table. 63 agree; 62's reads 良 for 艮, OCR damage recorded and left as read. The same order-and-check found that 29 坎 prints its label above-first, and that a note in 益, 損上益下, has a label's shape.
+- **Graded twice.** The text against `zhouyi/`: mean 97.1%. The notes — which the received text cannot grade, and which on unproofread pages are visibly the worst-read part — against Wikisource's typed 周易正義: mean 92.1% for Wang Bi, 85–88% for 韓康伯. Each file carries both.
+- **Grading it found a defect in our own base text** (B9): the vendored Zhouyi has simplified graphs — 密云不雨, 剛柔济也, 月几望. Not fixed here; `sources/` is never hand-edited.
+- **The brief's § 2 now rests partly on text.** That the 周易注 covers the 彖, 象 and 文言 and stops, and that 韓康伯 supplied the rest, is what the edition's own 卷 headings say. The biography and dating are still memory.
+
 ## 2026-09-24 — 王弼's 周易略例 vendored, and § 8 of the brief quotes it
 
 [`tao-te-ching-relation.md`](tao-te-ching-relation.md) § 8 built an argument on 得意忘象 and said, three times, that it was quoting from memory. WORKLIST B6.

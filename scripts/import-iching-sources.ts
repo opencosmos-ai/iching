@@ -2800,17 +2800,26 @@ function lcs(a: string[], b: string[]): number {
   return prev[b.length]
 }
 
-async function importWangbiLueli() {
-  console.log('\n王弼 周易略例 — 四部叢刊, the Song edition')
+/**
+ * Pages of a 四部叢刊 scan as Wikisource's Page: namespace holds them, as one
+ * run of text. Shared by the 略例 and the 周易注, which are one printing.
+ *
+ *   - glyph placeholders ({{SKchar|N}}) resolved through Wikisource's own tables,
+ *     and a stand-in with no Unicode form marked ⟨…⟩;
+ *   - a hexagram's trigram label, which the printing sets in the double-line
+ *     note type ({{雙行註文|乾下|乾上}}), kept as structure and marked ⟪乾下乾上⟫;
+ *   - every other double-line note marked 〈…〉, in reading order, and a note the
+ *     layout breaks across a column or a page rejoined;
+ *   - each scan page's start marked ［N］.
+ */
+async function sikuScan(index: string, numbers: number[]) {
   const sk1 = skTable((await pageSource('Module:SKchar')).content)
   const sk2 = skTable((await pageSource('Module:SKchar2')).content)
-
   const pages: { n: number; text: string; revid: number; quality: number | null }[] = []
-  for (const n of LUELI_PAGES) {
-    const src = await pageSource(`Page:${LUELI_INDEX}/${n}`)
+  for (const n of numbers) {
+    const src = await pageSource(`Page:${index}/${n}`)
     pages.push({ n, text: src.content, revid: src.revid, quality: src.quality })
   }
-
   // Placeholders first, then the notes: a note can contain a placeholder, and
   // stripping the note first leaves the template's own name behind as text.
   const approximate = new Set<string>()
@@ -2830,15 +2839,27 @@ async function importWangbiLueli() {
     })
   const body = pages.map(p => {
     let t = resolve(decodeRefs(p.text.replace(/<noinclude>[\s\S]*?<\/noinclude>/gu, '')))
-    // 邢璹's double-line notes, 〈…〉 — both columns, in reading order.
+    // Any one graph each side, not only the eight: the label is where OCR damage
+    // shows (良 for 艮), and a label must still be found to be checked.
+    // Either order: 29 坎 prints 坎上坎下, above before below. Kept as printed.
+    // Only straight after a hexagram figure (䷀–䷿, or a stand-in for one): 益's
+    // commentary has a note 損上益下 that is the same shape and is not a label.
+    const G = '[㐀-鿿豈-﫿\\u{20000}-\\u{2ebef}]'
+    t = t.replace(new RegExp(`(?<=[䷀-䷿]|⟩|□)\\{\\{雙行註文\\|(${G})([下上])\\|(${G})([下上])\\}\\}`, 'gu'),
+      (m, a: string, p1: string, b: string, p2: string) => (p1 === p2 ? m : `⟪${a}${p1}${b}${p2}⟫`))
     t = t.replace(/\{\{雙行註文\|([^{}]*)\}\}/gu, (_, inner: string) => `〈${inner.split('|').join('')}〉`)
-    if (/\{\{|\}\}/u.test(t)) fail(`page ${p.n}: template markup survived — ${(t.match(/\{\{[^|}]*/u) ?? [''])[0]}`)
+    if (/\{\{|\}\}/u.test(t)) fail(`${index} page ${p.n}: template markup survived — ${(t.match(/\{\{[^|}]*/u) ?? [''])[0]}`)
     return `［${p.n}］` + t.split('\n').map(l => l.trim()).filter(Boolean).join('')
   }).join('')
-    // A note the printing breaks across a column, or a page, is one note: the
-    // template closes at every column end, so rejoin what the layout split.
+    // The template closes at every column end, so rejoin what the layout split.
     .replace(/〉(［\d+］)?〈/gu, (_, page?: string) => page ?? '')
   if (unresolved.length) fail(`${unresolved.length} glyph placeholder(s) with no entry in Wikisource's table: ${[...new Set(unresolved)].join(' ')}`)
+  return { body, pages, resolved, approximate }
+}
+
+async function importWangbiLueli() {
+  console.log('\n王弼 周易略例 — 四部叢刊, the Song edition')
+  const { body, pages, resolved, approximate } = await sikuScan(LUELI_INDEX, LUELI_PAGES)
 
   // The chapters, by their headings. The first carries the author's name after it.
   // A heading graph the font cannot show arrives as its stand-in, ⟨彖⟩, and must still match.
@@ -2932,6 +2953,295 @@ async function importWangbiLueli() {
   console.log('  → sources/wangbi/lueli.md')
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// 王弼 周易注 — Wang Bi's commentary, and 韓康伯's on the Wings he left.
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * The same 四部叢刊 printing as the 略例: 卷一–卷五 in the first scan file, 卷六–
+ * 卷九 in the second. 卷一–卷六 are the sixty-four with Wang Bi's notes; 卷七–卷九
+ * are 繫辭上, 繫辭下, and 說卦·序卦·雜卦 with 韓康伯's — Wang Bi never
+ * commented them, and the edition says whose each is at the head of the 卷.
+ */
+const ZHU_VOLUMES: { juan: number; index: string; from: number; to: number }[] = [
+  { juan: 1, index: 'Sibu Congkan0001-王弼-周易-2-1.djvu', from: 4, to: 37 },
+  { juan: 2, index: 'Sibu Congkan0001-王弼-周易-2-1.djvu', from: 38, to: 59 },
+  { juan: 3, index: 'Sibu Congkan0001-王弼-周易-2-1.djvu', from: 60, to: 83 },
+  { juan: 4, index: 'Sibu Congkan0001-王弼-周易-2-1.djvu', from: 84, to: 113 },
+  { juan: 5, index: 'Sibu Congkan0001-王弼-周易-2-1.djvu', from: 114, to: 145 },
+  { juan: 6, index: 'Sibu Congkan0002-王弼-周易-2-2.djvu', from: 2, to: 25 },
+  { juan: 7, index: 'Sibu Congkan0002-王弼-周易-2-2.djvu', from: 26, to: 47 },
+  { juan: 8, index: 'Sibu Congkan0002-王弼-周易-2-2.djvu', from: 48, to: 67 },
+  { juan: 9, index: 'Sibu Congkan0002-王弼-周易-2-2.djvu', from: 68, to: 85 },
+]
+const ZHU_WINGS: Record<number, { file: string; title: string; against: string[] }> = {
+  7: { file: 'xici-shang', title: '繫辭上', against: ['xici-shang'] },
+  8: { file: 'xici-xia', title: '繫辭下', against: ['xici-xia'] },
+  9: { file: 'shuogua-xugua-zagua', title: '說卦 · 序卦 · 雜卦', against: ['shuogua', 'xugua', 'zagua'] },
+}
+const ZHU_MIN_GRADE = 0.85
+const NUMERALS = '一二三四五六七八九'
+
+/**
+ * The grade: what share of the received text's clauses, from our own vendored
+ * Wikisource transcription, the OCR carries verbatim. Order-free on purpose —
+ * Wang Bi's edition sets each 小象 after its line, where the transcription
+ * gathers them, and an order-sensitive measure would grade the arrangement.
+ */
+function clauseGrade(received: string, ocr: string): { found: number; total: number } {
+  const norm = (t: string) => (t.match(SHUOWEN_CJK) ?? []).map(c => ZHU_GLYPHS[c] ?? LUELI_COMPARE[c] ?? shuowenFold(c) ?? c).join('')
+  const haystack = norm(ocr)
+  const clauses = received.replace(/〔[^〕]*〕/gu, '').split(/[，。；：、？！「」『』“”‘’（）\s]+/u).map(norm).filter(c => c.length >= 2)
+  return { found: clauses.filter(c => haystack.includes(c)).length, total: clauses.length }
+}
+/**
+ * Glyph forms of the same word, harvested from the 周易注 against sources/zhouyi/
+ * by collecting every single-graph substitution in an otherwise identical clause,
+ * then filtered by hand to forms that are the same word — the parent project's
+ * method for its ORTHOGRAPHIC map. For grading only; the text keeps its glyphs.
+ *
+ * Deliberately not folded, because they are readings and not glyphs: 於/于, 後/后,
+ * 係/系, 脩/修, 闚/窺, 祐/佑. Nor the pairs that exposed simplified graphs in our own
+ * Zhouyi transcription (醜/丑, 雲/云, 濟/济, 幾/几, 穀/谷 …) — WORKLIST B9. Those
+ * count against the grade, which is where they belong until that is fixed upstream.
+ */
+const ZHU_GLYPHS: Record<string, string> = {
+  渉: '涉', 内: '內', '𢘆': '恆', 剥: '剝', 舎: '捨', 宼: '寇', '𠮷': '吉', 歳: '歲', '𡻕': '歲', 曵: '曳',
+  丗: '世', 敎: '教', 頥: '頤', 宫: '宮', '𥬇': '笑', 冝: '宜', '𣅳': '昃', 聦: '聰', 濳: '潛', 弑: '弒',
+  㛰: '婚', 彚: '彙', 禄: '祿', 遟: '遲', 旣: '既', '𥙿': '裕', 兹: '茲', 䑕: '鼠', 岀: '出', 蔾: '藜',
+  顚: '顛', 薫: '薰', 閴: '闃', 戸: '戶', 寜: '寧', 寛: '寬', 䧟: '陷', '𣗥': '棘', 耊: '耋', 愠: '慍',
+  羣: '群', 鼔: '鼓', '𥘉': '初', 葘: '菑', 朶: '朵',
+}
+const baseText = (t: string) => t.replace(/〈[^〉]*〉/gu, '').replace(/［\d+］|⟪[^⟫]*⟫/gu, '')
+
+/**
+ * The commentary's witness. Chinese Wikisource's typed 周易正義 carries the
+ * text, Wang Bi's and 韓康伯's notes marked {{*|…}}, and 孔穎達's sub-commentary
+ * marked [疏]. It names no edition, so it is never vendored; it grades the notes,
+ * which the received text in sources/ cannot, and which on unproofread pages are
+ * visibly the worst-read part of the scan. Subpages are taken in the index's
+ * order, and each hexagram's is checked by the trigram label it prints.
+ */
+async function zhengyiWitness(): Promise<{ hexagrams: string[]; wings: Record<number, string> } | null> {
+  const index = (await pageSource('周易正義')).content
+  const subs = [...index.matchAll(/\[\[\/([^\]|]+)/gu)].map(m => m[1])
+  const hexSubs = subs.filter(t => /^0[1-6]\D/u.test(t))
+  if (hexSubs.length !== 64) {
+    fail(`周易正義 lists ${hexSubs.length} hexagram subpages, not 64 — the commentary is not graded`)
+    return null
+  }
+  // Two conventions: the hexagram pages mark a note {{*|…}}; the 繫辭 pages mark
+  // the text {{yw|…}} and let the note follow it, unmarked, on the same line.
+  const notes = (t: string) => {
+    t = t.replace(/-\{A\|([^}]*)\}-/gu, '$1')
+    const starred = [...t.matchAll(/\{\{\*\|([^{}]*)\}\}/gu)].map(m => m[1])
+    const trailing = [...t.matchAll(/^\{\{yw\|[^{}]*\}\}([^\n]*)$/gmu)].map(m => m[1].replace(/\{\{[^{}]*\}\}/gu, ''))
+    return [...starred, ...trailing].join('。')
+  }
+  const table = ourHexagrams()
+  const triChar = new Map(readdirSync(join(ICHING, 'trigrams')).filter(f => f.endsWith('.md')).map(f => {
+    const fm = load(readFileSync(join(ICHING, 'trigrams', f), 'utf8').split(/^---$/m)[1]) as Record<string, string>
+    return [fm.id, fm.chinese] as const
+  }))
+  const hexagrams: string[] = []
+  for (let i = 0; i < 64; i++) {
+    const t = (await pageSource(`周易正義/${hexSubs[i]}`)).content
+    const want = `${triChar.get(table[i].trigrams.lower)}下${triChar.get(table[i].trigrams.upper)}上`
+    if (!t.includes(want)) fail(`周易正義/${hexSubs[i]} does not print ${want} — its position says hexagram ${i + 1}`)
+    hexagrams.push(notes(t))
+  }
+  const wings: Record<number, string> = {}
+  for (const juan of [7, 8, 9]) {
+    const parts = subs.filter(t => t.startsWith(`0${juan}.`))
+    let all = ''
+    for (const t of parts) all += notes((await pageSource(`周易正義/${t}`)).content) + '。'
+    wings[juan] = all
+  }
+  return { hexagrams, wings }
+}
+const notesText = (t: string) => [...t.matchAll(/〈([^〉]*)〉/gu)].map(m => m[1]).join('。')
+
+async function importWangbiZhu() {
+  console.log('\n王弼 周易注 — 四部叢刊, the Song edition')
+  const witness = await zhengyiWitness()
+  type Vol = Awaited<ReturnType<typeof sikuScan>> & { juan: number; index: string; heading: string; text: string }
+  const vols: Vol[] = []
+  let approximateAll = new Set<string>()
+  for (const v of ZHU_VOLUMES) {
+    const pagesN = Array.from({ length: v.to - v.from + 1 }, (_, i) => v.from + i)
+    const scan = await sikuScan(v.index, pagesN)
+    // The 卷's own heading — 周易上經乾傳第一 王弼注 — names its part and its commentator.
+    const h = /^(［\d+］)(周易[^［⟪〈]{2,12}?第[一二三四五六七八九十]+)(王弼|韓康伯)注/u.exec(scan.body)
+    if (!h) fail(`卷${NUMERALS[v.juan - 1]}: no 周易…第N …注 heading at its head — kept in the text`)
+    const heading = h ? `${h[2]} ${h[3]}注` : ''
+    const text = h ? h[1] + scan.body.slice(h[0].length) : scan.body
+    const expected = v.juan <= 6 ? '王弼' : '韓康伯'
+    if (h && h[3] !== expected) fail(`卷${NUMERALS[v.juan - 1]} names ${h[3]} as its commentator, where ${expected} was expected`)
+    approximateAll = new Set([...approximateAll, ...scan.approximate])
+    vols.push({ ...scan, juan: v.juan, index: v.index, heading, text })
+  }
+  const out = join(SOURCES, 'wangbi', 'zhu')
+  mkdirSync(out, { recursive: true })
+  const qualityOf = (pages: Vol['pages']) => {
+    const q = new Map<string, number>()
+    for (const p of pages) q.set(String(p.quality), (q.get(String(p.quality)) ?? 0) + 1)
+    return [...q].sort().map(([k, n]) => `${k}: ${n}`).join(', ')
+  }
+  const approxNote = (text: string) => {
+    const shown = [...approximateAll].filter(a => text.includes(`⟨${a.split(' → ')[1]}⟩`))
+    return shown.length ? ['>', `> **Glyphs no font can show** are given as Wikisource's own table describes them, marked ⟨…⟩ — a stand-in graph, or a composition (⿱ one part over another, ⿰ one beside another, with the ordinary form after --): ${shown.join('; ')}.`] : []
+  }
+  const front = (extra: string[], pages: Vol['pages'], index: string, grade: string, notesGrade: string) => [
+    '---',
+    'work: "周易注"',
+    ...extra,
+    'edition: "四部叢刊初編 周易 — 景上海涵芬樓藏宋刊本, the Song printing, facsimile (1919–22)"',
+    `obtained: "https://zh.wikisource.org/wiki/Index:${index}"`,
+    `scan_pages: [${pages.map(p => p.n).join(', ')}]`,
+    `revisions: { ${pages.map(p => `${p.n}: ${p.revid}`).join(', ')} }`,
+    `transcription: "OCR of the facsimile — Wikisource Page: quality by page, ${qualityOf(pages)} (1 unproofread, 3 proofread, 4 validated)"`,
+    `grade: "${grade}"`,
+    `commentary_grade: "${notesGrade}"`,
+    'punctuation: "none in source, none added"',
+    'editorial_notes: "the commentary is the printing\'s double-line notes, marked 〈…〉 in place; the trigram label ⟪…⟫; scan page numbers ［N］"',
+    'rights: "public domain by age (Wang Bi d. 249; Han Kangbo, 4th c.); the facsimile printing is 1919–22"',
+    `transcribed: ${TODAY}`,
+    '---',
+    '',
+  ]
+
+  // ── the sixty-four: order assigns, the trigram label verifies ──
+  const table = ourHexagrams()
+  const triChar = new Map(readdirSync(join(ICHING, 'trigrams')).filter(f => f.endsWith('.md')).map(f => {
+    const fm = load(readFileSync(join(ICHING, 'trigrams', f), 'utf8').split(/^---$/m)[1]) as Record<string, string>
+    return [fm.id, fm.chinese] as const
+  }))
+  const hexVols = vols.filter(v => v.juan <= 6)
+  const run = hexVols.map(v => `⦃${v.juan}⦄` + v.text).join('')
+  // As [label, lower, upper], whichever order the printing gave them in.
+  const labels = [...run.matchAll(/⟪(.)([下上])(.)([下上])⟫/gu)].map(m =>
+    Object.assign([m[0], m[2] === '下' ? m[1] : m[3], m[2] === '下' ? m[3] : m[1]], { index: m.index }))
+  // Order assigns, the label verifies. A label is compared through the glyph
+  // fold (兊 is 兌); one that still disagrees in a single graph is OCR damage to
+  // the label, recorded in that hexagram's file and left as read. More than a
+  // few, or both graphs wrong, means the count is misaligned, and nothing is split.
+  const f = (c: string) => shuowenFold(c) || c
+  const verdict = labels.map((m, i) => {
+    const lo = triChar.get(table[i]?.trigrams.lower ?? ''), up = triChar.get(table[i]?.trigrams.upper ?? '')
+    return { ok: f(m[1]) === lo && f(m[2]) === up, near: f(m[1]) === lo || f(m[2]) === up, want: `${lo}下${up}上` }
+  })
+  const damaged = verdict.map((v, i) => ({ ...v, i })).filter(v => !v.ok)
+  const agree = labels.length === 64 && damaged.length <= 3 && damaged.every(d => d.near)
+  if (!agree) {
+    fail(`${labels.length} trigram labels found, ${damaged.length} disagreeing with our table${damaged.length ? ` (first at position ${damaged[0].i + 1})` : ''} — the sixty-four are vendored by 卷, unsegmented`)
+    for (const v of hexVols) writeVendored(join(out, `juan-${v.juan}.md`), [...front([`part: "卷${NUMERALS[v.juan - 1]} — ${v.heading}"`], v.pages, v.index, 'not measured — the text could not be divided by hexagram', 'not measured'), `# 周易注 · 卷${NUMERALS[v.juan - 1]}`, '', v.text, ''].join('\n'))
+  } else {
+    pass(`64 trigram labels, in King Wen order, ${64 - damaged.length} agreeing with our table outright${damaged.length ? `; ${damaged.map(d => `hexagram ${d.i + 1} reads ${labels[d.i][0].slice(1, -1)} for ${d.want}`).join(', ')} — OCR damage to the label, recorded and left as read` : ''}`)
+    const grades: number[] = []
+    const notesGrades: { n: number; share: number; pages: Vol['pages'] }[] = []
+    const figureMisses: number[] = []
+    let weakest = { n: 0, g: 1 }
+    for (let i = 0; i < 64; i++) {
+      const start = labels[i].index!
+      const end = i < 63 ? labels[i + 1].index! : run.length
+      let seg = run.slice(start, end)
+      // The figure glyph that heads a hexagram sits just before its label; hand
+      // it forward. A volume marker is bookkeeping and never text.
+      const figureBefore = /((?:[䷀-䷿]|⟨[^⟩]*⟩|□)?)$/u.exec(run.slice(Math.max(0, start - 12), start))?.[1] ?? ''
+      if (i < 63) {
+        const nextFigure = /((?:[䷀-䷿]|⟨[^⟩]*⟩|□)?)$/u.exec(seg)?.[1] ?? ''
+        if (nextFigure) seg = seg.slice(0, -nextFigure.length)
+      }
+      seg = figureBefore + seg
+      // The figure glyph is the bot's reading of a drawn figure, and it is wrong
+      // often enough to say so (62 小過 reads ䷋, hexagram 12). Recorded, not corrected.
+      const wantFigure = String.fromCodePoint(0x4dc0 + i)
+      const figureNote = figureBefore === wantFigure ? 'agrees with the table'
+        : figureBefore ? `the scan text gives ${figureBefore}; the table's figure is ${wantFigure} — left as read` : `none in the scan text; the table's figure is ${wantFigure}`
+      if (figureBefore !== wantFigure) figureMisses.push(i + 1)
+      const juans = [...run.slice(0, end).matchAll(/⦃(\d)⦄/gu)]
+      const juan = Number(juans[juans.length - 1][1])
+      seg = seg.replace(/⦃\d⦄/gu, '')
+      const vol = hexVols.find(v => v.juan === juan)!
+      const pageNums = new Set([...seg.matchAll(/［(\d+)］/gu)].map(m => Number(m[1])))
+      // The page a hexagram begins on is the last page marker before its label.
+      const lead = [...run.slice(0, start).matchAll(/［(\d+)］/gu)].pop()
+      if (lead) pageNums.add(Number(lead[1]))
+      const pages = vol.pages.filter(p => pageNums.has(p.n))
+      const h = table[i]
+      const nn = String(h.number).padStart(2, '0')
+      const received = readFileSync(join(SOURCES, 'zhouyi', `${nn}.md`), 'utf8').replace(/^---[\s\S]*?\n---\n/, '').split(/^## .+$/m).slice(1).join('\n')
+      const g = clauseGrade(received, baseText(seg))
+      const share = g.found / Math.max(g.total, 1)
+      grades.push(share)
+      if (share < weakest.g) weakest = { n: h.number, g: share }
+      if (share < ZHU_MIN_GRADE) fail(`hexagram ${h.number} ${h.chinese}: only ${g.found} of ${g.total} clauses of the received text found verbatim`)
+      const ng = witness ? clauseGrade(witness.hexagrams[i], notesText(seg)) : null
+      if (ng) notesGrades.push({ n: h.number, share: ng.found / Math.max(ng.total, 1), pages })
+      const notesGrade = ng ? `${ng.found} of ${ng.total} clauses of Wang Bi's notes, as the typed 周易正義 gives them, found verbatim — ${(100 * ng.found / Math.max(ng.total, 1)).toFixed(1)}%` : 'not measured'
+      writeVendored(join(out, `${nn}.md`), [
+        ...front([
+          'author: "王弼"', 'author_english: "Wang Bi"', 'author_dates: "226–249 CE"',
+          `hexagram: ${h.number}`, `name: "${h.chinese}"`,
+          `figure_glyph: "${figureNote}"`,
+          `trigram_label: "${labels[i][0].slice(1, -1)} — ${verdict[i].ok ? 'agrees with the table' : `the table has ${verdict[i].want}; OCR damage to the label, left as read`}"`,
+          `part: "卷${NUMERALS[juan - 1]} — ${vol.heading}"`,
+        ], pages, vol.index, `${g.found} of ${g.total} clauses of the received text (sources/zhouyi/${nn}.md) found verbatim — ${(100 * share).toFixed(1)}%`, notesGrade),
+        `# ${h.number} ${h.chinese} — 王弼注`,
+        '',
+        '> **The text of the hexagram, with Wang Bi\'s commentary in place, marked 〈…〉.** His edition sets each 小象',
+        '> after its line, where `sources/zhouyi/` gathers them — the arrangement is his, and is kept. Unproofread',
+        '> pages are graded, not trusted: read with the scan open before a character here binds a decision.',
+        ...approxNote(seg),
+        '',
+        seg,
+        '',
+      ].join('\n'))
+    }
+    const mean = grades.reduce((a, b) => a + b, 0) / grades.length
+    pass(`the sixty-four vendored — clauses of the received text found verbatim: mean ${(100 * mean).toFixed(1)}%, lowest ${(100 * weakest.g).toFixed(1)}% (hexagram ${weakest.n})`)
+    console.log(`  · figure glyphs: ${64 - figureMisses.length} of 64 agree with the table${figureMisses.length ? `; not ${figureMisses.join(', ')} — recorded in each file, left as read` : ''}`)
+    if (notesGrades.length) {
+      // Reported, never failed: the commentary is where unproofread OCR is worst,
+      // and the grade exists to say so in each file, not to refuse the file.
+      const byQuality = (ok: (q: number | null) => boolean) => {
+        const xs = notesGrades.filter(g => g.pages.every(p => ok(p.quality)))
+        return xs.length ? `${(100 * xs.reduce((a, b) => a + b.share, 0) / xs.length).toFixed(1)}% over ${xs.length}` : 'none'
+      }
+      const nm = notesGrades.reduce((a, b) => a + b.share, 0) / notesGrades.length
+      console.log(`  · Wang Bi's notes against the typed 周易正義: mean ${(100 * nm).toFixed(1)}% — hexagrams wholly on proofread pages ${byQuality(q => (q ?? 0) >= 3)}, wholly unproofread ${byQuality(q => (q ?? 0) < 3)}`)
+    }
+  }
+
+  // ── the Wings, with 韓康伯's notes ──
+  for (const v of vols.filter(v => v.juan >= 7)) {
+    const w = ZHU_WINGS[v.juan]
+    const received = w.against.map(f => readFileSync(join(SOURCES, 'wings', `${f}.md`), 'utf8').replace(/^---[\s\S]*?\n---\n/, '').replace(/^(#|>).*$/gm, '')).join('\n')
+    const g = clauseGrade(received, baseText(v.text))
+    const share = g.found / Math.max(g.total, 1)
+    const ng = witness ? clauseGrade(witness.wings[v.juan], notesText(v.text)) : null
+    const notesGrade = ng ? `${ng.found} of ${ng.total} clauses of 韓康伯's notes, as the typed 周易正義 gives them, found verbatim — ${(100 * ng.found / Math.max(ng.total, 1)).toFixed(1)}%` : 'not measured'
+    if (ng) console.log(`  · ${w.title}: 韓康伯's notes ${(100 * ng.found / Math.max(ng.total, 1)).toFixed(1)}% against the typed 周易正義`)
+    if (share < ZHU_MIN_GRADE) fail(`${w.title}: only ${g.found} of ${g.total} clauses of the received text found verbatim`)
+    else pass(`${w.title} — 韓康伯注, ${g.found} of ${g.total} clauses of the received text found verbatim (${(100 * share).toFixed(1)}%)`)
+    writeVendored(join(out, `${w.file}.md`), [
+      ...front([
+        'author: "韓康伯"', 'author_english: "Han Kangbo — completing Wang Bi\'s commentary over the Wings he left"', 'author_dates: "4th c. CE"',
+        `part: "卷${NUMERALS[v.juan - 1]} — ${v.heading}"`,
+      ], v.pages, v.index, `${g.found} of ${g.total} clauses of the received text (sources/wings/) found verbatim — ${(100 * share).toFixed(1)}%`, notesGrade),
+      `# ${w.title} — 韓康伯注`,
+      '',
+      '> **Not Wang Bi.** He left the 繫辭, 說卦, 序卦 and 雜卦 uncommented, and 韓康伯 completed the edition over them;',
+      '> the printing names him at the head of the 卷. His notes are marked 〈…〉 in place.',
+      ...approxNote(v.text),
+      '',
+      v.text,
+      '',
+    ].join('\n'))
+  }
+  console.log('  → sources/wangbi/zhu/')
+}
+
 async function main() {
   console.log(`\nimporting I Ching sources${FETCH ? ' (fetching)' : ' (from cache)'}`)
   mkdirSync(CACHE, { recursive: true })
@@ -2945,6 +3255,7 @@ async function main() {
   if (want('locks')) await importLocks()
   if (want('shuowen')) await importShuowen()
   if (want('wangbi')) await importWangbiLueli()
+  if (want('wangbi')) await importWangbiZhu()
 
   if (unknownTemplates.size) {
     console.log(`\n  · wikitext templates dropped, unrecognised: ${[...unknownTemplates].join(', ')}`)

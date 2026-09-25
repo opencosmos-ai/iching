@@ -57,6 +57,7 @@ npm run principles -- --applies sources
 | `mcclatchie-1876/` | McClatchie's English, the three Wings he translated, his Appendix, four plates | **64 of 64** | OCR |
 | `locks/` | The Tao Te Ching glossary, vendored, and measured against this text | 50 terms, 39 binding | generated |
 | `wangbi/lueli.md` | 王弼 周易略例, the Song edition in the 四部叢刊, with 邢璹's Tang notes marked | **7 of 7 chapters** | OCR, unproofread; graded 93.4–99.7% per chapter |
+| `wangbi/zhu/` | 王弼 周易注 on the sixty-four, and 韓康伯's on the Wings, the same Song printing | **64 of 64 · 3 of 3** | OCR, mostly unproofread; text graded 97.1% mean, notes 92.1% mean |
 | `shuowen/` | 說文解字 — Xu Shen's entry for every character of the Zhouyi and its Wings | **1,228 of 1,374** | human transcription; the parse is mechanical |
 | `.cache/` | The fetched wikitext and OCR the importer ran from | — | gitignored |
 
@@ -78,6 +79,8 @@ Everything above is written by `npm run import-sources`. **Nothing in this direc
 ```
 
 A transposed row in our table cannot survive that. It is worth more than proofreading, and it is worth more than the text itself.
+
+**A known defect: simplified graphs.** Grading the 周易注 against this text exposed a handful of **simplified** characters in the Wikisource transcription — 密**云**不雨 for 雲, 剛柔**济**也 for 濟, 月**几**望 for 幾, 百**谷**草木 for 穀, and 丑, 愿, 荐, 涂 for 醜, 願, 薦, 塗, with some 后 for 後. Nothing here is hand-edited, so they stand until fixed upstream or the importer is taught to report them — `WORKLIST.md` B9.
 
 **One orthographic variant carried across:** hexagram 32 is titled 恒 on Wikisource and 恆 in our table. The same character; the map is in the importer, and is meant to be read rather than to grow.
 
@@ -280,11 +283,18 @@ De Harlez's French was translated into English by J. P. Val d'Eremao and **seria
 
 **The notes are kept, and kept apart.** 邢璹's double-line annotations are marked 〈…〉 in place; a note the printing breaks across a column or a page is rejoined. Glyph placeholders are resolved through Wikisource's own `Module:SKchar` tables; the three with no Unicode form are given as that table's stand-in and marked ⟨…⟩ — 彖 among them, which is why the first chapter's heading needed matching around it.
 
-**The 周易注 is the same printing and is not vendored yet** — `WORKLIST.md` B8.
+### `wangbi/zhu/` — 王弼 周易注
+
+**Source:** the same 四部叢刊 printing — 卷一–卷五 in `Sibu Congkan0001-王弼-周易-2-1.djvu`, 卷六–卷九 in `…2-2.djvu`, 228 scan pages, each page's revision and Wikisource proofreading level in the file that uses it. 卷一–卷六 are the sixty-four with Wang Bi's notes; 卷七–卷九 are 繫辭上, 繫辭下 and 說卦·序卦·雜卦 with **韓康伯's**, which the printing says at the head of each 卷 and the importer checks.
+
+**Divided where the printing divides it.** Each hexagram opens with its figure and a trigram label set in the note type — 乾下乾上. The 64 labels are taken in order and each is checked against our table: 63 agree, and 62 小過's reads 良下震上, OCR damage to 艮, recorded and left as read. 29 坎 prints its label above-first, 坎上坎下. A label is only recognised straight after a figure, because 益's commentary has a note, 損上益下, of the same shape. The figure glyphs are the bot's reading of a drawing: 62 of 64 agree, and 48 and 62 are recorded as they read.
+
+**Graded twice, because there are two things to trust.** *The text:* the share of `zhouyi/`'s clauses found verbatim — **mean 97.1%, lowest 86.2%** — order-free, because Wang Bi sets each 小象 after its line. *The notes:* the share of Wang Bi's notes, as Wikisource's typed 周易正義 gives them, found verbatim — **mean 92.1%, lowest 75.0%**, and 85–88% for 韓康伯. The typed 周易正義 names no edition and is not vendored; it is the only witness to the notes. The import fails if a hexagram's text falls below 85%; the notes' grade is reported in each file and never refuses one. Glyph variants are folded **for grading only** (`ZHU_GLYPHS` in the importer, harvested and filtered by hand); readings — 於/于, 後/后, 係/系 — are not.
+
 
 ## What is wanted, in order of value
 
-**1. Wang Bi's 周易注.** *(His 周易略例 is vendored, 2026-09-24 — see `wangbi/lueli.md` above; this is the commentary itself.)* The same commentator the Tao Te Ching project already vendors, on this book — and the commentary that made this the *received* text. Public domain by age; on Chinese Wikisource, and scanned in the Siku Quanshu at archive.org. **This is the highest-value item on the list by a distance**, because it supplies for the I Ching exactly what `sources/commentaries/wangbi/` supplies over there, and because the continuity between the two projects becomes a fact about the sources rather than a claim about the method.
+**1. ~~Wang Bi's 周易注.~~** *Done, 2026-09-24, with his 周易略例 — see `wangbi/zhu/` and `wangbi/lueli.md` above.* The same commentator the Tao Te Ching project already vendors, on this book — and the commentary that made this the *received* text. Public domain by age; on Chinese Wikisource, and scanned in the Siku Quanshu at archive.org. **This is the highest-value item on the list by a distance**, because it supplies for the I Ching exactly what `sources/commentaries/wangbi/` supplies over there, and because the continuity between the two projects becomes a fact about the sources rather than a claim about the method.
 
 **2. Legge's footnotes.** Already sitting in the cached HTML and OCR that the importer reads, below the rule it currently stops at. They hold his construal of the line positions and correlates — the most useful thing he has — and the overlay at its densest. Vendor them into a `notes:` section, clearly separated, or not at all.
 
