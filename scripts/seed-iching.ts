@@ -72,9 +72,18 @@ const trigramFor = (binary: string) => {
 
 const pad = (n: number) => String(n).padStart(2, '0')
 
-/** Refuse to overwrite anything a human has touched. */
-const isDraft = (path: string) =>
-  !existsSync(path) || /^status:\s*draft\s*$/m.test(readFileSync(path, 'utf8'))
+/**
+ * Refuse to overwrite anything a human has touched. `status: draft` alone is not
+ * enough: a draft can already carry a rendering (the eight trigrams do) or an
+ * authored section (every hexagram's `## The signature`). The template writes
+ * neither, so either one means the file is no longer the seeder's.
+ */
+const isDraft = (path: string) => {
+  if (!existsSync(path)) return true
+  const text = readFileSync(path, 'utf8')
+  const authored = /^render:\s*(?!null\s*$)\S/m.test(text) || /^## /m.test(text)
+  return /^status:\s*draft\s*$/m.test(text) && !authored
+}
 
 function seedHexagrams() {
   const dir = join(ROOT, 'hexagrams')

@@ -187,7 +187,7 @@ The trap is specific and this project will walk into it if it is not named. **�
 
 Use them. Do not copy them.
 
-**And they are the declared lens.** Since 2026-09-24 ([ADR 0016](https://github.com/opencosmos-ai/opencosmos/blob/main/docs/decisions/0016-the-i-ching-is-read-through-the-wings-and-the-lens-is-declared.md), accepted), this project translates the 周易 as the Wings made it and says so — [`README.md`](README.md#the-lens) states the five terms. That makes the Wings the **first interpretive authority**, ahead of the three translators; it does not make them text. Every rule in this section still holds, and a reading that comes from a Wing is labelled as coming from one. The four spectrums the trigram system rests on ([`README.md`](README.md#the-shape-of-the-figures)) are the Wings' too, and are used under the same terms: as a check, never as a source.
+**And they are the declared lens.** Since 2026-09-24 ([ADR 0016](https://github.com/opencosmos-ai/opencosmos/blob/main/docs/decisions/0016-the-i-ching-is-read-through-the-wings-and-the-lens-is-declared.md), accepted), this project translates the 周易 as the Wings made it and says so — [`README.md`](README.md#the-lens) states the five terms. That makes the Wings the **first interpretive authority**, ahead of the three translators; it does not make them text. Every rule in this section still holds, and a reading that comes from a Wing is labelled as coming from one. The four spectrums the trigram system rests on ([`README.md`](README.md#the-shape-of-the-figures)) are the Wings' too, and are used under the same terms: the signature may suggest a candidate, and only the lines admit it.
 
 ---
 
@@ -216,7 +216,7 @@ Use them. Do not copy them.
 - [`a-closed-set-is-one-decision`](principles/a-closed-set-is-one-decision.md) — the eight trigrams, the verdict graphs and 君子/小人 are each **one** decision, not eight, seven and two.
 - [`the-8-trigrams-are-arranged-in-4-pairs`](principles/the-8-trigrams-are-arranged-in-4-pairs.md) — where to find the ruling the text already made. 說卦 ch 3 settled 巽; the same move is available wherever the Chinese lines its terms up.
 - [`the-image-names-the-trigram-the-lines-name-the-hexagram`](principles/the-image-names-the-trigram-the-lines-name-the-hexagram.md) — the eight doubled hexagrams are named from their own lines, not their trigram's image; a trigram's `forbidden:` does not follow its character into the hexagram.
-- [`read-a-figure-through-its-spectrums`](principles/read-a-figure-through-its-spectrums.md) — place a hexagram on the four spectrums before trusting its English; the signature checks a name and never supplies one.
+- [`read-a-figure-through-its-spectrums`](principles/read-a-figure-through-its-spectrums.md) — place a hexagram on the four spectrums before trusting its English; the signature may suggest a candidate; only the lines admit it.
 
 ---
 

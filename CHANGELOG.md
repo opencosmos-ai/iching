@@ -41,6 +41,16 @@ This is a **chronological spine that points into them**, never a second copy.
 
 ---
 
+## 2026-09-25 — Every hexagram read through its signature
+
+A reading of what each figure's place on the four spectrums implies, written into all 64 files, to support drafting names and, later, Shalom's own versions of the 64.
+
+- **Each `hexagrams/NN.md` ends with *The signature — a reading*.** Each has four parts: the signature; what the 彖 and 大象 read; what the polarity implies; and what it means for the name. **It is a reading, not a ruling**: it reads the figure through the declared lens and is labelled as the Wings'. Every Chinese quotation was checked by script against `sources/`, and the English was scanned against the locks and the register rules.
+- **The rule for names was amended before it merged**, at Shalom's direction: *the signature may suggest a candidate; only the lines admit it.* Each reading names the candidates its signature suggests, tests each against the hexagram's own lines, and records the ones that fail.
+- **[`hexagram-names.md`](hexagram-names.md) gains the results.** A *signature says* column (21 supports · 34 deepens · 9 strains) and ◇ candidates, each marked as surviving or failing the lines.
+- **The nine the signature strains**, worth a second look before approval, are 11 and 12 (both waiting on 亨), 14, 19, 34, 51, 58, 60 and 61.
+- **The seeder no longer overwrites authored drafts.** `status: draft` alone used to be enough for it to rewrite a file, which would have erased these sections and the trigrams' renders. Now it skips any file that has a rendering or a `##` section.
+
 ## 2026-09-24 — The lens declared, and the four spectrums made the frame
 
 ADR 0016 accepted, and the structure the trigram system rests on written down where every reader starts. WORKLIST A10.
@@ -48,7 +58,7 @@ ADR 0016 accepted, and the structure the trigram system rests on written down wh
 - **The lens is declared.** [`README.md` → *The lens*](README.md#the-lens) states the five terms of [ADR 0016](https://github.com/opencosmos-ai/opencosmos/blob/main/docs/decisions/0016-the-i-ching-is-read-through-the-wings-and-the-lens-is-declared.md): the core text is the only text a rendering answers to; the Wings are the first interpretive authority; 王弼's cross-reading without his sweeping-away of the images; the Laozi a check and never a source; the layer labelled. [`method.md`](method.md) § 5 applies them. The trigram renderings, which already assumed this, are now legitimate on a stated method rather than quietly.
 - **[`README.md` → *The shape of the figures*](README.md#the-shape-of-the-figures)** — the eight trigrams are four spectrums, and 說卦 states all three levels: the images (ch 3), the actions (ch 7), and the height of the odd line (ch 10, 一索 再索 三索), with 繫辭下 giving the pole. Every hexagram is a pole within and a pole without: 8 doubled, 8 crossed, 48 across two, and the sixteen single-spectrum figures frame both canons.
 - **Data and checks.** Each trigram carries `spectrum`, `pole` and `odd_line`, and each hexagram a `signature:` — its class and the spectrum and pole within and without, derived by [`scripts/signature.ts`](scripts/signature.ts) and checked field by field against its trigrams; `generated/iching-data.ts` carries them to the app as `spectrum`, `pole`, `oddLine` (additive — the app's copy in opencosmos picks them up when next refreshed). `npm run check` derives all three from the figure, reads the four pairs out of `sources/wings/shuogua.md`, and asserts the classes and the frame; a flipped pole, a moved odd line, a trigram on the wrong spectrum and a spectrum named yin-first were each seen to fail. The seeder writes the fields too.
-- **A principle, `active` by Shalom's ruling:** [`read-a-figure-through-its-spectrums`](principles/read-a-figure-through-its-spectrums.md) — place a hexagram on its spectrums before trusting its English; the signature checks a name and never supplies one.
+- **A principle, `active` by Shalom's ruling:** [`read-a-figure-through-its-spectrums`](principles/read-a-figure-through-its-spectrums.md) — place a hexagram on its spectrums before trusting its English; the signature may suggest a candidate; only the lines admit it.
 
 ## 2026-09-24 — Every name drafted as a candidate, and the first rulings on them
 

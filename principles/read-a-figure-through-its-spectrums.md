@@ -1,6 +1,6 @@
 ---
 id: read-a-figure-through-its-spectrums
-title: "Read a figure through its spectrums — as a check on the English, never its source"
+title: "Read a figure through its spectrums — the signature may suggest a candidate; only the lines admit it"
 status: active
 since: 2026-09-24
 trigger: "you are about to settle the English for a hexagram, or for one of its lines, without having placed its two trigrams on their spectrums"
@@ -12,13 +12,14 @@ check: check
 supersedes: []
 ---
 
-# Read a figure through its spectrums — as a check on the English, never its source
+# Read a figure through its spectrums — the signature may suggest a candidate; only the lines admit it
 
 **The rule.** Before an English word is settled for a hexagram, place it: which spectrum and which
 pole is the trigram within, which the trigram without, and is it doubled, crossed, or across two?
 Then read the word against that signature — 31 咸 (*xián*) is *holding within, releasing without*.
-**A word the signature cannot account for gets a second look. A word the signature wrote gets
-thrown out**, because the name comes from the lines.
+**A word the signature cannot account for gets a second look. A word the signature suggests is a
+candidate, and nothing more: it is admitted only if it survives the hexagram's own lines**, because
+the name comes from the lines.
 
 **When it fires.** When a hexagram's English feels finished. Place the figure before you trust it.
 
@@ -46,7 +47,9 @@ least 33 of the 64 as *inner action + outer action* — 止而說, 動而說, �
 ready-made two-word gloss for half the book, and the precise shape of a `render:`.
 [`a-source-shaped-like-your-answer`](a-source-shaped-like-your-answer.md) is the rule for that, and
 [`commentary-is-not-a-rendering`](https://github.com/opencosmos-ai/taoteching) is the parent's: the
-signature is the Wings' reading, and it is evidence, not a word.
+signature is the Wings' reading, and it is evidence, not a word. **So it may widen the field of
+candidates, and it may never close it.** What decides is the test the Wings cannot pass for you:
+does the word work where the character stands in the judgment and the six lines?
 
 ---
 
@@ -60,10 +63,17 @@ the frame informally and unevenly. Shalom asked that it be made central.
 → [`../hexagram-names.md`](../hexagram-names.md#the-pattern-in-the-formation)
 
 **It is `active` by Shalom's ruling, 2026-09-24, not by the two-case threshold.** Its evidence so
-far is one investigation, which by [`../principles/README.md`](README.md) counts as one case. He
+far is one investigation, which by [`README.md`](README.md) counts as one case. Shalom
 promoted it on the strength of the structure itself — stated three times by 說卦 and now enforced
 by `npm run check` — rather than on its record in use. The first hexagram names drafted under it
 are the second case this entry is owed.
+
+**Amended the same day, before it merged — Shalom, 2026-09-24.** As first written, the rule said a
+word the signature wrote was thrown out. When Shalom asked the signatures to inspire new
+translations, that was changed to its present form: the signature may suggest a candidate; only the
+lines admit it. The safeguard moved rather than weakened — from where a word came from to whether
+it survives the text. It was amended in place rather than superseded because the first wording
+never reached `main` and nothing quotes it.
 
 ---
 
@@ -89,8 +99,9 @@ to prevent.
 **Not on the trigrams' own English.** A trigram *is* a pole; its English renders its image
 ([`the-image-names-the-trigram-the-lines-name-the-hexagram`](the-image-names-the-trigram-the-lines-name-the-hexagram.md)).
 
-**Not as a source of vocabulary.** *Holding* and *releasing* are this project's reading of 止 and
-說, and are not thereby available as the English of any hexagram whose signature contains them.
+**Not as a licence for the spectrum's own words.** *Holding* and *releasing* are this project's
+reading of 止 and 說. A signature may suggest one as a candidate, like any other word; it does not
+thereby become the English of every hexagram whose signature contains it.
 
 **Not across the five phases.** 五行 (*wǔxíng*) assignments to the trigrams are Han-era and cut
 across these pairs. They are a different system and never a check here.
@@ -102,5 +113,7 @@ across these pairs. They are a different system and never a check here.
 1. **Place the figure first** — spectrum and pole within, spectrum and pole without, and the
    class — and write the signature into the hexagram's glossary entry.
 2. **Say how the name answers to it**, in a sentence, or say why it does not.
-3. **Never let the signature supply the word.** If the English came from the 彖傳's two actions,
-   it came from commentary.
+3. **Test every candidate the signature suggests against the lines, and record the result** —
+   including the ones that fail, so the range is visible. A candidate that has not been tested
+   against the lines has not been admitted; if the English came from the 彖傳's two actions and
+   nowhere else, it came from commentary.
