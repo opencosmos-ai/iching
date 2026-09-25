@@ -56,7 +56,7 @@ not by position: the eight trigrams, then the verdict vocabulary as one decision
 | A11 | 🔴 | **Does the lock on 無 bind 无?** — the Zhouyi writes the negative 无 (158× in the core, 138× in the Wings) where the parent's lock is written on 無 (2× and 5×). Same word, two graphs; until it is ruled the lock reaches almost nothing here. Decides 25 无妄 and 无咎 (A4) together | `glossary/` | 1 |
 | | | **B · Evidence — what the sources still owe** | | |
 | B1 | ⬜ | **1,075 OCR disputes still unsettled** in McClatchie — both engines disagree and neither the book's vocabulary nor the scan pass could resolve it. The live count is the file's `summary:` | `sources/mcclatchie-1876/disputed.yaml` | 1075 |
-| B2 | ⬜ | **說文解字 not vendored** — corner 3 of the four. Until it is, argue from the graph and say that is what you are doing | `sources/` | 1 |
+| B2 | ✅ | ~~**說文解字 not vendored**~~ — closed 2026-09-24: [`sources/shuowen/entries.md`](sources/shuowen/entries.md), 1,228 of 1,374 characters, by the parent's parser ported and checked against it. 146 unmatched, incl. 雷 (filed as 靁), 无, 亨 | `sources/` | 1 |
 | B3 | ⏸ | **The Chinese half of McClatchie is not transcribed** — a rule, not a shortfall. Route named: `brew install tesseract-lang`, `chi_tra_vert` | `sources/` | 1 |
 | B4 | ⬜ | **Legge's footnotes not vendored** | `sources/legge-1882/` | 1 |
 | B6 | ⬜ | **王弼's 周易略例 not vendored** — [`tao-te-ching-relation.md`](tao-te-ching-relation.md) §2 and §8 quote 得意忘象 **from memory**. Vendor it before the phrase binds any decision | `sources/` | 1 |

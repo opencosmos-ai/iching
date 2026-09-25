@@ -5,7 +5,7 @@
  *
  *   npm run import-sources -- --fetch          # everything, from the network
  *   npm run import-sources                     # everything, from .cache/
- *   npm run import-sources -- --only zhouyi    # zhouyi | wings | legge | harlez | locks
+ *   npm run import-sources -- --only zhouyi    # zhouyi | wings | legge | harlez | locks | shuowen
  *   npm run import-sources -- --only mcclatchie --from <file>   # hand-carried; see below
  *
  * Three sources, three rights positions, and the frontmatter of every written
@@ -38,6 +38,9 @@ import { readFileSync, writeFileSync, readdirSync, mkdirSync, existsSync } from 
 import { join, resolve, dirname, basename } from 'node:path'
 import { createHash } from 'node:crypto'
 import { load } from 'js-yaml'
+import { build as shuowenBuild, row as shuowenRow, byCodePoint, VOLUMES as SHUOWEN_VOLUMES, volumeUrl as shuowenUrl } from './shuowen'
+
+const SHUOWEN_CJK = /[㐀-鿿豈-﫿\u{20000}-\u{2ebef}]/gu
 
 const ROOT = resolve(__dirname, '..')
 const ICHING = ROOT
@@ -2620,6 +2623,123 @@ function mcclatchieAppendix(paras: string[], pages: Page[]): string {
 
 // ─────────────────────────────────────────────────────────────────────────────
 
+// ─────────────────────────────────────────────────────────────────────────────
+// 說文解字 — the characters of the Zhouyi, from Xu Shen (c. 100 CE).
+// The parser is the Tao Te Ching project's, ported to scripts/shuowen.ts and held
+// to it: where that repository is beside this one, the port is re-run over the
+// Laozi and must reproduce its entries.md row for row, or this import fails.
+// ─────────────────────────────────────────────────────────────────────────────
+
+async function importShuowen() {
+  console.log('\n說文解字 — the characters of the Zhouyi')
+  const cacheDir = join(CACHE, 'shuowen')
+  mkdirSync(cacheDir, { recursive: true })
+  for (const vol of SHUOWEN_VOLUMES) {
+    const path = join(cacheDir, `${vol}.wikitext`)
+    if (existsSync(path)) continue
+    if (!FETCH) {
+      fail(`not cached: 說文解字/${vol} — re-run with --fetch`)
+      return
+    }
+    const res = await fetch(shuowenUrl(vol), { headers: { 'User-Agent': UA } })
+    if (!res.ok) throw new Error(`${res.status} 說文解字/${vol}`)
+    writeFileSync(path, await res.text())
+    console.log(`  · fetched 卷${vol}`)
+    await sleep(400)
+  }
+
+  // The port, checked against the original before it is trusted with this book.
+  const parentOut = join(TAOTECHING, 'sources', 'shuowen', 'entries.md')
+  const parentSource = join(TAOTECHING, 'source', 'chinese.md')
+  if (existsSync(parentOut) && existsSync(parentSource)) {
+    const laozi = readFileSync(parentSource, 'utf8').split(/^## Chapter \d+$/m).slice(1).join('\n')
+    const probe = shuowenBuild(cacheDir, new Set(laozi.match(SHUOWEN_CJK) ?? []))
+    const mine = [...probe.hits.keys()].sort(byCodePoint).map(c => shuowenRow(probe.hits.get(c)!))
+    const theirs = readFileSync(parentOut, 'utf8').split('\n').filter(l => /^\| [^\sc:]/u.test(l) && !l.startsWith('| char'))
+    const differing = mine.filter((r, i) => r !== theirs[i]).length + Math.abs(mine.length - theirs.length)
+    if (differing) fail(`the port disagrees with taoteching's entries.md on ${differing} row(s) over the Laozi`)
+    else pass(`the port reproduces taoteching's 說文 table over the Laozi — ${mine.length} rows identical`)
+  } else console.log('  · taoteching not beside this repository — the port is not re-checked this run')
+
+  // The corpus: every section of every hexagram file, and the standalone Wings.
+  // Headings, blockquotes and the 〔…〕 collation notes are editorial, not text.
+  let text = ''
+  const zdir = join(SOURCES, 'zhouyi')
+  for (const f of readdirSync(zdir).filter(f => /^\d{2}\.md$/.test(f)).sort())
+    text += readFileSync(join(zdir, f), 'utf8').replace(/^---[\s\S]*?\n---\n/, '').split(/^## .+$/m).slice(1).join('\n')
+  const wdir = join(SOURCES, 'wings')
+  for (const f of readdirSync(wdir).filter(f => f.endsWith('.md') && f !== 'README.md').sort())
+    text += readFileSync(join(wdir, f), 'utf8').replace(/^---[\s\S]*?\n---\n/, '').replace(/^(#|>).*$/gm, '')
+  text = text.replace(/〔[^〕]*〕/g, '')
+  const corpus = new Set(text.match(SHUOWEN_CJK) ?? [])
+
+  const { entries, hits, missing, missingVolumes } = shuowenBuild(cacheDir, corpus)
+  if (missingVolumes.length) fail(`說文 volumes missing from the cache: ${missingVolumes.join(', ')}`)
+  if (entries.size < 9000) fail(`only ${entries.size} 說文 entries parsed — the dictionary has about 9,400`)
+
+  const kinds = new Map<string, number>()
+  for (const e of hits.values()) kinds.set(e.kind, (kinds.get(e.kind) ?? 0) + 1)
+  const md = [
+    '---',
+    'work: "說文解字"',
+    'work_english: "Shuowen Jiezi — Explaining Graphs and Analysing Characters"',
+    'author: "許慎"',
+    'author_english: "Xu Shen"',
+    'author_dates: "c. 58 – c. 148 CE"',
+    'edition: "四部叢刊初編 (Sibu Congkan, first series), facsimile"',
+    'transcription: "Chinese Wikisource, mainspace, tagged public domain worldwide"',
+    'obtained: "https://zh.wikisource.org/wiki/說文解字"',
+    'punctuation: "modern editorial, present in the transcription and retained"',
+    'rights: "public domain by age (author d. c. 148 CE)"',
+    'scope: "SELECTION — only characters occurring in the Zhouyi and its Wings, not the whole dictionary"',
+    'imported_by: "npm run import-sources -- --only shuowen"',
+    `transcribed: ${TODAY}`,
+    '---',
+    '',
+    '# 說文解字 — the characters of the Zhouyi',
+    '',
+    '*The earliest systematic analysis of Chinese characters, c. 100 CE, and the third of the four corners',
+    '[`method.md`](../../method.md) §2 argues from. Vendored as a **selection**: only the characters that occur in',
+    'the core text and the Wings as `sources/` holds them. The Chinese is Xu Shen\'s and is public domain by age;',
+    'the parse into semantic and phonetic components is mechanical, from his own 从X / X聲 formulas.*',
+    '',
+    '**The parser is the Tao Te Ching project\'s** (`tools/import_shuowen.py`), ported to',
+    '[`scripts/shuowen.ts`](../../scripts/shuowen.ts), and every import re-checks the port against that project\'s',
+    'own table. **So is the list of verified old forms** — 明 is filed as 朙, 以 as 㠯 — and no mapping is added here',
+    'that was not verified there: a wrong one would put another word\'s etymology under a right character.',
+    '',
+    '**The definitions are untranslated, deliberately.** Machine-rendering classical Chinese definitions would',
+    'manufacture scholarship nobody did. They are glossed by hand, in `glossary/`, as characters earn entries.',
+    '',
+    `**${hits.size} of the ${corpus.size} characters in the Zhouyi are matched** (${(100 * hits.size / corpus.size).toFixed(1)}%) — `
+      + [...kinds].sort((a, b) => b[1] - a[1]).map(([k, n]) => `${n} ${k}`).join(', ') + '.',
+    '',
+    '**Columns.** `char` (as the Zhouyi writes it) · `headword` (the graph 說文 files it under) · `matched_by` ·',
+    '`radical` (the 說文 section, not always the Kangxi one) · `kind` · `semantic` (从X — components carrying meaning) ·',
+    '`phonetic` (X聲 — present for sound alone) · `fanqie` (the Middle Chinese spelling, where the transcription',
+    'carries one) · `definition` (Xu Shen, verbatim).',
+    '',
+    '| char | headword | matched_by | radical | kind | semantic | phonetic | fanqie | definition |',
+    '| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |',
+    ...[...hits.keys()].sort(byCodePoint).map(c => shuowenRow(hits.get(c)!)),
+    '',
+    '## Not matched to a 說文 entry',
+    '',
+    `*${missing.length} of the Zhouyi's characters. Most are later graphs, or are filed under an older form nobody`,
+    'has verified yet. A mapping is added only when the old form is confirmed present in the vendored text and its',
+    'definition is this character\'s word — in the Tao Te Ching project\'s `SHUOWEN_VARIANTS`, which this importer',
+    'uses unchanged. This list is the worklist.*',
+    '',
+    missing.join(' '),
+    '',
+  ].join('\n')
+  const out = join(SOURCES, 'shuowen')
+  mkdirSync(out, { recursive: true })
+  writeVendored(join(out, 'entries.md'), md)
+  pass(`${hits.size} of ${corpus.size} Zhouyi characters matched to 說文 (${entries.size} entries parsed); ${missing.length} not`)
+  console.log('  → sources/shuowen/entries.md')
+}
+
 async function main() {
   console.log(`\nimporting I Ching sources${FETCH ? ' (fetching)' : ' (from cache)'}`)
   mkdirSync(CACHE, { recursive: true })
@@ -2631,6 +2751,7 @@ async function main() {
   // Never part of an "all" run: it needs a file only a human can produce.
   if (ONLY === 'mcclatchie') await importMcClatchie()
   if (want('locks')) await importLocks()
+  if (want('shuowen')) await importShuowen()
 
   if (unknownTemplates.size) {
     console.log(`\n  · wikitext templates dropped, unrecognised: ${[...unknownTemplates].join(', ')}`)

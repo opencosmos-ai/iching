@@ -56,6 +56,7 @@ npm run principles -- --applies sources
 | `harlez-1889/` | de Harlez's French, judgment, lines, and his own commentary | **64 of 64** | OCR |
 | `mcclatchie-1876/` | McClatchie's English, the three Wings he translated, his Appendix, four plates | **64 of 64** | OCR |
 | `locks/` | The Tao Te Ching glossary, vendored, and measured against this text | 50 terms, 39 binding | generated |
+| `shuowen/` | 說文解字 — Xu Shen's entry for every character of the Zhouyi and its Wings | **1,228 of 1,374** | human transcription; the parse is mechanical |
 | `.cache/` | The fetched wikitext and OCR the importer ran from | — | gitignored |
 
 Everything above is written by `npm run import-sources`. **Nothing in this directory is hand-edited.** Fix the importer, or fix the upstream source, and re-run.
@@ -260,15 +261,25 @@ De Harlez's French was translated into English by J. P. Val d'Eremao and **seria
 
 ---
 
+### `shuowen/` — 說文解字
+
+**Source:** Chinese Wikisource mainspace, `說文解字/01` … `/14`, the 四部叢刊初編 facsimile. Public domain by age (Xu Shen, d. c. 148 CE). **A selection, and marked as one:** only the entries for characters that occur in `zhouyi/` and `wings/`, with headings, English and the 〔…〕 collation notes excluded from that count.
+
+**The parser is not this project's.** It is the Tao Te Ching project's `tools/import_shuowen.py`, ported to [`scripts/shuowen.ts`](../scripts/shuowen.ts) — and **the port is checked on every import**: run over the Laozi, it must reproduce that project's `sources/shuowen/entries.md` row for row, or the import fails. The first run did, 763 rows identical. The verified old forms (明 filed as 朙) come across unchanged, and none is added here: a mapping enters only when the old form is confirmed in the vendored text and its definition is this character's word.
+
+**What does not match, and why it stays unmatched.** 146 characters, listed at the foot of the file. Some are simply later graphs; others are filed under an old form nobody has verified yet — 雷 is entered as 靁, and 无 and 亨 are not matched at all. Those are the worklist, not a defect to paper over.
+
+**One inherited flaw, kept for parity:** 兌's row carries Wikisource's language-conversion markup, `-{儿}-`, and so parses as *unanalysed*. It is the same in the parent's table; fix it there, and the port check will say when this side needs to follow.
+
 ## What is wanted, in order of value
 
 **1. Wang Bi's 周易注.** The same commentator the Tao Te Ching project already vendors, on this book — and the commentary that made this the *received* text. Public domain by age; on Chinese Wikisource, and scanned in the Siku Quanshu at archive.org. **This is the highest-value item on the list by a distance**, because it supplies for the I Ching exactly what `sources/commentaries/wangbi/` supplies over there, and because the continuity between the two projects becomes a fact about the sources rather than a claim about the method.
 
 **2. Legge's footnotes.** Already sitting in the cached HTML and OCR that the importer reads, below the rule it currently stops at. They hold his construal of the line positions and correlates — the most useful thing he has — and the overlay at its densest. Vendor them into a `notes:` section, clearly separated, or not at all.
 
-**3. A hexagram-name concordance against the locks.** Which of the 64 names contain a locked character, and what each lock already decides. 乾 and 坤 are the obvious pair, but 復 (24), 无妄 (25), 大有 (14) and 大過 (28) all collide with entries that are already settled. Mechanical to build from what is here, and it turns 36 measured locks into 64 answered questions.
+**3. ~~A hexagram-name concordance against the locks.~~** *Done, 2026-09-24:* [`glossary/NAMES.md`](../glossary/NAMES.md), `npm run names`. It found 6 names bound by a lock, not the collisions guessed below — 復 is locked only inside 復命, and 乾 and 坤 only through their images. Which of the 64 names contain a locked character, and what each lock already decides. 乾 and 坤 are the obvious pair, but 復 (24), 无妄 (25), 大有 (14) and 大過 (28) all collide with entries that are already settled. Mechanical to build from what is here, and it turns 36 measured locks into 64 answered questions.
 
-**4. 說文解字 for the hexagram names.** The taoteching project has `tools/import_shuowen.py` already written and a `sources/shuowen/` directory to match. Sixty-four characters is a small ask of it, and the radical-level reading is where a `render` decision usually gets settled.
+**4. ~~說文解字 for the hexagram names.~~** *Done, 2026-09-24, and for every character rather than sixty-four:* [`shuowen/entries.md`](shuowen/entries.md) — see *`shuowen/`* below. The taoteching project has `tools/import_shuowen.py` already written and a `sources/shuowen/` directory to match. Sixty-four characters is a small ask of it, and the radical-level reading is where a `render` decision usually gets settled.
 
 **5. The English de Harlez.** Now that the French is vendored, the Val d'Eremao English of 1896 is worth having beside it — see the section above for where it is and why it is only partly reachable. Lower value than it looks: the French is complete and this project reads for construal, not for English.
 
