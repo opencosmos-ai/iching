@@ -297,9 +297,18 @@ Yijing's entire line-position logic.
 hexagram, the one traditionally said to have no bad line. The Laozi never writes the character and
 is about almost nothing else. **A shared idea with no shared word** — the exact inverse of 剛柔.
 
-**時 (*shí* — the season, the right moment).** Wings 58, Daodejing **once** — 動善時, ch 8, in a
-list of seven things the masterful are masterful at. Timing is the Wings' obsession and, in the
-Laozi, one item in a list.
+**時 (*shí* — the season, the right moment).** Wings 58, Daodejing **once** — 動善時 (*in action,
+masterful at timing*), ch 8, the last of seven things the masterful are masterful at. What the
+counts mean is **open**, and two readings fit them:
+
+- **The word marks a difference in concern.** Timing is the Wings' obsession, and in the Laozi it
+  is one item in a list — named once and not developed. On this reading the books part here.
+- **The idea is shared and only the word is not** — the pattern of 謙 above. Ch 64 is about
+  acting early without naming time: 為之於未有，治之於未亂 (*act on it before it exists; govern
+  it before there is disorder*), and warns that people fail 於幾成 (*on the verge of completion*).
+  On this reading the Laozi cares about the moment and does not call it 時.
+
+The counts establish only the first sentence of this paragraph; neither reading is settled here.
 
 **水 (*shuǐ* — water).** 坎 (*kǎn*) is water as the thing you fall into — 說卦 ch 7 glosses it 陷
 (*xiàn*, a pit) and the trigram is danger. Daodejing 8 is 上善若水, water as the model for conduct.
@@ -458,6 +467,6 @@ declaring it converts an invisible overlay into a stated method.
 - ~~**The measurements want a script.**~~ They have one: `npm run measure` recomputes every
   figure in § 3–5 and `--check` fails if the brief disagrees. Its first run, on 2026-09-24, found
   15 of 87 figures wrong — the hand count's Daodejing was short by 138 characters, and 時 is in
-  the Laozi after all (ch 8). None moved a finding but § 5's sentence on timing, now corrected.
+  the Laozi after all (ch 8). None moved a finding but § 5's paragraph on timing, which now states the count and leaves its meaning open.
 - **君子 should be ruled here and promoted to the parent's lock table**, not written twice. It is
   the first term this project will settle that the Tao Te Ching project needs.
