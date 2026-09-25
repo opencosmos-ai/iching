@@ -18,6 +18,7 @@ hexagrams/01.md … 64.md      the sixty-four, in King Wen order
 trigrams/01-qian.md … 08-kun.md
 glossary/                    one entry per ruled term — the argument behind a `render:`
 glossary/INDEX.md            GENERATED — `npm run glossary`
+glossary/NAMES.md            GENERATED — `npm run names`; the 64 names against the locks, read before drafting one
 ```
 
 **The record** — what changed and when, pointing into the layers below rather than restating them.
@@ -42,6 +43,9 @@ sources/legge-1882/01.md … 64.md  Legge's English, as a reference
 sources/harlez-1889/01.md … 64.md de Harlez's French — the reading that disagrees
 sources/mcclatchie-1876/          McClatchie's English, his Wings, his Appendix, four plates
 sources/locks/                    the Tao Te Ching glossary, vendored
+sources/wangbi/zhu/               王弼 周易注 per hexagram, 韓康伯 on the Wings — graded twice
+sources/wangbi/lueli.md           王弼 周易略例 — the Song edition, 邢璹's notes marked
+sources/shuowen/entries.md        說文解字 — every Zhouyi character Xu Shen enters, parsed
 sources/PROVENANCE.md             what may live here, and on what authority
 ```
 
@@ -60,6 +64,7 @@ npm run build                      # markdown → generated/iching-data.ts
 npm run check                      # the table checks itself — see Verification
 npm run principles                 # principles/INDEX.md, and verify every link and every entry's shape
 npm run glossary                   # glossary/INDEX.md, from each entry's frontmatter
+npm run names                      # glossary/NAMES.md — the 64 names against the locks
 npm run measure                    # recompute tao-te-ching-relation.md's figures; needs ../taoteching
 ```
 

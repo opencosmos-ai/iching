@@ -51,15 +51,18 @@ not by position: the eight trigrams, then the verdict vocabulary as one decision
 | A6 | ⬜ | **貞 (111×) · 亨 (48×) · 孚 (42×)** — the divinatory/ethical fork, the deepest open question in the project. Read all three translators before touching any of them | `glossary/` | 3 |
 | A7 | ⬜ | **The 64 hexagram names** | `hexagrams/` | 64 |
 | A8 | ⬜ | **The judgments and line texts** — 64 × 8 | `hexagrams/` | 512 |
-| A9 | ⬜ | **Hexagram-name concordance against the locks**, before any name is drafted | — | 1 |
+| A9 | ✅ | ~~**Hexagram-name concordance against the locks**~~ — closed 2026-09-24: [`glossary/NAMES.md`](glossary/NAMES.md), `npm run names`. 6 of 64 names carry a lock; 53 recur as a word in their own lines | `glossary/` | 1 |
 | A10 | 🔴 | **ADR 0016 — the Wings are the lens, and it is declared** — `Proposed`. Fixes whether this translates the Bronze Age core text or the book the Wings made of it; the trigram renderings already assume an answer. Accepting it adds a stated lens to `README.md` | [`0016`](https://github.com/opencosmos-ai/opencosmos/blob/main/docs/decisions/0016-the-i-ching-is-read-through-the-wings-and-the-lens-is-declared.md) | 1 |
+| A11 | 🔴 | **Does the lock on 無 bind 无?** — the Zhouyi writes the negative 无 (158× in the core, 138× in the Wings) where the parent's lock is written on 無 (2× and 5×). Same word, two graphs; until it is ruled the lock reaches almost nothing here. Decides 25 无妄 and 无咎 (A4) together | `glossary/` | 1 |
 | | | **B · Evidence — what the sources still owe** | | |
 | B1 | ⬜ | **1,075 OCR disputes still unsettled** in McClatchie — both engines disagree and neither the book's vocabulary nor the scan pass could resolve it. The live count is the file's `summary:` | `sources/mcclatchie-1876/disputed.yaml` | 1075 |
-| B2 | ⬜ | **說文解字 not vendored** — corner 3 of the four. Until it is, argue from the graph and say that is what you are doing | `sources/` | 1 |
+| B2 | ✅ | ~~**說文解字 not vendored**~~ — closed 2026-09-24: [`sources/shuowen/entries.md`](sources/shuowen/entries.md), 1,228 of 1,374 characters, by the parent's parser ported and checked against it. 146 unmatched, incl. 雷 (filed as 靁), 无, 亨 | `sources/` | 1 |
 | B3 | ⏸ | **The Chinese half of McClatchie is not transcribed** — a rule, not a shortfall. Route named: `brew install tesseract-lang`, `chi_tra_vert` | `sources/` | 1 |
 | B4 | ⬜ | **Legge's footnotes not vendored** | `sources/legge-1882/` | 1 |
-| B6 | ⬜ | **王弼's 周易略例 not vendored** — [`tao-te-ching-relation.md`](tao-te-ching-relation.md) §2 and §8 quote 得意忘象 **from memory**. Vendor it before the phrase binds any decision | `sources/` | 1 |
+| B6 | ✅ | ~~**王弼's 周易略例 not vendored**~~ — closed 2026-09-24: [`sources/wangbi/lueli.md`](sources/wangbi/lueli.md), the Song edition, OCR graded 93.4–99.7% per chapter. The brief's § 8 now quotes it — and the slogan 得意忘象 turns out not to be in it; he writes 得意而忘象 | `sources/` | 1 |
 | B7 | ✅ | ~~**The two-corpus measurements had no script**~~ — closed 2026-09-24: `npm run measure` recomputes all 87 figures in the brief; its first run corrected 15, and 時 turned out to be in the Laozi (ch 8) | `scripts/` | 1 |
+| B8 | ✅ | ~~**王弼's 周易注 not vendored**~~ — closed 2026-09-24: [`sources/wangbi/zhu/`](sources/wangbi/zhu/), the sixty-four with Wang Bi's notes and the Wings with 韓康伯's; text graded 97.1% mean against `zhouyi/`, notes 92.1% against the typed 周易正義 | `sources/` | 1 |
+| B9 | ⬜ | **Simplified graphs in the vendored Zhouyi** — 云 濟→济 几 谷 丑 愿 荐 涂, some 后 for 後, found by grading the 周易注 against it. `sources/` is never hand-edited: report them from the importer, and fix upstream on Wikisource where the scan supports it | `sources/zhouyi/` | ~15 |
 | B5 | ⬜ | **`prescrves-the «`-class errors** — multi-token blocks straddling a line break are left alone by design; a proofreading pass would need the scan | `disputed.yaml` | — |
 | | | **C · Tooling** | | |
 | C1 | ✅ | ~~**No glossary index generator**~~ — closed 2026-09-24: `npm run glossary` writes `glossary/INDEX.md`, and CI fails if it is stale | `scripts/` | 1 |
@@ -100,6 +103,9 @@ sentence from the trigram's name, and 鼎 is a cauldron on a **wood** fire. Queu
 
 ## Closed — the ledger
 
+- **2026-09-24** · **The names concorded; 說文, 王弼's 略例 and his 周易注 vendored** (A9, B2, B6, B8) — `glossary/NAMES.md`;
+  `sources/shuowen/`, by the parent's parser held to it; `sources/wangbi/lueli.md`, graded against a
+  typed witness. Surfaced: 無/无 (A11) and, from grading the 周易注 (B8, also closed), simplified graphs in our own Zhouyi (B9). → [CHANGELOG](CHANGELOG.md)
 - **2026-09-24** · **The brief's measurements have a script** (B7) — `npm run measure`; 15 of 87 hand-counted
   figures were wrong, one of them an argument: 時 is in the Laozi, once. → [CHANGELOG](CHANGELOG.md)
 - **2026-09-24** · **The glossary is indexed, and the locks are checked by code** (C1, C2, C3, C10) —

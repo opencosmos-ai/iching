@@ -54,6 +54,9 @@ the thing is not borrowing. 雷 is thunder. See [`method.md`](../method.md) §2.
 
 ## The index, and what is checked
 
+**Before drafting a hexagram name**, read [`NAMES.md`](NAMES.md) — which names a lock already binds, and how
+each name goes on being used as a word in its own lines. `npm run names` regenerates it.
+
 [`INDEX.md`](INDEX.md) is generated from the frontmatter — `npm run glossary` after adding or changing an
 entry, and CI fails if it is stale. `npm run check` fails if a `glossary_refs:` names no entry, if a
 `render:` disagrees with the entry that argues it, or if a rendering uses a word its entry or a lock forbids.

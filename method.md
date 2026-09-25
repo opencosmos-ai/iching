@@ -82,7 +82,7 @@ The same holds for sources: **the admission rules in [`sources/PROVENANCE.md`](s
 
 1. **The Chinese.** `sources/zhouyi/NN.md` — the judgment and the six line texts. This is the only text a rendering answers to.
 2. **The Wings.** The classical interpretive tradition, and the oldest one there is for this book. 彖傳 and 象傳 are in the hexagram's own file; 說卦 and 雜卦 are in `sources/wings/`. **They are commentary, not text** — see §5.
-3. **The characters themselves.** 說文解字 and the radical-level reading. Not vendored yet; on the wanted-list. Until then, argue from the graph as it stands and say that is what you are doing.
+3. **The characters themselves.** 說文解字 and the radical-level reading — vendored at [`sources/shuowen/entries.md`](sources/shuowen/entries.md), Xu Shen's entry for every character of the Zhouyi that has one. Where a character is on its unmatched list, argue from the graph as it stands and say that is what you are doing.
 4. **The three old translations.** `sources/legge-1882/NN.md`, `sources/harlez-1889/NN.md` and `sources/mcclatchie-1876/NN.md`. For the range of readings and the construal of line positions — **never for a rendering.** (This bullet read "never for a word" until 2026-09-12, which was tighter than the rule above it and would have forbidden "thunder" for 雷.)
 
 **Method:** gather the four, form an independent reading, then render in Shalom's voice.

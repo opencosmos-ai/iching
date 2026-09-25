@@ -29,3 +29,6 @@ jobs:
 
       - name: Glossary index — generated from the entries, and current
         run: npm run glossary -- --check
+
+      - name: The 64 names against the locks — generated, and current
+        run: npm run names -- --check

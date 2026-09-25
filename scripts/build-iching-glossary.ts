@@ -26,7 +26,7 @@ const OUT = join(DIR, 'INDEX.md')
 const CHECK_ONLY = process.argv.slice(2).includes('--check')
 
 /** The files in glossary/ that are about the glossary rather than entries in it. */
-const NOT_ENTRIES = new Set(['README.md', 'INDEX.md'])
+const NOT_ENTRIES = new Set(['README.md', 'INDEX.md', 'NAMES.md'])
 const REQUIRED = ['character', 'pinyin', 'kind', 'render', 'status', 'since'] as const
 const STATUSES = new Set(['draft', 'locked'])
 /**
