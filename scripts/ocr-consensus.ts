@@ -3,10 +3,12 @@
  * and report where they disagree.
  *
  * WHY. Apple Vision reports a mean confidence of 0.98 on the McClatchie pages
- * while getting roughly one word in eight wrong; its self-report is worthless as
+ * while getting roughly one word in five wrong; its self-report is worthless as
  * a quality signal. Two engines that were trained separately are not worthless:
  * where Vision and Tesseract independently read the same word, the error rate on
- * this book measures at 2.8%, against 13.7% and 8.7% for either engine alone.
+ * this book measures at 3.9%, against 19.8% and 10.5% for either engine alone —
+ * over all 462 English body pages, the figures sources/PROVENANCE.md carries.
+ * (An earlier, smaller page sample gave 2.8%, 13.7% and 8.7%; superseded.)
  *
  * So this does not vote, and it does not repair. It classifies — corroborated
  * text on one side, a finite list of spans that need a human eye on the other.
@@ -14,7 +16,7 @@
  * belongs to a person looking at the scan, not to this file.
  *
  * RUN
- *   pnpm xenso:ocr-consensus primary=<file> other=<file> [other2=<file>] \
+ *   npx tsx scripts/ocr-consensus.ts primary=<file> other=<file> [other2=<file>] \
  *        [--out <file.json>] [--from N] [--to N]
  *
  * Each input is the `\f[seq=N conf=…]` page format that ocr-pdf.swift and

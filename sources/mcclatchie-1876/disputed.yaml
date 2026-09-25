@@ -10,7 +10,7 @@
 # either engine; it is recorded beside the text and never substituted into it,
 # because the vendored English only ever contains what an OCR engine read.
 #
-# Open a page with:  scripts/xenso/page-ink.swift <pdf> --export <seq> --dir . --scale 8
+# Open a page with:  scripts/page-ink.swift <pdf> --export <seq> --dir . --scale 8
 #
 # kinds:  word      both engines read a word and disagreed — the worklist
 #         omission  one engine missed words the other found
@@ -18,7 +18,7 @@
 #         punct     the same letters under different punctuation
 
 summary:
-  generated: 2026-09-12
+  generated: 2026-09-25
   primary: tesseract
   witness: "apple vision"
   tokens: 30907

@@ -1,17 +1,17 @@
 # Which scan page holds the Chinese for which hexagram.
 #
 # The Chinese is NOT transcribed here and must not be. It is vertical
-# columnar type, which the OCR in scripts/xenso/ocr-pdf.swift cannot read,
+# columnar type, which the OCR in scripts/ocr-pdf.swift cannot read,
 # and a transcription produced by a language model from these images would
 # be indistinguishable from that model's memory of the Yijing while wearing
 # the authority of an 1876 printing. sources/zhouyi/ is the text; this is a
 # pointer to a photograph of another witness, for checking it by eye.
 #
 # Open one with:
-#   swiftc -O scripts/xenso/page-ink.swift -o /tmp/page-ink -framework PDFKit -framework AppKit
-#   /tmp/page-ink knowledge/iching/sources/.cache/mcclatchie-1876.pdf --export <seq> --dir /tmp
+#   swiftc -O scripts/page-ink.swift -o /tmp/page-ink -framework PDFKit -framework AppKit
+#   /tmp/page-ink sources/.cache/mcclatchie-1876.pdf --export <seq> --dir /tmp
 #
-# Generated 2026-09-12. 147 Chinese pages across 64 hexagrams.
+# Generated 2026-09-25. 147 Chinese pages across 64 hexagrams.
 
 pages:
   - hexagram: 1

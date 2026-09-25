@@ -454,7 +454,7 @@ declaring it converts an invisible overlay into a stated method.
   treatment — none of it is load-bearing yet, and none of it may become load-bearing while it is
   still remembered rather than held.
 - **The measurements want a script.** They were computed once, by hand, in a scratch directory.
-  Until they are `pnpm xenso:` something, they are a claim rather than a grade —
+  Until they are a script, they are a claim rather than a grade —
   [`a-grade-must-be-testable`](principles/a-grade-must-be-testable.md).
 - **君子 should be ruled here and promoted to the parent's lock table**, not written twice. It is
   the first term this project will settle that the Tao Te Ching project needs.

@@ -41,7 +41,7 @@
  *
  *   6. A .txt file downloads when it finishes. Drop it anywhere and run:
  *
- *        pnpm xenso:import-iching --only mcclatchie --from ~/Downloads/<file>.txt
+ *        npm run import-sources -- --only mcclatchie --from ~/Downloads/<file>.txt
  *
  * IT IS RESUMABLE. Progress lives in `window.__harvest`. If the tab is closed
  * or the run dies, `await harvest({ from: window.__harvest.lastSeq + 1 })`

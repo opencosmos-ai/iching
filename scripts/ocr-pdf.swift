@@ -24,7 +24,7 @@
 //           [--merge | --force]
 //
 // Output is one file, pages separated by `\u{0C}[seq=N conf=…]`, which is the format
-// harvest-hathitrust.js emits and `xenso:import-iching --only mcclatchie --from`
+// harvest-hathitrust.js emits and `npm run import-sources -- --only mcclatchie --from`
 // already reads. Writing is non-destructive: a partial `--from/--to` run refuses to
 // clobber a fuller file unless `--merge` (splice by seq) or `--force` is given.
 

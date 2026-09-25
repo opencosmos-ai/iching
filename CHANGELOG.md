@@ -33,13 +33,32 @@ This is a **chronological spine that points into them**, never a second copy.
 | A rule learned, with its trigger and evidence | [`principles/`](principles/INDEX.md) — each entry carries its own `since:` |
 | How a rendering gets made | [`method.md`](method.md) |
 | What each source is and what it is for | [`README.md`](README.md) |
-| Coverage, counts, and what failed to extract | the run output of `pnpm xenso:import-iching`, and each file's frontmatter |
+| Coverage, counts, and what failed to extract | the run output of `npm run import-sources`, and each file's frontmatter |
 
 **Counts quoted below are a snapshot on the date of the entry**, not a table anyone maintains. The importer prints the live numbers; a hand-kept copy of a derivable list is precisely what the inherited `edited-or-generated` principle forbids.
 
 **Entries are milestones, not commits.** `git log` holds every change; this holds the ones that changed the shape of the work.
 
 ---
+
+## 2026-09-24 — The glossary is indexed, and the locks are checked by code
+
+The README said *"the index is generated, the locks are machine-checked,"* and neither was true here: `glossary/` had no index, and the parent's locks were enforced by reading. Nothing checked that a `glossary_refs:` named a real entry either, or that the word in `render:` was the word its entry argued for.
+
+- **`npm run glossary`** — [`scripts/build-iching-glossary.ts`](scripts/build-iching-glossary.ts) writes [`glossary/INDEX.md`](glossary/INDEX.md) from each entry's frontmatter, the parent's `build_index.py` arrangement; `--check` fails if the index is stale, and CI runs it. No `terms.yaml` — the renderings the locks are checked against already live in `render:`.
+- **`npm run check` holds the join** — a `glossary_refs:` naming no entry fails, and so does a `render:` its entry does not rule.
+- **`npm run check` holds the locks** — every English field against the file's own `forbidden:`, its entry's, and every vendored lock, by the parent's rules: substring, case-sensitive only where the forbidden word carries a capital, and a lock's word an error only where its character is in that hexagram's Chinese. The one rule not carried over is the sentence-initial capital, because a `render:` is a name.
+- **Seen to fail** — a dangling ref, a rendering its entry does not rule, a word from its own `forbidden:`, *Providence* for 乾 (the lock on 天), and *the Cosmos* in hexagram 1, where both 天 and 天地 are in the Chinese, each exit non-zero. Only the eight trigrams have English yet, so today it guards eight words; it is built for the 512 in A8.
+- **The locks re-vendored, at 50** (C10). 治 *govern*, 亂 *disorder* and 身 *body* are new, and 39 now bind in the Zhouyi against 36. The parent moved its flexions — a lock's chapter-scoped secondary English — out of `render:` into their own field, so a plain re-vendor would have dropped *seize* from 執 and *supreme authority* from 王; the table now shows them as the parent's own index does, `grasp · *seize* (ch 74)`, with the chapters named as the Tao Te Ching's. Counts that were hand-kept copies of this — in `glossary/README.md` and a principle — are gone rather than updated.
+
+## 2026-09-24 — The vendored sources regenerate from this repository
+
+Nothing had shown that `sources/` could still be rebuilt here since the extraction. The importer came across, but its offline inputs — the Wikisource pages, the McClatchie PDF, both OCR passes and the saved scan-adjudication calls — are gitignored, and they stayed behind in the opencosmos checkout.
+
+- **Re-run offline, every source except the locks, and the text is byte-identical.** zhouyi, wings, legge, harlez and mcclatchie each verified; across 268 files the only change was `transcribed:`, which the importer set to the day it ran. **It no longer does** (C11): a file whose text is unchanged is not rewritten, so its stamp moves only when the text does, and a no-op re-run leaves the tree clean — seen both ways, including a tampered file being put back. What did change was three McClatchie YAML headers, whose `scripts/xenso/` and `knowledge/iching/` paths the importer had already been corrected to stop writing — so those are now its output again rather than a hand-edit.
+- **The locks were not re-vendored in this pass, because that is a change of content** — the parent had moved on. They are, in the entry above, on Shalom's call.
+- **The last `pnpm xenso:*` commands and `scripts/xenso/` paths are gone** from the script headers, `README.md`, `sources/PROVENANCE.md` and the importer, which also looked for the parent at `../shalomormsby/taoteching`. `pnpm xenso:check-iching` stays where it is named: it is still opencosmos's command.
+- **The two OCR measurements are reconciled** (C9). The full-body figures — Vision 19.8%, Tesseract 10.5%, 3.9% where they agree — are current; the 13.7% / 8.7% / 2.8% in `ocr-consensus.ts`'s header came from an earlier, smaller sample, and `PROVENANCE.md` now says so.
 
 ## 2026-09-24 — The table checks itself again
 

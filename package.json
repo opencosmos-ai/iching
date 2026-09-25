@@ -7,6 +7,7 @@
     "build": "tsx scripts/build-iching.ts",
     "check": "tsx scripts/check-iching.ts",
     "principles": "tsx scripts/build-iching-principles.ts",
+    "glossary": "tsx scripts/build-iching-glossary.ts",
     "import-sources": "tsx scripts/import-iching-sources.ts",
     "seed": "tsx scripts/seed-iching.ts"
   },

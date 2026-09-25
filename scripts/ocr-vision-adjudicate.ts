@@ -28,9 +28,9 @@
  * bands rendered at 600 DPI, arriving at ~44px.
  *
  * RUN
- *   pnpm xenso:ocr-adjudicate [--limit N] [--concurrency N] [--model ID] [--dry-run]
+ *   npx tsx scripts/ocr-vision-adjudicate.ts [--limit N] [--concurrency N] [--model ID] [--dry-run]
  *
- * Reads  .cache/mcclatchie-1876-unresolved.json  (written by xenso:import-iching)
+ * Reads  .cache/mcclatchie-1876-unresolved.json  (written by npm run import-sources)
  * Writes .cache/mcclatchie-1876-scan-calls.json  (read back by the same importer)
  *
  * Resumable: pages already in the output are skipped, and results are flushed
@@ -206,7 +206,7 @@ async function main() {
     process.exit(1)
   }
   if (!existsSync(UNRESOLVED)) {
-    console.error(`no ${UNRESOLVED} — run pnpm xenso:import-iching --only mcclatchie first`)
+    console.error(`no ${UNRESOLVED} — run npm run import-sources -- --only mcclatchie first`)
     process.exit(1)
   }
 
@@ -253,7 +253,7 @@ async function main() {
   console.log(`\n  tesseract ${tally.tesseract}   vision ${tally.vision}   neither ${tally.neither}`)
   console.log(`  ${(tokensIn / 1e3).toFixed(0)}K in / ${(tokensOut / 1e3).toFixed(0)}K out — about $${cost.toFixed(2)} at ${MODEL} list price`)
   console.log(`  → ${CALLS}`)
-  console.log('  re-run pnpm xenso:import-iching --only mcclatchie to apply them')
+  console.log('  re-run npm run import-sources -- --only mcclatchie to apply them')
 }
 
 main()
