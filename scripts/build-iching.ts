@@ -15,6 +15,7 @@
 import { readFileSync, writeFileSync, readdirSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { load } from 'js-yaml'
+import { signatureOf, type Pole, type Place, type Signature } from './signature'
 
 const KNOWLEDGE = resolve(__dirname, '..')
 // Emitted here rather than into the application repository, which this
@@ -62,12 +63,24 @@ hexagrams.forEach((h, i) => {
   if (!/^[01]{6}$/.test(String(h.lines))) throw new Error(`hexagram ${h.number}: bad figure "${h.lines}"`)
 })
 
+// Each hexagram's signature is derived here from the trigram data, never read
+// from the hexagram's own copy — check-iching.ts holds that copy to this.
+const trigramById = new Map(trigrams.map(t => [String(t.id), { id: String(t.id), spectrum: String(t.spectrum), pole: t.pole as Pole }]))
+
+const placeLiteral = (p: Place) => `{ spectrum: ${JSON.stringify(p.spectrum)}, pole: ${JSON.stringify(p.pole)} }`
+const signatureLiteral = (s: Signature) =>
+  `{ class: ${JSON.stringify(s.class)}, within: ${placeLiteral(s.within)}, without: ${placeLiteral(s.without)} }`
+
 const q = (v: unknown) => (v == null || v === '' ? 'null' : JSON.stringify(String(v)))
 
 const hexRows = hexagrams
   .map(h => {
     const t = h.trigrams as { lower: string; upper: string }
-    return `  { number: ${h.number}, chinese: ${JSON.stringify(h.chinese)}, pinyin: ${JSON.stringify(h.pinyin)}, figure: ${JSON.stringify(h.lines)}, trigrams: { lower: ${JSON.stringify(t.lower)}, upper: ${JSON.stringify(t.upper)} }, render: ${q(h.render)}, status: ${JSON.stringify(h.status)}, judgment: ${q(h.judgment)} },`
+    const lower = trigramById.get(t.lower)
+    const upper = trigramById.get(t.upper)
+    if (!lower || !upper) throw new Error(`hexagram ${h.number}: no trigram ${lower ? t.upper : t.lower}`)
+    const sig = signatureOf(lower, upper)
+    return `  { number: ${h.number}, chinese: ${JSON.stringify(h.chinese)}, pinyin: ${JSON.stringify(h.pinyin)}, figure: ${JSON.stringify(h.lines)}, trigrams: { lower: ${JSON.stringify(t.lower)}, upper: ${JSON.stringify(t.upper)} }, signature: ${signatureLiteral(sig)}, render: ${q(h.render)}, status: ${JSON.stringify(h.status)}, judgment: ${q(h.judgment)} },`
   })
   .join('\n')
 
@@ -95,6 +108,16 @@ export type Hexagram = {
   /** Bottom → top, '1' = yang. */
   figure: string
   trigrams: { lower: string; upper: string }
+  /**
+   * Its place on the four spectrums, derived from its trigrams: \`within\` is the
+   * lower, \`without\` the upper. \`doubled\` is one pole twice, \`crossed\` both poles
+   * of one spectrum, \`across\` a pole of each of two. See README § The shape of the figures.
+   */
+  signature: {
+    class: 'doubled' | 'crossed' | 'across'
+    within: { spectrum: string; pole: 'yang' | 'yin' }
+    without: { spectrum: string; pole: 'yang' | 'yin' }
+  }
   /** The single word a player sees. Null until the rendering is drafted. */
   render: string | null
   status: string

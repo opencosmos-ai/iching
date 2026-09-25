@@ -20,6 +20,7 @@
 
 import { mkdirSync, writeFileSync, existsSync, readFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
+import { signatureOf, signatureYaml } from './signature'
 
 const ROOT = resolve(__dirname, '..')
 
@@ -99,6 +100,7 @@ chinese: "${chinese}"
 pinyin: "${pinyin}"
 lines: "${binary}"
 trigrams: { lower: "${lower.id}", upper: "${upper.id}" }
+${signatureYaml(signatureOf(lower, upper))}
 render: null
 forbidden: []
 status: draft

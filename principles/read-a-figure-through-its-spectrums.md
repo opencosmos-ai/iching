@@ -72,7 +72,8 @@ are the second case this entry is owed.
 | Where | What it does |
 |---|---|
 | **`trigrams/*.md`** | each trigram carries `spectrum`, `pole` and `odd_line`, so a figure's place is data, not memory |
-| **`generated/iching-data.ts`** | the same three fields reach the app |
+| **`hexagrams/*.md`** → `signature:` | each hexagram's place — its class, and the spectrum and pole within and without — is on the page where it is named |
+| **`generated/iching-data.ts`** | the trigram fields and each hexagram's signature reach the app, the signature derived by the build rather than copied |
 | **`npm run check`** → *the four spectrums* | derives every field from the figure and 說卦 ch 3, and asserts the 8 / 8 / 48 classes and the canon frame — **the structure is enforced** |
 | **[`../README.md`](../README.md#the-shape-of-the-figures)** | states the structure where every reader starts |
 | **`--applies drafting`, `--applies glossary`** | loaded before anything is rendered and before a term is ruled |

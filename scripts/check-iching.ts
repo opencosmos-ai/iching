@@ -24,6 +24,7 @@
 import { readFileSync, readdirSync, existsSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { load } from 'js-yaml'
+import { signatureOf, type Pole } from './signature'
 import { HEXAGRAMS as GEN_HEXAGRAMS, TRIGRAMS as GEN_TRIGRAMS, HEXAGRAM_BY_FIGURE } from '../generated/iching-data'
 
 const ROOT = resolve(__dirname, '..')
@@ -60,7 +61,7 @@ function readNamed(dir: string): [string, Row][] {
 
 const read = (dir: string): Row[] => readNamed(dir).map(([, row]) => row)
 
-type Hex = { number: number; chinese: string; figure: string; lower: string; upper: string; render: unknown; status: unknown }
+type Hex = { number: number; chinese: string; figure: string; lower: string; upper: string; signature: unknown; render: unknown; status: unknown }
 type Tri = { id: string; chinese: string; figure: string; image: string; spectrum: string; pole: string; oddLine: string | null }
 
 const hexagrams: Hex[] = read('hexagrams')
@@ -72,6 +73,7 @@ const hexagrams: Hex[] = read('hexagrams')
       figure: String(h.lines),
       lower: String(t.lower),
       upper: String(t.upper),
+      signature: h.signature,
       render: h.render,
       status: h.status,
     }
@@ -256,6 +258,23 @@ console.log('\nthe four spectrums')
   else if (!skyEarth.every(n => n <= 30) || !lowerOnly.every(n => n > 30))
     fail(`canon frame: sky ↔ earth at ${skyEarth.join()}, thunder ↔ wind and mountain ↔ lake at ${lowerOnly.join()}`)
   else pass('the sixteen single-spectrum hexagrams frame both canons: 1/2 · 29/30 above, 31/32 · 63/64 below')
+
+  // Each hexagram file carries its signature for a reader. It is a copy, and the
+  // derivation from the trigram data is what it must equal.
+  const sigBad: string[] = []
+  for (const h of hexagrams) {
+    const lo = tri.get(h.lower)
+    const up = tri.get(h.upper)
+    if (!lo || !up) continue
+    const want = JSON.stringify(signatureOf({ ...lo, pole: lo.pole as Pole }, { ...up, pole: up.pole as Pole }))
+    const g = h.signature as { class?: unknown; within?: { spectrum?: unknown; pole?: unknown }; without?: { spectrum?: unknown; pole?: unknown } } | null | undefined
+    // Field by field, so a hand-reordered mapping in the file is not a failure.
+    const got = g == null ? null : JSON.stringify({ class: g.class, within: { spectrum: g.within?.spectrum, pole: g.within?.pole }, without: { spectrum: g.without?.spectrum, pole: g.without?.pole } })
+    if (got === null) sigBad.push(`${h.number} ${h.chinese} has no signature`)
+    else if (got !== want) sigBad.push(`${h.number} ${h.chinese} says ${got}, its trigrams give ${want}`)
+  }
+  if (sigBad.length) fail(`hexagram signatures disagree with their trigrams: ${sigBad.slice(0, 6).join('; ')}${sigBad.length > 6 ? ` … ${sigBad.length} in all` : ''}`)
+  else pass("every hexagram's signature is the one its trigrams give")
 }
 
 console.log('\nfixture — the founding cast')
@@ -390,8 +409,11 @@ console.log('\ngenerated/iching-data.ts')
   hexSrc.forEach((h, i) => {
     const g = GEN_HEXAGRAMS[i]
     const t = h.trigrams as { lower: string; upper: string }
-    const want = [h.number, h.chinese, h.pinyin, h.lines, t.lower, t.upper, h.render ?? null, h.status, h.judgment ?? null].map(v => (v == null || v === '' ? null : String(v)))
-    const got = g ? [g.number, g.chinese, g.pinyin, g.figure, g.trigrams.lower, g.trigrams.upper, g.render, g.status, g.judgment].map(v => (v == null ? null : String(v))) : []
+    const lo = trigrams.find(x => x.id === t.lower)
+    const up = trigrams.find(x => x.id === t.upper)
+    const sig = lo && up ? JSON.stringify(signatureOf({ ...lo, pole: lo.pole as Pole }, { ...up, pole: up.pole as Pole })) : null
+    const want = [h.number, h.chinese, h.pinyin, h.lines, t.lower, t.upper, sig, h.render ?? null, h.status, h.judgment ?? null].map(v => (v == null || v === '' ? null : String(v)))
+    const got = g ? [g.number, g.chinese, g.pinyin, g.figure, g.trigrams.lower, g.trigrams.upper, JSON.stringify(g.signature), g.render, g.status, g.judgment].map(v => (v == null ? null : String(v))) : []
     if (want.join('\u0000') !== got.join('\u0000')) drift.push(`hexagram ${h.number}`)
   })
   const triSrc = read('trigrams')
