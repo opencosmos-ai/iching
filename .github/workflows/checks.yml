@@ -21,8 +21,11 @@ jobs:
 
       - run: npm ci
 
-      - name: Hexagram table, trigrams, and the generated file
+      - name: Hexagram table, trigrams, glossary joins, locks, and the generated file
         run: npm run check
 
       - name: Principles — anchors resolve and every entry is shaped to run
         run: npm run principles -- --check
+
+      - name: Glossary index — generated from the entries, and current
+        run: npm run glossary -- --check

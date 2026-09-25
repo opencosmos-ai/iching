@@ -21,7 +21,7 @@
  * the table: which figure those six lines spell, and which number it has.
  */
 
-import { readFileSync, readdirSync } from 'node:fs'
+import { readFileSync, readdirSync, existsSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { load } from 'js-yaml'
 import { HEXAGRAMS as GEN_HEXAGRAMS, TRIGRAMS as GEN_TRIGRAMS, HEXAGRAM_BY_FIGURE } from '../generated/iching-data'
@@ -43,19 +43,22 @@ function frontmatter(text: string): Row {
   return (load(m[1]) ?? {}) as Row
 }
 
-function read(dir: string): Row[] {
+/** Each file's frontmatter, with the path it came from, for messages that name it. */
+function readNamed(dir: string): [string, Row][] {
   const path = join(ROOT, dir)
   return readdirSync(path)
     .filter(f => f.endsWith('.md') && f !== 'README.md')
     .sort()
     .map(f => {
       try {
-        return frontmatter(readFileSync(join(path, f), 'utf8'))
+        return [`${dir}/${f}`, frontmatter(readFileSync(join(path, f), 'utf8'))]
       } catch (e) {
         throw new Error(`${dir}/${f}: ${(e as Error).message}`)
       }
     })
 }
+
+const read = (dir: string): Row[] => readNamed(dir).map(([, row]) => row)
 
 type Hex = { number: number; chinese: string; figure: string; lower: string; upper: string; render: unknown; status: unknown }
 type Tri = { id: string; chinese: string; figure: string }
@@ -191,6 +194,91 @@ console.log('\nrenderings')
   console.log(`  ${locked.length} of 64 renderings locked, ${64 - locked.length} not`)
   if (orphaned.length) fail(`locked but with no render: ${orphaned.map(h => h.number).join(', ')}`)
   else pass('no hexagram is locked without a render')
+}
+
+// The rendering is data in trigrams/ and hexagrams/; its argument is an entry in
+// glossary/. The two are joined by `glossary_refs:`, and nothing held the join.
+const named = [...readNamed('trigrams'), ...readNamed('hexagrams')]
+const glossaryEntry = new Map<string, Row>()
+
+console.log('\nglossary references')
+{
+  const dangling: string[] = []
+  const disagree: string[] = []
+  let refs = 0
+  for (const [file, fm] of named) {
+    for (const ref of (fm.glossary_refs as string[] | undefined) ?? []) {
+      refs++
+      const path = join(ROOT, 'glossary', `${ref}.md`)
+      if (!existsSync(path)) {
+        dangling.push(`${file} → glossary/${ref}.md`)
+        continue
+      }
+      const entry = frontmatter(readFileSync(path, 'utf8'))
+      glossaryEntry.set(ref, entry)
+      if (fm.render != null && String(entry.render) !== String(fm.render))
+        disagree.push(`${file} renders "${fm.render}", glossary/${ref}.md rules "${entry.render}"`)
+    }
+  }
+  if (dangling.length) fail(`glossary_refs naming no entry: ${dangling.join('; ')}`)
+  else pass(`${refs} glossary_refs, every one resolving to an entry`)
+  if (disagree.length) fail(`rendering and ruling disagree: ${disagree.join('; ')}`)
+  else pass('every rendering matches the entry that argues it')
+}
+
+// The parent project's locks bind here unchanged, and until now were enforced
+// by reading. The rules are its tools/check_locks.py's, so a word is judged the
+// same way in both books:
+//   - substring, so "eternally" cannot hide from "eternal";
+//   - a forbidden string written with a capital is matched with its case, because
+//     the capital *is* the violation ("the Way", not "the way of it");
+//   - a lock's word is an error only where the lock's character is in this
+//     hexagram's own Chinese. Elsewhere it is likely an ordinary English word,
+//     and is reported without failing.
+// One rule is not carried over: a capital at the start of a sentence is not
+// excused, because a `render:` is a name, not a sentence.
+// The entry's own `forbidden:`, and its glossary entry's, bind without the gate.
+console.log('\nlocks')
+{
+  type Lock = { term: string; pinyin: string; render: string; forbidden: string[] }
+  const locks = load(readFileSync(join(ROOT, 'sources', 'locks', 'terms.yaml'), 'utf8')) as Lock[]
+  const cased = (needle: string) => /\p{Lu}/u.test(needle)
+  const found = (text: string, needle: string) =>
+    cased(needle) ? text.includes(needle) : text.toLowerCase().includes(needle.toLowerCase())
+  /** Every English string a file carries, whatever shape the field takes. */
+  const english = (v: unknown): string[] =>
+    v == null ? [] : typeof v === 'string' ? [v] : Array.isArray(v) ? v.flatMap(english) : typeof v === 'object' ? Object.values(v).flatMap(english) : []
+
+  const breaches: string[] = []
+  const notes: string[] = []
+  let checked = 0
+  for (const [file, fm] of named) {
+    const text = ['render', 'judgment', 'image', 'line_texts'].flatMap(k => english(fm[k])).join('\n')
+    if (!text) continue
+    checked++
+    const n = fm.number == null ? null : String(fm.number).padStart(2, '0')
+    const zhouyi = n ? join(ROOT, 'sources', 'zhouyi', `${n}.md`) : null
+    const chinese = [fm.chinese, fm.image_chinese].join('') + (zhouyi && existsSync(zhouyi) ? readFileSync(zhouyi, 'utf8') : '')
+
+    const own = [
+      ...((fm.forbidden as string[] | undefined) ?? []),
+      ...((fm.glossary_refs as string[] | undefined) ?? []).flatMap(r => (glossaryEntry.get(r)?.forbidden as string[] | undefined) ?? []),
+    ]
+    for (const needle of new Set(own)) if (found(text, needle)) breaches.push(`${file}: "${needle}" is in its own forbidden list`)
+
+    for (const lock of locks) {
+      const chars = lock.term.split('&').map(c => c.trim()).filter(Boolean)
+      for (const needle of lock.forbidden) {
+        if (!found(text, needle)) continue
+        if (chars.some(c => chinese.includes(c)))
+          breaches.push(`${file}: ${lock.term} (${lock.pinyin}) is in its Chinese, and "${needle}" is forbidden for it — render as: ${lock.render}`)
+        else notes.push(`${file}: "${needle}" is forbidden for ${lock.term}, which is not in its Chinese — likely an ordinary English word`)
+      }
+    }
+  }
+  for (const note of notes) console.log(`  · ${note}`)
+  if (breaches.length) breaches.forEach(fail)
+  else pass(`${checked} rendered file(s) against their own forbidden lists and ${locks.length} locks — no breach`)
 }
 
 console.log('\ngenerated/iching-data.ts')

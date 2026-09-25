@@ -41,6 +41,15 @@ This is a **chronological spine that points into them**, never a second copy.
 
 ---
 
+## 2026-09-24 — The glossary is indexed, and the locks are checked by code
+
+The README said *"the index is generated, the locks are machine-checked,"* and neither was true here: `glossary/` had no index, and the parent's locks were enforced by reading. Nothing checked that a `glossary_refs:` named a real entry either, or that the word in `render:` was the word its entry argued for.
+
+- **`npm run glossary`** — [`scripts/build-iching-glossary.ts`](scripts/build-iching-glossary.ts) writes [`glossary/INDEX.md`](glossary/INDEX.md) from each entry's frontmatter, the parent's `build_index.py` arrangement; `--check` fails if the index is stale, and CI runs it. No `terms.yaml` — the renderings the locks are checked against already live in `render:`.
+- **`npm run check` holds the join** — a `glossary_refs:` naming no entry fails, and so does a `render:` its entry does not rule.
+- **`npm run check` holds the locks** — every English field against the file's own `forbidden:`, its entry's, and every vendored lock, by the parent's rules: substring, case-sensitive only where the forbidden word carries a capital, and a lock's word an error only where its character is in that hexagram's Chinese. The one rule not carried over is the sentence-initial capital, because a `render:` is a name.
+- **Seen to fail** — a dangling ref, a rendering its entry does not rule, a word from its own `forbidden:`, *Providence* for 乾 (the lock on 天), and *the Cosmos* in hexagram 1, where both 天 and 天地 are in the Chinese, each exit non-zero. Only the eight trigrams have English yet, so today it guards eight words; it is built for the 512 in A8.
+
 ## 2026-09-24 — The vendored sources regenerate from this repository
 
 Nothing had shown that `sources/` could still be rebuilt here since the extraction. The importer came across, but its offline inputs — the Wikisource pages, the McClatchie PDF, both OCR passes and the saved scan-adjudication calls — are gitignored, and they stayed behind in the opencosmos checkout.

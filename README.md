@@ -16,6 +16,8 @@ Two halves, and the line between them is the only structural idea here worth rem
 ```
 hexagrams/01.md … 64.md      the sixty-four, in King Wen order
 trigrams/01-qian.md … 08-kun.md
+glossary/                    one entry per ruled term — the argument behind a `render:`
+glossary/INDEX.md            GENERATED — `npm run glossary`
 ```
 
 **The record** — what changed and when, pointing into the layers below rather than restating them.
@@ -57,6 +59,7 @@ npm run import-sources -- --fetch  # vendor the sources, and verify them against
 npm run build                      # markdown → generated/iching-data.ts
 npm run check                      # the table checks itself — see Verification
 npm run principles                 # principles/INDEX.md, and verify every link and every entry's shape
+npm run glossary                   # glossary/INDEX.md, from each entry's frontmatter
 ```
 
 **Before changing anything in `scripts/`**, load the rules the tooling has already learned:
@@ -164,9 +167,11 @@ Thomas McClatchie's *A translation of the Confucian 易經*, Shanghai 1876, all 
 - **The King Wen pair invariant** — consecutive pairs (1,2), (3,4) … (63,64) are each other's inversions, except the eight figures that are their own inversion, which pair by complement instead. A single transposed row breaks it, which makes the table self-checking and worth more than proofreading. A swap *within* a pair cannot break it — 59 and 60 are each other's inversion — which is why the next two checks are not redundant.
 - **Trigram agreement** — the eight trigrams cover the eight three-line figures, every hexagram names two that exist, and lower ++ upper equals the figure, every time.
 - **The founding cast** — the six throws Shalom logged on 2024-02-23 asking *"What will help bring Xenso into the world?"*, recorded in the Xensō archive and never resolved, give lines 9 7 8 8 7 8, which must come out at hexagram 60 moving at line one, becoming 29. It also asserts that reading those lines top-down would give 59 instead — because **lines read bottom to top**, and getting that backwards produces a plausible wrong answer with no error to notice.
+- **Every `glossary_refs:` resolves, and agrees** — each names a real entry in `glossary/`, and the `render:` here is the one the entry rules. The word lives in two places by design (see [`glossary/README.md`](glossary/README.md)), so the join is checked rather than trusted.
+- **The locks hold** — every English field (`render`, `judgment`, `image`, `line_texts`) is tested against the file's own `forbidden:`, its glossary entry's, and every lock in [`sources/locks/`](sources/locks/README.md), by the parent's `check_locks.py` rules: substring, case-sensitive only where the forbidden word is written with a capital, and a lock's word an error only where its character is in that hexagram's Chinese. Elsewhere it is reported, not failed.
 - **The generated file is current** — `generated/iching-data.ts` agrees with the frontmatter row for row, so the copy the app carries cannot drift from the decisions unnoticed.
 
-Each of these has been seen to fail: a transposed row across pairs, a swap within a pair, a wrong trigram, and a rendering edited without a rebuild each exit non-zero.
+Each of these has been seen to fail: a transposed row across pairs, a swap within a pair, a wrong trigram, a rendering edited without a rebuild, a dangling `glossary_refs:`, a rendering its entry does not rule, a word from its own `forbidden:`, and *Providence* for 乾 each exit non-zero.
 
 **The cast engine is checked where it lives.** Coin arithmetic, the non-uniform odds (1/8, 3/8, 3/8, 1/8 — not even, and that check is what says so), moving-line resolution and `relating: null` when nothing moves are properties of `lib/iching.ts` in opencosmos, not of this table, and `pnpm xenso:check-iching` in [opencosmos](https://github.com/opencosmos-ai/opencosmos/blob/main/scripts/README.md) still tests them — against the app's copy of the generated file.
 

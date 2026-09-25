@@ -62,9 +62,9 @@ not by position: the eight trigrams, then the verdict vocabulary as one decision
 | B7 | ⬜ | **The two-corpus measurements have no script** — computed once by hand; until they are `pnpm xenso:`-something they are a claim, not a grade | `scripts/` | 1 |
 | B5 | ⬜ | **`prescrves-the «`-class errors** — multi-token blocks straddling a line break are left alone by design; a proofreading pass would need the scan | `disputed.yaml` | — |
 | | | **C · Tooling** | | |
-| C1 | ⬜ | **No glossary index generator** — the parent has one; `glossary/` here has none | `scripts/` | 1 |
-| C2 | ⬜ | **`build-iching.ts` does not check `glossary_refs:` resolve** — a rendering can cite an entry that does not exist | `scripts/` | 1 |
-| C3 | ⬜ | **No check that a rendering respects the locks** — 47 locked terms, enforced by reading rather than by code | `scripts/` | 1 |
+| C1 | ✅ | ~~**No glossary index generator**~~ — closed 2026-09-24: `npm run glossary` writes `glossary/INDEX.md`, and CI fails if it is stale | `scripts/` | 1 |
+| C2 | ✅ | ~~**Nothing checked that `glossary_refs:` resolve**~~ — closed 2026-09-24: `npm run check` fails on a dangling ref, and on a `render:` its entry does not rule | `scripts/` | 1 |
+| C3 | ✅ | ~~**No check that a rendering respects the locks**~~ — closed 2026-09-24: `npm run check` tests every English field against its own `forbidden:`, its entry's, and every lock, on the parent's `check_locks.py` rules. Only the eight trigrams have English yet | `scripts/` | 1 |
 | C4 | ✅ | ~~Two OCR witnesses, corpus and scan adjudication~~ — closed 2026-09-12 | — | — |
 | C5 | ✅ | ~~`mcPageBody` truncating pages at the first long line~~ — closed 2026-09-12 | — | — |
 | C6 | ✅ | ~~**The principles were argued well and reached by nobody**~~ — closed 2026-09-24: all thirteen on the parent's new shape, every scope loaded where its work begins, and `npm run principles -- --check` refuses an entry that is not shaped to run. `iching-principle-entry` skill added | `principles/` · `scripts/` | 13 |
@@ -100,6 +100,8 @@ sentence from the trigram's name, and 鼎 is a cauldron on a **wood** fire. Queu
 
 ## Closed — the ledger
 
+- **2026-09-24** · **The glossary is indexed, and the locks are checked by code** (C1, C2, C3) —
+  `npm run glossary`; `npm run check` now holds the `glossary_refs:` join and every lock. → [CHANGELOG](CHANGELOG.md)
 - **2026-09-24** · **The vendored sources regenerate from this repository** (C8, C9, C11) — offline, byte-identical
   but for three headers; the last `xenso:` names gone; the OCR figures reconciled; a no-op re-run
   now leaves the tree clean. The locks are C10.

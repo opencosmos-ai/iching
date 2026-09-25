@@ -52,6 +52,12 @@ changing the rendering or by changing the lock *in the other repository*, never 
 **Read the sources for meaning, never for phrasing** — and note that the English word for
 the thing is not borrowing. 雷 is thunder. See [`method.md`](../method.md) §2.
 
+## The index, and what is checked
+
+[`INDEX.md`](INDEX.md) is generated from the frontmatter — `npm run glossary` after adding or changing an
+entry, and CI fails if it is stale. `npm run check` fails if a `glossary_refs:` names no entry, if a
+`render:` disagrees with the entry that argues it, or if a rendering uses a word its entry or a lock forbids.
+
 ## Status
 
 `status: draft` — proposed, still movable. `status: locked` — settled; the trigram or
