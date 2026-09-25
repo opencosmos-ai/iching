@@ -4,6 +4,9 @@ chinese: "乾"
 pinyin: "qián"
 lines: "111"
 image_chinese: "天"
+spectrum: "qian-kun"
+pole: "yang"
+odd_line: null
 render: "sky"
 forbidden: ["heaven", "the heavens", "Heaven", "the creative", "the Almighty"]
 status: draft

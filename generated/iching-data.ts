@@ -21,6 +21,12 @@ export type Trigram = {
   pinyin: string
   figure: string
   imageChinese: string
+  /** The 說卦 ch 3 pair it belongs to, named by the two ids: "qian-kun", "zhen-xun", "kan-li", "gen-dui". */
+  spectrum: string
+  /** The kind of its odd line — 繫辭下 陽卦多陰: a yang trigram has one yang line among yin. */
+  pole: 'yang' | 'yin'
+  /** Where the odd line sits — 說卦 ch 10's first, second, third draw. Null for 乾 and 坤, which have none. */
+  oddLine: 'bottom' | 'middle' | 'top' | null
   render: string | null
   status: string
 }
@@ -94,14 +100,14 @@ export const HEXAGRAMS: readonly Hexagram[] = [
 ]
 
 export const TRIGRAMS: readonly Trigram[] = [
-  { id: "qian", chinese: "乾", pinyin: "qián", figure: "111", imageChinese: "天", render: "sky", status: "draft" },
-  { id: "dui", chinese: "兌", pinyin: "duì", figure: "110", imageChinese: "澤", render: "lake", status: "draft" },
-  { id: "li", chinese: "離", pinyin: "lí", figure: "101", imageChinese: "火", render: "fire", status: "draft" },
-  { id: "zhen", chinese: "震", pinyin: "zhèn", figure: "100", imageChinese: "雷", render: "thunder", status: "draft" },
-  { id: "xun", chinese: "巽", pinyin: "xùn", figure: "011", imageChinese: "風", render: "wind", status: "draft" },
-  { id: "kan", chinese: "坎", pinyin: "kǎn", figure: "010", imageChinese: "水", render: "water", status: "draft" },
-  { id: "gen", chinese: "艮", pinyin: "gèn", figure: "001", imageChinese: "山", render: "mountain", status: "draft" },
-  { id: "kun", chinese: "坤", pinyin: "kūn", figure: "000", imageChinese: "地", render: "earth", status: "draft" },
+  { id: "qian", chinese: "乾", pinyin: "qián", figure: "111", imageChinese: "天", spectrum: "qian-kun", pole: "yang", oddLine: null, render: "sky", status: "draft" },
+  { id: "dui", chinese: "兌", pinyin: "duì", figure: "110", imageChinese: "澤", spectrum: "gen-dui", pole: "yin", oddLine: "top", render: "lake", status: "draft" },
+  { id: "li", chinese: "離", pinyin: "lí", figure: "101", imageChinese: "火", spectrum: "kan-li", pole: "yin", oddLine: "middle", render: "fire", status: "draft" },
+  { id: "zhen", chinese: "震", pinyin: "zhèn", figure: "100", imageChinese: "雷", spectrum: "zhen-xun", pole: "yang", oddLine: "bottom", render: "thunder", status: "draft" },
+  { id: "xun", chinese: "巽", pinyin: "xùn", figure: "011", imageChinese: "風", spectrum: "zhen-xun", pole: "yin", oddLine: "bottom", render: "wind", status: "draft" },
+  { id: "kan", chinese: "坎", pinyin: "kǎn", figure: "010", imageChinese: "水", spectrum: "kan-li", pole: "yang", oddLine: "middle", render: "water", status: "draft" },
+  { id: "gen", chinese: "艮", pinyin: "gèn", figure: "001", imageChinese: "山", spectrum: "gen-dui", pole: "yang", oddLine: "top", render: "mountain", status: "draft" },
+  { id: "kun", chinese: "坤", pinyin: "kūn", figure: "000", imageChinese: "地", spectrum: "qian-kun", pole: "yin", oddLine: null, render: "earth", status: "draft" },
 ]
 
 /** Figure string (bottom → top) → King Wen number. */

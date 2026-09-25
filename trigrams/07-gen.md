@@ -4,6 +4,9 @@ chinese: "艮"
 pinyin: "gèn"
 lines: "001"
 image_chinese: "山"
+spectrum: "gen-dui"
+pole: "yang"
+odd_line: "top"
 render: "mountain"
 forbidden: ["keeping still", "stillness", "the immovable"]
 status: draft

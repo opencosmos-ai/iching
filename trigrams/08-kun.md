@@ -4,6 +4,9 @@ chinese: "坤"
 pinyin: "kūn"
 lines: "000"
 image_chinese: "地"
+spectrum: "qian-kun"
+pole: "yin"
+odd_line: null
 render: "earth"
 forbidden: ["the receptive", "the passive", "Mother Earth"]
 status: draft

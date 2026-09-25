@@ -7,6 +7,37 @@ This is deliberate, and the reasoning is recorded in the Xensō canon at [`docs/
 
 **Contributing:** you're welcome here, and much of the work needs no Chinese. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
+## The lens
+
+**This project translates the 周易 (*zhōuyì*) as the Wings made it, and says so.** The book is two texts bound together: a Western Zhou core — 64 judgments and 386 line texts — and the Ten Wings, Warring States to Han commentary three times its length, where the trigram system, the cosmology and yin and yang all live. Every English I Ching merges the two. This one merges them **openly**, on the terms of [ADR 0016](https://github.com/opencosmos-ai/opencosmos/blob/main/docs/decisions/0016-the-i-ching-is-read-through-the-wings-and-the-lens-is-declared.md), accepted by Shalom on 2026-09-24:
+
+1. **The core text is the only text a rendering answers to.** Every English word answers to a character in [`sources/zhouyi/`](sources/zhouyi/).
+2. **The Wings are the first interpretive authority**, ahead of the three old translations — they are the oldest reading there is, and the trigram system comes from them.
+3. **The reading is 王弼's (*Wáng Bì*) cross-reading** — that the Changes and the Laozi answer to one another — **but not his sweeping-away of the images.** Here the images are kept: *meet the image, grasp the meaning, forget the image* ([`method.md`](method.md) § 0).
+4. **The Laozi is a check, never a source.** A reading imported from it must pass two questions — is the character in the layer being rendered, and does the English answer to that character or to the Laozi's? — or it goes in the notes.
+5. **The layer is labelled.** A reading that comes from a Wing says so, so a reader can tell 1000 BCE from 300 BCE.
+
+**The cost is chosen, not missed:** this is not the Bronze Age oracle recovered from under the philosophy. That is a different and much smaller book.
+
+## The shape of the figures
+
+**The 64 hexagrams are built from four spectrums, and the text states all three levels of them.** Every trigram is one pole of one spectrum; every hexagram is one trigram within (below) and one without (above). `npm run check` derives all of it from the figures and from 說卦 (*shuōguà*) itself, so it is measured rather than remembered.
+
+**One logic defines the four: where the odd line sits.** In six of the eight trigrams one line differs from the other two, and each spectrum is that line at one height. 說卦 ch 10 names the six children by it — the first, second and third draw (一索, 再索, 三索) — and 繫辭下 (*xìcí xià*) says a trigram's pole is the kind of that line: 陽卦多陰…陽卦奇, "a yang trigram has more yin lines; it is the odd one."
+
+| Spectrum | Odd line | Figure | Action (說卦 ch 7) | Image (說卦 ch 3) |
+|---|---|---|---|---|
+| sky ↔ earth · 乾 ↔ 坤 | none | `111` ↔ `000` — all firm ↔ all yielding | vigour ↔ going-along-with (健 ↔ 順) | above ↔ below — 天地定位, "they set the positions" |
+| thunder ↔ wind · 震 ↔ 巽 | bottom | `100` ↔ `011` — firm at the base ↔ open at the base | moving out ↔ entering (動 ↔ 入) | strike ↔ pervade — 雷風相薄, "they rouse each other" |
+| water ↔ fire · 坎 ↔ 離 | middle | `010` ↔ `101` — firm within ↔ hollow within | sinking in ↔ attaching (陷 ↔ 麗) | descending ↔ rising — 水火不相射, "they do not quench each other" |
+| mountain ↔ lake · 艮 ↔ 兌 | top | `001` ↔ `110` — closed at the top ↔ open at the top | holding ↔ releasing (止 ↔ 說) | height ↔ hollow — 山澤通氣, "they exchange breath" |
+
+*Figures bottom → top. The Chinese is the text; the English in the table is this project's reading of it, argued in [`hexagram-names.md`](hexagram-names.md#the-pattern-in-the-formation).*
+
+**Three classes follow, and they frame the book.** **8 doubled** — one pole twice (1, 2, 29, 30, 51, 52, 57, 58). **8 crossed** — both poles of one spectrum (11, 12, 31, 32, 41, 42, 63, 64). **48 across two spectrums.** The sixteen single-spectrum hexagrams frame the received order: the upper canon opens with sky and earth doubled and closes with water and fire doubled; the lower canon opens crossed (31, 32) and closes with water and fire crossed (63, 64).
+
+**How it is used.** Each trigram carries `spectrum`, `pole` and `odd_line` in its frontmatter, and the app gets them in `generated/iching-data.ts`. Every English name is read against its hexagram's signature — *holding within, releasing without* for 31 咸 — **as a check on the name, never as its source**: the names come from each hexagram's own lines ([`read-a-figure-through-its-spectrums`](principles/read-a-figure-through-its-spectrums.md)). **This is the Wings' reading of the figures** — the core text almost never mentions a trigram — which is exactly what [the lens](#the-lens) declares.
+
 ## The arrangement
 
 Two halves, and the line between them is the only structural idea here worth remembering.
@@ -19,6 +50,7 @@ trigrams/01-qian.md … 08-kun.md
 glossary/                    one entry per ruled term — the argument behind a `render:`
 glossary/INDEX.md            GENERATED — `npm run glossary`
 glossary/NAMES.md            GENERATED — `npm run names`; the 64 names against the locks, read before drafting one
+hexagram-names.md            the 72 names as candidates, with Shalom's rulings — a working brief
 ```
 
 **The record** — what changed and when, pointing into the layers below rather than restating them.
@@ -79,6 +111,8 @@ npm run principles -- --applies tooling
 ## What is a fact here, and what is a decision
 
 **Facts** — seeded, and settled: the King Wen number, the character, the pinyin, the six-line figure, the trigram decomposition, and the Shuogua image in Chinese (乾為天, 坤為地, and so on). Since the import, also: the judgment, the six line texts, and the per-hexagram Wings, in Chinese, in `sources/`.
+
+**The pinyin is standard modern pinyin**, with tone marks — Shalom, 2026-09-24. Where a name has a traditional reading that differs (噬嗑 *shì kè*, traditionally *shì hé*; 比 *bǐ*, traditionally *bì*), the file keeps the modern one and the name's glossary entry records the other.
 
 **Decisions** — every English word. `render` is the single term a player sees, and it is a translation call made one at a time, in the form the [Tao Te Ching glossary](https://github.com/opencosmos-ai/taoteching) uses. All sixty-four are `status: draft` with `render: null` until then, and the interface shows `節 · hexagram 60` rather than inventing a name to fill the gap. **An invented name would be exactly the borrowed metaphor Xensō's design forbids, and it would arrive wearing authority.**
 
@@ -172,12 +206,13 @@ Thomas McClatchie's *A translation of the Confucian 易經*, Shanghai 1876, all 
 - **Bijection** — 64 distinct figures covering all 64 possible, numbered 1 … 64 once each.
 - **The King Wen pair invariant** — consecutive pairs (1,2), (3,4) … (63,64) are each other's inversions, except the eight figures that are their own inversion, which pair by complement instead. A single transposed row breaks it, which makes the table self-checking and worth more than proofreading. A swap *within* a pair cannot break it — 59 and 60 are each other's inversion — which is why the next two checks are not redundant.
 - **Trigram agreement** — the eight trigrams cover the eight three-line figures, every hexagram names two that exist, and lower ++ upper equals the figure, every time.
+- **The four spectrums** — every trigram's `pole` and `odd_line` are derived from its figure and must match; each `spectrum` is two complements, one yang and one yin, with the odd line at the same height; the four are 說卦 ch 3's pairs of images, read out of `sources/wings/shuogua.md`; the classes come out 8 doubled, 8 crossed, 48 across; and the sixteen single-spectrum hexagrams frame both canons. See [The shape of the figures](#the-shape-of-the-figures).
 - **The founding cast** — the six throws Shalom logged on 2024-02-23 asking *"What will help bring Xenso into the world?"*, recorded in the Xensō archive and never resolved, give lines 9 7 8 8 7 8, which must come out at hexagram 60 moving at line one, becoming 29. It also asserts that reading those lines top-down would give 59 instead — because **lines read bottom to top**, and getting that backwards produces a plausible wrong answer with no error to notice.
 - **Every `glossary_refs:` resolves, and agrees** — each names a real entry in `glossary/`, and the `render:` here is the one the entry rules. The word lives in two places by design (see [`glossary/README.md`](glossary/README.md)), so the join is checked rather than trusted.
 - **The locks hold** — every English field (`render`, `judgment`, `image`, `line_texts`) is tested against the file's own `forbidden:`, its glossary entry's, and every lock in [`sources/locks/`](sources/locks/README.md), by the parent's `check_locks.py` rules: substring, case-sensitive only where the forbidden word is written with a capital, and a lock's word an error only where its character is in that hexagram's Chinese. Elsewhere it is reported, not failed.
 - **The generated file is current** — `generated/iching-data.ts` agrees with the frontmatter row for row, so the copy the app carries cannot drift from the decisions unnoticed.
 
-Each of these has been seen to fail: a transposed row across pairs, a swap within a pair, a wrong trigram, a rendering edited without a rebuild, a dangling `glossary_refs:`, a rendering its entry does not rule, a word from its own `forbidden:`, and *Providence* for 乾 each exit non-zero.
+Each of these has been seen to fail: a transposed row across pairs, a swap within a pair, a wrong trigram, a rendering edited without a rebuild, a dangling `glossary_refs:`, a rendering its entry does not rule, a word from its own `forbidden:`, *Providence* for 乾, and — for the spectrums — a flipped pole, a moved odd line, a trigram on the wrong spectrum and a spectrum named yin-first each exit non-zero.
 
 **The cast engine is checked where it lives.** Coin arithmetic, the non-uniform odds (1/8, 3/8, 3/8, 1/8 — not even, and that check is what says so), moving-line resolution and `relating: null` when nothing moves are properties of `lib/iching.ts` in opencosmos, not of this table, and `pnpm xenso:check-iching` in [opencosmos](https://github.com/opencosmos-ai/opencosmos/blob/main/scripts/README.md) still tests them — against the app's copy of the generated file.
 

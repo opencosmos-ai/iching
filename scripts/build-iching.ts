@@ -74,7 +74,7 @@ const hexRows = hexagrams
 const triRows = trigrams
   .map(
     t =>
-      `  { id: ${JSON.stringify(t.id)}, chinese: ${JSON.stringify(t.chinese)}, pinyin: ${JSON.stringify(t.pinyin)}, figure: ${JSON.stringify(t.lines)}, imageChinese: ${JSON.stringify(t.image_chinese)}, render: ${q(t.render)}, status: ${JSON.stringify(t.status)} },`,
+      `  { id: ${JSON.stringify(t.id)}, chinese: ${JSON.stringify(t.chinese)}, pinyin: ${JSON.stringify(t.pinyin)}, figure: ${JSON.stringify(t.lines)}, imageChinese: ${JSON.stringify(t.image_chinese)}, spectrum: ${JSON.stringify(t.spectrum)}, pole: ${JSON.stringify(t.pole)}, oddLine: ${q(t.odd_line)}, render: ${q(t.render)}, status: ${JSON.stringify(t.status)} },`,
   )
   .join('\n')
 
@@ -107,6 +107,12 @@ export type Trigram = {
   pinyin: string
   figure: string
   imageChinese: string
+  /** The 說卦 ch 3 pair it belongs to, named by the two ids: "qian-kun", "zhen-xun", "kan-li", "gen-dui". */
+  spectrum: string
+  /** The kind of its odd line — 繫辭下 陽卦多陰: a yang trigram has one yang line among yin. */
+  pole: 'yang' | 'yin'
+  /** Where the odd line sits — 說卦 ch 10's first, second, third draw. Null for 乾 and 坤, which have none. */
+  oddLine: 'bottom' | 'middle' | 'top' | null
   render: string | null
   status: string
 }

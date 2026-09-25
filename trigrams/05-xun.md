@@ -4,6 +4,9 @@ chinese: "巽"
 pinyin: "xùn"
 lines: "011"
 image_chinese: "風"
+spectrum: "zhen-xun"
+pole: "yin"
+odd_line: "bottom"
 render: "wind"
 forbidden: ["the gentle", "penetration"]
 status: draft

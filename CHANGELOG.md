@@ -41,6 +41,24 @@ This is a **chronological spine that points into them**, never a second copy.
 
 ---
 
+## 2026-09-24 — The lens declared, and the four spectrums made the frame
+
+ADR 0016 accepted, and the structure the trigram system rests on written down where every reader starts. WORKLIST A10.
+
+- **The lens is declared.** [`README.md` → *The lens*](README.md#the-lens) states the five terms of [ADR 0016](https://github.com/opencosmos-ai/opencosmos/blob/main/docs/decisions/0016-the-i-ching-is-read-through-the-wings-and-the-lens-is-declared.md): the core text is the only text a rendering answers to; the Wings are the first interpretive authority; 王弼's cross-reading without his sweeping-away of the images; the Laozi a check and never a source; the layer labelled. [`method.md`](method.md) § 5 applies them. The trigram renderings, which already assumed this, are now legitimate on a stated method rather than quietly.
+- **[`README.md` → *The shape of the figures*](README.md#the-shape-of-the-figures)** — the eight trigrams are four spectrums, and 說卦 states all three levels: the images (ch 3), the actions (ch 7), and the height of the odd line (ch 10, 一索 再索 三索), with 繫辭下 giving the pole. Every hexagram is a pole within and a pole without: 8 doubled, 8 crossed, 48 across two, and the sixteen single-spectrum figures frame both canons.
+- **Data and checks.** Each trigram carries `spectrum`, `pole` and `odd_line`; `generated/iching-data.ts` carries them to the app as `spectrum`, `pole`, `oddLine` (additive — the app's copy in opencosmos picks them up when next refreshed). `npm run check` derives all three from the figure, reads the four pairs out of `sources/wings/shuogua.md`, and asserts the classes and the frame; a flipped pole, a moved odd line, a trigram on the wrong spectrum and a spectrum named yin-first were each seen to fail. The seeder writes the fields too.
+- **A principle, `provisional`:** [`read-a-figure-through-its-spectrums`](principles/read-a-figure-through-its-spectrums.md) — place a hexagram on its spectrums before trusting its English; the signature checks a name and never supplies one.
+
+## 2026-09-24 — Every name drafted as a candidate, and the first rulings on them
+
+A proposed English for all 64 hexagrams, beside the 8 trigrams, for Shalom to review over time. WORKLIST A7.
+
+- **[`hexagram-names.md`](hexagram-names.md)** — a working brief, not a ruling. Each of the 64 was given a four-corners dossier (the lines, the Wings, 說文, 王弼, the three translators), then all 64 were decided as one set: no two share a word, and every row keeps every candidate. **No `render:` field was touched.**
+- **Three rulings, Shalom's.** The image names the trigram and the lines name the hexagram, so the eight doubled hexagrams take their own English — a new principle, [`the-image-names-the-trigram-the-lines-name-the-hexagram`](principles/the-image-names-the-trigram-the-lines-name-the-hexagram.md), `provisional`. Romanization is standard modern pinyin ([`README.md`](README.md#what-is-a-fact-here-and-what-is-a-decision)). And an exclusion names what is wrong with the word, never who used it — `method.md` § 0 and `glossary/README.md` item 4 are reworded, and a `forbidden:` list now binds only what its entry rules.
+- **Five names wait on rulings elsewhere**: 11 and 12 on 亨, 61 on 孚, 14 on what 有 is here, 25 on A11. The brief lays out each with its options. **The 信 lock was found to hold *trust*, *faith* and *sincerity***, which takes all three obvious Englishes away from 孚.
+- **The formation, measured.** The eight trigrams are four exact complements on four axes; the 64 are 8 doubled, 8 crossed on one axis and 48 across two; and the sixteen single-axis figures frame both halves of the received order. The 彖 reads at least 33 of the 64 as inner action + outer action. Recorded in the brief with its limits.
+
 ## 2026-09-24 — 王弼's 周易注 vendored, graded twice
 
 The commentary that made the Changes the received text, and that the parent project's Wang Bi continues on the Laozi. WORKLIST B8.

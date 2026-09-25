@@ -4,6 +4,9 @@ chinese: "坎"
 pinyin: "kǎn"
 lines: "010"
 image_chinese: "水"
+spectrum: "kan-li"
+pole: "yang"
+odd_line: "middle"
 render: "water"
 forbidden: ["the abysmal", "the pit", "danger"]
 status: draft
