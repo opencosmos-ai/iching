@@ -41,6 +41,17 @@ This is a **chronological spine that points into them**, never a second copy.
 
 ---
 
+## 2026-09-25 — The heart of every hexagram
+
+An interpretive reading for all 64, deepening what the ancient texts mean and bringing it into a life now, for Shalom's own versions of the 64. **Not a translation, and not a ruling.**
+
+- **Each `hexagrams/NN.md` now ends with *The heart of it***, composed in a fixed order: the essence first, taken from the core text and the graph; then the polarities that make it; then *In nature*, *The movement of the lines*, *In a life now*, an optional *Echo from the Laozi*, and *Words kept*. Every claim is marked by layer (core text, a named Wing, 王弼, 說文, the Laozi).
+- **29 坎 was written first, as the model.** Sixteen agents then wrote the rest, grouped by King Wen pairs, against one brief: the locked and working vocabulary, accurate natural history, and the six overfitting failures of [`tao-te-ching-relation.md`](tao-te-ching-relation.md) § 6. Echoes of the Laozi, in Shalom's own translation, pass the two-question test or are labelled thematic, and each one says where the books part.
+- **Where the text and the structure disagree, the text wins, and the reading says so.** This happened in about a dozen hexagrams (3, 10, 21, 35, 38, 45, 46, 47, 48, 54, 58, 60…). The readings also found structure the commentaries never state: 27's lines split exactly at its two trigrams, and each of the King Wen pairs 41/42 and 43/44 shares a whole line where the figure turns over.
+- **Checked:** every Chinese quotation was verified by script against `sources/` (including 王弼 and 說文), and the English was scanned against the locks and the register rules. Review fixed a pre-existing *mandate* for 命 (14), several uses of *emptiness* for 虛, the remaining uses of *holding* for the mountain's action, and the stray glosses of 吝 and 元吉.
+- **[`hexagram-names.md`](hexagram-names.md) is corrected.** Its 57 row misstated 說文 (the kneeling figures are a modern reading of the graph). Its 20 row misstated the Laozi's 觀 (*observe*, not *watch*). Collisions with the Laozi's vocabulary are recorded at 4, 14, 51 and 52.
+- **What the readings surfaced** — A6 and A4 evidence, name collisions, terms without English — is gathered in [`WORKLIST.md`](WORKLIST.md) A12, for Shalom.
+
 ## 2026-09-25 — The polarity is in the lines
 
 A core stance, Shalom's, written where every reader starts: the book's oppositions are drawn in the figures, and the English describes each pole on its own ground.
