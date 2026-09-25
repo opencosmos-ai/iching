@@ -59,7 +59,7 @@ not by position: the eight trigrams, then the verdict vocabulary as one decision
 | B3 | ⏸ | **The Chinese half of McClatchie is not transcribed** — a rule, not a shortfall. Route named: `brew install tesseract-lang`, `chi_tra_vert` | `sources/` | 1 |
 | B4 | ⬜ | **Legge's footnotes not vendored** | `sources/legge-1882/` | 1 |
 | B6 | ⬜ | **王弼's 周易略例 not vendored** — [`tao-te-ching-relation.md`](tao-te-ching-relation.md) §2 and §8 quote 得意忘象 **from memory**. Vendor it before the phrase binds any decision | `sources/` | 1 |
-| B7 | ⬜ | **The two-corpus measurements have no script** — computed once by hand; until they are `pnpm xenso:`-something they are a claim, not a grade | `scripts/` | 1 |
+| B7 | ✅ | ~~**The two-corpus measurements had no script**~~ — closed 2026-09-24: `npm run measure` recomputes all 87 figures in the brief; its first run corrected 15, and 時 turned out to be in the Laozi (ch 8) | `scripts/` | 1 |
 | B5 | ⬜ | **`prescrves-the «`-class errors** — multi-token blocks straddling a line break are left alone by design; a proofreading pass would need the scan | `disputed.yaml` | — |
 | | | **C · Tooling** | | |
 | C1 | ✅ | ~~**No glossary index generator**~~ — closed 2026-09-24: `npm run glossary` writes `glossary/INDEX.md`, and CI fails if it is stale | `scripts/` | 1 |
@@ -100,6 +100,8 @@ sentence from the trigram's name, and 鼎 is a cauldron on a **wood** fire. Queu
 
 ## Closed — the ledger
 
+- **2026-09-24** · **The brief's measurements have a script** (B7) — `npm run measure`; 15 of 87 hand-counted
+  figures were wrong, one of them an argument: 時 is in the Laozi, once. → [CHANGELOG](CHANGELOG.md)
 - **2026-09-24** · **The glossary is indexed, and the locks are checked by code** (C1, C2, C3, C10) —
   `npm run glossary`; `npm run check` now holds the `glossary_refs:` join and every lock; the locks
   re-vendored at 50, flexions shown. → [CHANGELOG](CHANGELOG.md)
