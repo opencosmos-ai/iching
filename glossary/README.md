@@ -25,7 +25,7 @@ compiles it into the app, and it has to be one word in one field. The entry here
 the word looks arbitrary. Each trigram or hexagram file points back with `glossary_refs:`.
 
 This mirrors the parent [Tao Te Ching](https://github.com/opencosmos-ai/taoteching) project,
-whose `glossary/` holds 49 entries and is the unit of work there. **Its 47 locked terms
+whose `glossary/` is the unit of work there. **Its locked terms
 bind here unchanged** — see [`sources/locks/`](../sources/locks/README.md). A rendering
 that reaches for a forbidden word is a defect, not a preference, and it is fixed by
 changing the rendering or by changing the lock *in the other repository*, never here.

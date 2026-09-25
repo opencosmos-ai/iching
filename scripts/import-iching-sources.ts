@@ -794,7 +794,13 @@ async function importLocks() {
   const yaml = readFileSync(src, 'utf8')
   writeVendored(join(out, 'terms.yaml'), yaml)
 
-  const terms = load(yaml) as { term: string; pinyin: string; render: string; forbidden: string[]; status: string }[]
+  type Flexion = { english: string; chapters: number[]; why?: string }
+  const terms = load(yaml) as { term: string; pinyin: string; render: string; forbidden: string[]; status: string; flexions?: Flexion[] }[]
+  // The parent keeps a lock's chapter-scoped secondary Englishes in `flexions:`
+  // rather than inside `render:`, so the table shows them the way its own
+  // index does. Left out, 執 would read "grasp" and lose *seize* at ch 74.
+  const rendered = (t: { render: string; flexions?: Flexion[] }) =>
+    [t.render, ...(t.flexions ?? []).map(f => `*${f.english}* (ch ${f.chapters.join(', ')})`)].join(' · ')
 
   // How much of the glossary reaches this book at all?
   //
@@ -834,9 +840,11 @@ async function importLocks() {
     'English is already decided, and a rendering that reaches for the forbidden word is a defect rather than a preference.',
     'This is the mechanism that makes drift between the two projects impossible rather than merely discouraged.',
     '',
+    '*A rendering marked (ch N) is a flexion: the parent licenses it in those chapters of the Tao Te Ching only.*',
+    '',
     '| Character | Pinyin | Locked to | Forbidden | Occurrences in 周易 |',
     '|---|---|---|---|---|',
-    ...binding.map(r => `| ${r.term} | ${r.pinyin} | ${r.render} | ${(r.forbidden ?? []).join(', ') || '—'} | ${r.hits} |`),
+    ...binding.map(r => `| ${r.term} | ${r.pinyin} | ${rendered(r)} | ${(r.forbidden ?? []).join(', ') || '—'} | ${r.hits} |`),
     '',
     '## What does not reach',
     '',

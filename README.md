@@ -157,7 +157,7 @@ Thomas McClatchie's *A translation of the Confucian 易經*, Shanghai 1876, all 
 
 `sources/locks/terms.yaml` is vendored verbatim from the Tao Te Ching glossary, and `sources/locks/README.md` is generated from it — a table of every locked term measured against this book.
 
-**36 of the 47 locked terms occur in the Zhouyi.** 天 appears 122 times and is locked away from "Heaven". 王 appears 45 times and is locked away from "king" — a word Legge uses on nearly every one of them. That is not a hypothetical conflict; it is the single most frequent decision this project will make, and it is already settled.
+**39 of the 50 locked terms occur in the Zhouyi.** 天 appears 122 times and is locked away from "Heaven". 王 appears 45 times and is locked away from "king" — a word Legge uses on nearly every one of them. That is not a hypothetical conflict; it is the single most frequent decision this project will make, and it is already settled.
 
 ## Verification
 

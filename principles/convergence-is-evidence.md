@@ -55,7 +55,7 @@ supersedes: []
 
 ## Where it does not fire
 
-**The locks are not this.** 47 terms are barred from specific Englishes, and every one is barred for what the word does — "Heaven" for 天, "king" for 王. Those hold regardless of who wrote them, and a rendering that reaches for one is a defect. See [`../sources/locks/`](../sources/locks/README.md).
+**The locks are not this.** The locked terms are barred from specific Englishes, and every one is barred for what the word does — "Heaven" for 天, "king" for 王. Those hold regardless of who wrote them, and a rendering that reaches for one is a defect. See [`../sources/locks/`](../sources/locks/README.md).
 
 **Nor is the admission rule.** Which editions may live in `sources/` is settled by [`PROVENANCE`](../sources/PROVENANCE.md) on rights and provenance. That is about files, and it is not an opinion about vocabulary.
 

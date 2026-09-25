@@ -55,7 +55,7 @@ npm run principles -- --applies sources
 | `legge-1882/` | Legge's English translation, judgment and lines | **64 of 64** | 31 proofread · 33 OCR |
 | `harlez-1889/` | de Harlez's French, judgment, lines, and his own commentary | **64 of 64** | OCR |
 | `mcclatchie-1876/` | McClatchie's English, the three Wings he translated, his Appendix, four plates | **64 of 64** | OCR |
-| `locks/` | The Tao Te Ching glossary, vendored, and measured against this text | 47 terms, 36 binding | generated |
+| `locks/` | The Tao Te Ching glossary, vendored, and measured against this text | 50 terms, 39 binding | generated |
 | `.cache/` | The fetched wikitext and OCR the importer ran from | — | gitignored |
 
 Everything above is written by `npm run import-sources`. **Nothing in this directory is hand-edited.** Fix the importer, or fix the upstream source, and re-run.
