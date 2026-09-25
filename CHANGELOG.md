@@ -33,13 +33,22 @@ This is a **chronological spine that points into them**, never a second copy.
 | A rule learned, with its trigger and evidence | [`principles/`](principles/INDEX.md) — each entry carries its own `since:` |
 | How a rendering gets made | [`method.md`](method.md) |
 | What each source is and what it is for | [`README.md`](README.md) |
-| Coverage, counts, and what failed to extract | the run output of `pnpm xenso:import-iching`, and each file's frontmatter |
+| Coverage, counts, and what failed to extract | the run output of `npm run import-sources`, and each file's frontmatter |
 
 **Counts quoted below are a snapshot on the date of the entry**, not a table anyone maintains. The importer prints the live numbers; a hand-kept copy of a derivable list is precisely what the inherited `edited-or-generated` principle forbids.
 
 **Entries are milestones, not commits.** `git log` holds every change; this holds the ones that changed the shape of the work.
 
 ---
+
+## 2026-09-24 — The vendored sources regenerate from this repository
+
+Nothing had shown that `sources/` could still be rebuilt here since the extraction. The importer came across, but its offline inputs — the Wikisource pages, the McClatchie PDF, both OCR passes and the saved scan-adjudication calls — are gitignored, and they stayed behind in the opencosmos checkout.
+
+- **Re-run offline, every source except the locks, and the text is byte-identical.** zhouyi, wings, legge, harlez and mcclatchie each verified; across 268 files the only change was `transcribed:`, which the importer set to the day it ran. **It no longer does** (C11): a file whose text is unchanged is not rewritten, so its stamp moves only when the text does, and a no-op re-run leaves the tree clean — seen both ways, including a tampered file being put back. What did change was three McClatchie YAML headers, whose `scripts/xenso/` and `knowledge/iching/` paths the importer had already been corrected to stop writing — so those are now its output again rather than a hand-edit.
+- **The locks were not re-vendored, because that is a change of content.** The parent glossary has 50 locked terms against the 47 vendored here — 治, 亂 and 身 are new, 39 would bind in the Zhouyi against 36 — and its `terms.yaml` no longer carries flexions inside `render:`. `WORKLIST.md` C10.
+- **The last `pnpm xenso:*` commands and `scripts/xenso/` paths are gone** from the script headers, `README.md`, `sources/PROVENANCE.md` and the importer, which also looked for the parent at `../shalomormsby/taoteching`. `pnpm xenso:check-iching` stays where it is named: it is still opencosmos's command.
+- **The two OCR measurements are reconciled** (C9). The full-body figures — Vision 19.8%, Tesseract 10.5%, 3.9% where they agree — are current; the 13.7% / 8.7% / 2.8% in `ocr-consensus.ts`'s header came from an earlier, smaller sample, and `PROVENANCE.md` now says so.
 
 ## 2026-09-24 — The table checks itself again
 

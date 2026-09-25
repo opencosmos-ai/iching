@@ -28,7 +28,7 @@ CHANGELOG.md                  dated entries; the chronological spine
 
 ```
 principles/README.md          what belongs here — and what belongs to the parent project instead
-principles/INDEX.md           GENERATED — `pnpm xenso:principles`
+principles/INDEX.md           GENERATED — `npm run principles`
 ```
 
 **Evidence** — vendored, never hand-edited, every file naming the exact edition and revision it came from.
@@ -49,7 +49,7 @@ Generated from the decisions, and checked in:
 generated/iching-data.ts   GENERATED — do not edit
 ```
 
-It is generated *into the app* rather than read from disk, because the cast happens on the client and `apps/web/lib/knowledge.ts`'s fs-from-cwd pattern is server-only. Sixty-four rows is a rounding error in the bundle.
+It is generated *into the app* rather than read from disk, because the cast happens on the client and the fs-from-cwd pattern in opencosmos's `lib/knowledge.ts` is server-only. Sixty-four rows is a rounding error in the bundle.
 
 ```bash
 npm run seed                       # one-time; refuses to clobber anything past `status: draft`
@@ -168,7 +168,7 @@ Thomas McClatchie's *A translation of the Confucian 易經*, Shanghai 1876, all 
 
 Each of these has been seen to fail: a transposed row across pairs, a swap within a pair, a wrong trigram, and a rendering edited without a rebuild each exit non-zero.
 
-**The cast engine is checked where it lives.** Coin arithmetic, the non-uniform odds (1/8, 3/8, 3/8, 1/8 — not even, and that check is what says so), moving-line resolution and `relating: null` when nothing moves are properties of `apps/web/lib/iching.ts`, not of this table, and `pnpm xenso:check-iching` in [opencosmos](https://github.com/opencosmos-ai/opencosmos/blob/main/scripts/README.md) still tests them — against the app's copy of the generated file.
+**The cast engine is checked where it lives.** Coin arithmetic, the non-uniform odds (1/8, 3/8, 3/8, 1/8 — not even, and that check is what says so), moving-line resolution and `relating: null` when nothing moves are properties of `lib/iching.ts` in opencosmos, not of this table, and `pnpm xenso:check-iching` in [opencosmos](https://github.com/opencosmos-ai/opencosmos/blob/main/scripts/README.md) still tests them — against the app's copy of the generated file.
 
 `npm run import-sources` adds two more, and fails the run rather than writing an unverified file:
 

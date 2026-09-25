@@ -9,7 +9,7 @@
  * the cast happens on the client, and lib/knowledge.ts's fs-from-cwd pattern is
  * server-only. Sixty-four rows is a rounding error in the bundle.
  *
- *   pnpm xenso:build-iching
+ *   npm run build
  */
 
 import { readFileSync, writeFileSync, readdirSync } from 'node:fs'

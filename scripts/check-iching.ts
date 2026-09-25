@@ -16,7 +16,7 @@
  * single transposed row breaks it. That check is worth more than proofreading.
  *
  * The cast engine — coin arithmetic, the non-uniform odds, random casts — is
- * not here. It lives in opencosmos at apps/web/lib/iching.ts, and so does its
+ * not here. It lives in opencosmos at lib/iching.ts, and so does its
  * check. What is here of the founding cast is the part that is a fact about
  * the table: which figure those six lines spell, and which number it has.
  */

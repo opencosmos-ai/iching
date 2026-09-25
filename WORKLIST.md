@@ -69,8 +69,10 @@ not by position: the eight trigrams, then the verdict vocabulary as one decision
 | C5 | ✅ | ~~`mcPageBody` truncating pages at the first long line~~ — closed 2026-09-12 | — | — |
 | C6 | ✅ | ~~**The principles were argued well and reached by nobody**~~ — closed 2026-09-24: all thirteen on the parent's new shape, every scope loaded where its work begins, and `npm run principles -- --check` refuses an entry that is not shaped to run. `iching-principle-entry` skill added | `principles/` · `scripts/` | 13 |
 | C7 | ✅ | ~~**`check-iching` did not come with the extraction**~~ — closed 2026-09-24: `npm run check` runs the table half, reading the frontmatter, and fails if `generated/` has drifted from it. The engine half stays in opencosmos with the engine | `scripts/` | 1 |
-| C8 | ⬜ | **`pnpm xenso:*` survives the extraction in ~20 places** — script headers, `sources/PROVENANCE.md`, the McClatchie YAML comments, and two paths under `scripts/xenso/` that no longer exist. The commands are `npm run build · principles · import-sources · seed`. Fixed so far only in `README.md`'s command block and *Verification* section, and the principles build | repo-wide | 20 |
-| C9 | ⬜ | **Two measurements of the McClatchie OCR, not reconciled** — `principles/an-instrument-is-not-a-witness-to-itself.md` gives Vision one word in five wrong and a 3.9% consensus residual; `scripts/ocr-consensus.ts`'s header gives one in eight and 2.8%. Probably two runs; `sources/PROVENANCE.md` should say which is current | `scripts/` · `principles/` | 1 |
+| C8 | ✅ | ~~**`pnpm xenso:*` survives the extraction**~~ — closed 2026-09-24: the importer was re-run offline and its output is byte-identical but for three McClatchie headers, now its output again. The locks are C10 | repo-wide | 20 |
+| C9 | ✅ | ~~**Two measurements of the McClatchie OCR, not reconciled**~~ — closed 2026-09-24: the full-body 19.8 / 10.5 / 3.9% are current; `PROVENANCE.md` says so | `scripts/` · `sources/` | 1 |
+| C10 | 🔴 | **The vendored locks are three terms behind the parent** — 50 locked there, 47 here; 治 *govern*, 亂 *disorder* and 身 *body* are new, and 39 would bind in the Zhouyi rather than 36. Re-vendoring is one command, `npm run import-sources -- --only locks`, but it also drops the flexions from `render:` (執 loses *seize* at ch 74), because the parent now keeps them in a separate field. Decide whether the vendored table should carry them | `sources/locks/` | 1 |
+| C11 | ✅ | ~~**The importer rewrote `transcribed:` to today on every run**~~ — closed 2026-09-24: a file whose text is unchanged keeps its stamp, so a no-op re-run leaves the tree clean | `scripts/` | 1 |
 
 ---
 
@@ -98,6 +100,10 @@ sentence from the trigram's name, and 鼎 is a cauldron on a **wood** fire. Queu
 
 ## Closed — the ledger
 
+- **2026-09-24** · **The vendored sources regenerate from this repository** (C8, C9, C11) — offline, byte-identical
+  but for three headers; the last `xenso:` names gone; the OCR figures reconciled; a no-op re-run
+  now leaves the tree clean. The locks are C10.
+  → [CHANGELOG](CHANGELOG.md)
 - **2026-09-24** · **The table checks itself again** (C7) — `npm run check`: bijection, King Wen
   pairs, trigram agreement, the founding cast, and that `generated/` matches the frontmatter.
   The engine half stays in opencosmos with the engine. → [CHANGELOG](CHANGELOG.md)

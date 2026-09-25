@@ -10,7 +10,7 @@
  * After this runs once, the markdown files are the source of truth. Re-running
  * refuses to clobber any file whose status is no longer `draft`.
  *
- *   pnpm xenso:seed-iching
+ *   npm run seed
  *
  * Verification of the table itself lives in iching-check.ts and is not optional:
  * the King Wen sequence has a structural invariant (consecutive pairs are

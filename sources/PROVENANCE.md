@@ -58,7 +58,7 @@ npm run principles -- --applies sources
 | `locks/` | The Tao Te Ching glossary, vendored, and measured against this text | 47 terms, 36 binding | generated |
 | `.cache/` | The fetched wikitext and OCR the importer ran from | — | gitignored |
 
-Everything above is written by `pnpm xenso:import-iching`. **Nothing in this directory is hand-edited.** Fix the importer, or fix the upstream source, and re-run.
+Everything above is written by `npm run import-sources`. **Nothing in this directory is hand-edited.** Fix the importer, or fix the upstream source, and re-run.
 
 ### `zhouyi/` — 周易
 
@@ -182,7 +182,7 @@ swiftc -O scripts/ocr-pdf.swift -o /tmp/ocr-pdf -framework PDFKit -framework Vis
 /tmp/ocr-pdf sources/.cache/mcclatchie-1876.pdf \
     sources/.cache/mcclatchie-1876-vision.txt --scale 3 --langs en-US,zh-Hant
 
-pnpm xenso:import-iching --only mcclatchie
+npm run import-sources -- --only mcclatchie
 ```
 
 **The PDF and both OCR passes live in `.cache/` and are gitignored.** 21 MB of page images is not what this corpus is for; the derived text and the four plates are.
@@ -227,6 +227,8 @@ The second pass added Tesseract 5 (`brew install tesseract`, outside the pnpm wo
 | Apple Vision, as first vendored | **19.8%** |
 | Tesseract, 300 DPI, single-column | **10.5%** |
 | **read identically by both** | **3.9%** |
+
+*These full-body figures are the current ones. An earlier, smaller page sample gave 13.7%, 8.7% and 2.8% for the same three rows; it is superseded, and nothing should cite it.*
 
 **Tesseract is the primary because it measured better, not because it is better in principle.** Vision is kept because the third row is the useful one: 72.7% of the body is read the same way by two separately-trained engines, and inside that agreement the error rate falls to 3.9%, while the 27.3% they disagree about carries 73% of all the remaining damage. Corroboration does not repair the text; it says where the damage is.
 

@@ -1,9 +1,9 @@
 # The plates — McClatchie 1876, front matter (roman pages vii–x).
 #
 # Exported as PNG with:
-#   swiftc -O scripts/xenso/page-ink.swift -o /tmp/page-ink -framework PDFKit -framework AppKit
-#   /tmp/page-ink knowledge/iching/sources/.cache/mcclatchie-1876.pdf \
-#       --export 14,15,16,17 --dir knowledge/iching/sources/mcclatchie-1876/figures --scale 4
+#   swiftc -O scripts/page-ink.swift -o /tmp/page-ink -framework PDFKit -framework AppKit
+#   /tmp/page-ink sources/.cache/mcclatchie-1876.pdf \
+#       --export 14,15,16,17 --dir sources/mcclatchie-1876/figures --scale 4
 #
 # The figures are kept out of git by default: they are photographs of a book we
 # already hold, and the two that matter are formal objects this project can
