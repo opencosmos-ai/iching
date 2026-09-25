@@ -9,6 +9,16 @@ export type Hexagram = {
   /** Bottom → top, '1' = yang. */
   figure: string
   trigrams: { lower: string; upper: string }
+  /**
+   * Its place on the four spectrums, derived from its trigrams: `within` is the
+   * lower, `without` the upper. `doubled` is one pole twice, `crossed` both poles
+   * of one spectrum, `across` a pole of each of two. See README § The shape of the figures.
+   */
+  signature: {
+    class: 'doubled' | 'crossed' | 'across'
+    within: { spectrum: string; pole: 'yang' | 'yin' }
+    without: { spectrum: string; pole: 'yang' | 'yin' }
+  }
   /** The single word a player sees. Null until the rendering is drafted. */
   render: string | null
   status: string
@@ -21,87 +31,93 @@ export type Trigram = {
   pinyin: string
   figure: string
   imageChinese: string
+  /** The 說卦 ch 3 pair it belongs to, named by the two ids: "qian-kun", "zhen-xun", "kan-li", "gen-dui". */
+  spectrum: string
+  /** The kind of its odd line — 繫辭下 陽卦多陰: a yang trigram has one yang line among yin. */
+  pole: 'yang' | 'yin'
+  /** Where the odd line sits — 說卦 ch 10's first, second, third draw. Null for 乾 and 坤, which have none. */
+  oddLine: 'bottom' | 'middle' | 'top' | null
   render: string | null
   status: string
 }
 
 /** Indexed by King Wen number minus one. */
 export const HEXAGRAMS: readonly Hexagram[] = [
-  { number: 1, chinese: "乾", pinyin: "qián", figure: "111111", trigrams: { lower: "qian", upper: "qian" }, render: null, status: "draft", judgment: null },
-  { number: 2, chinese: "坤", pinyin: "kūn", figure: "000000", trigrams: { lower: "kun", upper: "kun" }, render: null, status: "draft", judgment: null },
-  { number: 3, chinese: "屯", pinyin: "zhūn", figure: "100010", trigrams: { lower: "zhen", upper: "kan" }, render: null, status: "draft", judgment: null },
-  { number: 4, chinese: "蒙", pinyin: "méng", figure: "010001", trigrams: { lower: "kan", upper: "gen" }, render: null, status: "draft", judgment: null },
-  { number: 5, chinese: "需", pinyin: "xū", figure: "111010", trigrams: { lower: "qian", upper: "kan" }, render: null, status: "draft", judgment: null },
-  { number: 6, chinese: "訟", pinyin: "sòng", figure: "010111", trigrams: { lower: "kan", upper: "qian" }, render: null, status: "draft", judgment: null },
-  { number: 7, chinese: "師", pinyin: "shī", figure: "010000", trigrams: { lower: "kan", upper: "kun" }, render: null, status: "draft", judgment: null },
-  { number: 8, chinese: "比", pinyin: "bǐ", figure: "000010", trigrams: { lower: "kun", upper: "kan" }, render: null, status: "draft", judgment: null },
-  { number: 9, chinese: "小畜", pinyin: "xiǎo chù", figure: "111011", trigrams: { lower: "qian", upper: "xun" }, render: null, status: "draft", judgment: null },
-  { number: 10, chinese: "履", pinyin: "lǚ", figure: "110111", trigrams: { lower: "dui", upper: "qian" }, render: null, status: "draft", judgment: null },
-  { number: 11, chinese: "泰", pinyin: "tài", figure: "111000", trigrams: { lower: "qian", upper: "kun" }, render: null, status: "draft", judgment: null },
-  { number: 12, chinese: "否", pinyin: "pǐ", figure: "000111", trigrams: { lower: "kun", upper: "qian" }, render: null, status: "draft", judgment: null },
-  { number: 13, chinese: "同人", pinyin: "tóng rén", figure: "101111", trigrams: { lower: "li", upper: "qian" }, render: null, status: "draft", judgment: null },
-  { number: 14, chinese: "大有", pinyin: "dà yǒu", figure: "111101", trigrams: { lower: "qian", upper: "li" }, render: null, status: "draft", judgment: null },
-  { number: 15, chinese: "謙", pinyin: "qiān", figure: "001000", trigrams: { lower: "gen", upper: "kun" }, render: null, status: "draft", judgment: null },
-  { number: 16, chinese: "豫", pinyin: "yù", figure: "000100", trigrams: { lower: "kun", upper: "zhen" }, render: null, status: "draft", judgment: null },
-  { number: 17, chinese: "隨", pinyin: "suí", figure: "100110", trigrams: { lower: "zhen", upper: "dui" }, render: null, status: "draft", judgment: null },
-  { number: 18, chinese: "蠱", pinyin: "gǔ", figure: "011001", trigrams: { lower: "xun", upper: "gen" }, render: null, status: "draft", judgment: null },
-  { number: 19, chinese: "臨", pinyin: "lín", figure: "110000", trigrams: { lower: "dui", upper: "kun" }, render: null, status: "draft", judgment: null },
-  { number: 20, chinese: "觀", pinyin: "guān", figure: "000011", trigrams: { lower: "kun", upper: "xun" }, render: null, status: "draft", judgment: null },
-  { number: 21, chinese: "噬嗑", pinyin: "shì kè", figure: "100101", trigrams: { lower: "zhen", upper: "li" }, render: null, status: "draft", judgment: null },
-  { number: 22, chinese: "賁", pinyin: "bì", figure: "101001", trigrams: { lower: "li", upper: "gen" }, render: null, status: "draft", judgment: null },
-  { number: 23, chinese: "剝", pinyin: "bō", figure: "000001", trigrams: { lower: "kun", upper: "gen" }, render: null, status: "draft", judgment: null },
-  { number: 24, chinese: "復", pinyin: "fù", figure: "100000", trigrams: { lower: "zhen", upper: "kun" }, render: null, status: "draft", judgment: null },
-  { number: 25, chinese: "无妄", pinyin: "wú wàng", figure: "100111", trigrams: { lower: "zhen", upper: "qian" }, render: null, status: "draft", judgment: null },
-  { number: 26, chinese: "大畜", pinyin: "dà chù", figure: "111001", trigrams: { lower: "qian", upper: "gen" }, render: null, status: "draft", judgment: null },
-  { number: 27, chinese: "頤", pinyin: "yí", figure: "100001", trigrams: { lower: "zhen", upper: "gen" }, render: null, status: "draft", judgment: null },
-  { number: 28, chinese: "大過", pinyin: "dà guò", figure: "011110", trigrams: { lower: "xun", upper: "dui" }, render: null, status: "draft", judgment: null },
-  { number: 29, chinese: "坎", pinyin: "kǎn", figure: "010010", trigrams: { lower: "kan", upper: "kan" }, render: null, status: "draft", judgment: null },
-  { number: 30, chinese: "離", pinyin: "lí", figure: "101101", trigrams: { lower: "li", upper: "li" }, render: null, status: "draft", judgment: null },
-  { number: 31, chinese: "咸", pinyin: "xián", figure: "001110", trigrams: { lower: "gen", upper: "dui" }, render: null, status: "draft", judgment: null },
-  { number: 32, chinese: "恆", pinyin: "héng", figure: "011100", trigrams: { lower: "xun", upper: "zhen" }, render: null, status: "draft", judgment: null },
-  { number: 33, chinese: "遯", pinyin: "dùn", figure: "001111", trigrams: { lower: "gen", upper: "qian" }, render: null, status: "draft", judgment: null },
-  { number: 34, chinese: "大壯", pinyin: "dà zhuàng", figure: "111100", trigrams: { lower: "qian", upper: "zhen" }, render: null, status: "draft", judgment: null },
-  { number: 35, chinese: "晉", pinyin: "jìn", figure: "000101", trigrams: { lower: "kun", upper: "li" }, render: null, status: "draft", judgment: null },
-  { number: 36, chinese: "明夷", pinyin: "míng yí", figure: "101000", trigrams: { lower: "li", upper: "kun" }, render: null, status: "draft", judgment: null },
-  { number: 37, chinese: "家人", pinyin: "jiā rén", figure: "101011", trigrams: { lower: "li", upper: "xun" }, render: null, status: "draft", judgment: null },
-  { number: 38, chinese: "睽", pinyin: "kuí", figure: "110101", trigrams: { lower: "dui", upper: "li" }, render: null, status: "draft", judgment: null },
-  { number: 39, chinese: "蹇", pinyin: "jiǎn", figure: "001010", trigrams: { lower: "gen", upper: "kan" }, render: null, status: "draft", judgment: null },
-  { number: 40, chinese: "解", pinyin: "xiè", figure: "010100", trigrams: { lower: "kan", upper: "zhen" }, render: null, status: "draft", judgment: null },
-  { number: 41, chinese: "損", pinyin: "sǔn", figure: "110001", trigrams: { lower: "dui", upper: "gen" }, render: null, status: "draft", judgment: null },
-  { number: 42, chinese: "益", pinyin: "yì", figure: "100011", trigrams: { lower: "zhen", upper: "xun" }, render: null, status: "draft", judgment: null },
-  { number: 43, chinese: "夬", pinyin: "guài", figure: "111110", trigrams: { lower: "qian", upper: "dui" }, render: null, status: "draft", judgment: null },
-  { number: 44, chinese: "姤", pinyin: "gòu", figure: "011111", trigrams: { lower: "xun", upper: "qian" }, render: null, status: "draft", judgment: null },
-  { number: 45, chinese: "萃", pinyin: "cuì", figure: "000110", trigrams: { lower: "kun", upper: "dui" }, render: null, status: "draft", judgment: null },
-  { number: 46, chinese: "升", pinyin: "shēng", figure: "011000", trigrams: { lower: "xun", upper: "kun" }, render: null, status: "draft", judgment: null },
-  { number: 47, chinese: "困", pinyin: "kùn", figure: "010110", trigrams: { lower: "kan", upper: "dui" }, render: null, status: "draft", judgment: null },
-  { number: 48, chinese: "井", pinyin: "jǐng", figure: "011010", trigrams: { lower: "xun", upper: "kan" }, render: null, status: "draft", judgment: null },
-  { number: 49, chinese: "革", pinyin: "gé", figure: "101110", trigrams: { lower: "li", upper: "dui" }, render: null, status: "draft", judgment: null },
-  { number: 50, chinese: "鼎", pinyin: "dǐng", figure: "011101", trigrams: { lower: "xun", upper: "li" }, render: null, status: "draft", judgment: null },
-  { number: 51, chinese: "震", pinyin: "zhèn", figure: "100100", trigrams: { lower: "zhen", upper: "zhen" }, render: null, status: "draft", judgment: null },
-  { number: 52, chinese: "艮", pinyin: "gèn", figure: "001001", trigrams: { lower: "gen", upper: "gen" }, render: null, status: "draft", judgment: null },
-  { number: 53, chinese: "漸", pinyin: "jiàn", figure: "001011", trigrams: { lower: "gen", upper: "xun" }, render: null, status: "draft", judgment: null },
-  { number: 54, chinese: "歸妹", pinyin: "guī mèi", figure: "110100", trigrams: { lower: "dui", upper: "zhen" }, render: null, status: "draft", judgment: null },
-  { number: 55, chinese: "豐", pinyin: "fēng", figure: "101100", trigrams: { lower: "li", upper: "zhen" }, render: null, status: "draft", judgment: null },
-  { number: 56, chinese: "旅", pinyin: "lǚ", figure: "001101", trigrams: { lower: "gen", upper: "li" }, render: null, status: "draft", judgment: null },
-  { number: 57, chinese: "巽", pinyin: "xùn", figure: "011011", trigrams: { lower: "xun", upper: "xun" }, render: null, status: "draft", judgment: null },
-  { number: 58, chinese: "兌", pinyin: "duì", figure: "110110", trigrams: { lower: "dui", upper: "dui" }, render: null, status: "draft", judgment: null },
-  { number: 59, chinese: "渙", pinyin: "huàn", figure: "010011", trigrams: { lower: "kan", upper: "xun" }, render: null, status: "draft", judgment: null },
-  { number: 60, chinese: "節", pinyin: "jié", figure: "110010", trigrams: { lower: "dui", upper: "kan" }, render: null, status: "draft", judgment: null },
-  { number: 61, chinese: "中孚", pinyin: "zhōng fú", figure: "110011", trigrams: { lower: "dui", upper: "xun" }, render: null, status: "draft", judgment: null },
-  { number: 62, chinese: "小過", pinyin: "xiǎo guò", figure: "001100", trigrams: { lower: "gen", upper: "zhen" }, render: null, status: "draft", judgment: null },
-  { number: 63, chinese: "既濟", pinyin: "jì jì", figure: "101010", trigrams: { lower: "li", upper: "kan" }, render: null, status: "draft", judgment: null },
-  { number: 64, chinese: "未濟", pinyin: "wèi jì", figure: "010101", trigrams: { lower: "kan", upper: "li" }, render: null, status: "draft", judgment: null },
+  { number: 1, chinese: "乾", pinyin: "qián", figure: "111111", trigrams: { lower: "qian", upper: "qian" }, signature: { class: "doubled", within: { spectrum: "qian-kun", pole: "yang" }, without: { spectrum: "qian-kun", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 2, chinese: "坤", pinyin: "kūn", figure: "000000", trigrams: { lower: "kun", upper: "kun" }, signature: { class: "doubled", within: { spectrum: "qian-kun", pole: "yin" }, without: { spectrum: "qian-kun", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 3, chinese: "屯", pinyin: "zhūn", figure: "100010", trigrams: { lower: "zhen", upper: "kan" }, signature: { class: "across", within: { spectrum: "zhen-xun", pole: "yang" }, without: { spectrum: "kan-li", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 4, chinese: "蒙", pinyin: "méng", figure: "010001", trigrams: { lower: "kan", upper: "gen" }, signature: { class: "across", within: { spectrum: "kan-li", pole: "yang" }, without: { spectrum: "gen-dui", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 5, chinese: "需", pinyin: "xū", figure: "111010", trigrams: { lower: "qian", upper: "kan" }, signature: { class: "across", within: { spectrum: "qian-kun", pole: "yang" }, without: { spectrum: "kan-li", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 6, chinese: "訟", pinyin: "sòng", figure: "010111", trigrams: { lower: "kan", upper: "qian" }, signature: { class: "across", within: { spectrum: "kan-li", pole: "yang" }, without: { spectrum: "qian-kun", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 7, chinese: "師", pinyin: "shī", figure: "010000", trigrams: { lower: "kan", upper: "kun" }, signature: { class: "across", within: { spectrum: "kan-li", pole: "yang" }, without: { spectrum: "qian-kun", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 8, chinese: "比", pinyin: "bǐ", figure: "000010", trigrams: { lower: "kun", upper: "kan" }, signature: { class: "across", within: { spectrum: "qian-kun", pole: "yin" }, without: { spectrum: "kan-li", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 9, chinese: "小畜", pinyin: "xiǎo chù", figure: "111011", trigrams: { lower: "qian", upper: "xun" }, signature: { class: "across", within: { spectrum: "qian-kun", pole: "yang" }, without: { spectrum: "zhen-xun", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 10, chinese: "履", pinyin: "lǚ", figure: "110111", trigrams: { lower: "dui", upper: "qian" }, signature: { class: "across", within: { spectrum: "gen-dui", pole: "yin" }, without: { spectrum: "qian-kun", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 11, chinese: "泰", pinyin: "tài", figure: "111000", trigrams: { lower: "qian", upper: "kun" }, signature: { class: "crossed", within: { spectrum: "qian-kun", pole: "yang" }, without: { spectrum: "qian-kun", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 12, chinese: "否", pinyin: "pǐ", figure: "000111", trigrams: { lower: "kun", upper: "qian" }, signature: { class: "crossed", within: { spectrum: "qian-kun", pole: "yin" }, without: { spectrum: "qian-kun", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 13, chinese: "同人", pinyin: "tóng rén", figure: "101111", trigrams: { lower: "li", upper: "qian" }, signature: { class: "across", within: { spectrum: "kan-li", pole: "yin" }, without: { spectrum: "qian-kun", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 14, chinese: "大有", pinyin: "dà yǒu", figure: "111101", trigrams: { lower: "qian", upper: "li" }, signature: { class: "across", within: { spectrum: "qian-kun", pole: "yang" }, without: { spectrum: "kan-li", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 15, chinese: "謙", pinyin: "qiān", figure: "001000", trigrams: { lower: "gen", upper: "kun" }, signature: { class: "across", within: { spectrum: "gen-dui", pole: "yang" }, without: { spectrum: "qian-kun", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 16, chinese: "豫", pinyin: "yù", figure: "000100", trigrams: { lower: "kun", upper: "zhen" }, signature: { class: "across", within: { spectrum: "qian-kun", pole: "yin" }, without: { spectrum: "zhen-xun", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 17, chinese: "隨", pinyin: "suí", figure: "100110", trigrams: { lower: "zhen", upper: "dui" }, signature: { class: "across", within: { spectrum: "zhen-xun", pole: "yang" }, without: { spectrum: "gen-dui", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 18, chinese: "蠱", pinyin: "gǔ", figure: "011001", trigrams: { lower: "xun", upper: "gen" }, signature: { class: "across", within: { spectrum: "zhen-xun", pole: "yin" }, without: { spectrum: "gen-dui", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 19, chinese: "臨", pinyin: "lín", figure: "110000", trigrams: { lower: "dui", upper: "kun" }, signature: { class: "across", within: { spectrum: "gen-dui", pole: "yin" }, without: { spectrum: "qian-kun", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 20, chinese: "觀", pinyin: "guān", figure: "000011", trigrams: { lower: "kun", upper: "xun" }, signature: { class: "across", within: { spectrum: "qian-kun", pole: "yin" }, without: { spectrum: "zhen-xun", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 21, chinese: "噬嗑", pinyin: "shì kè", figure: "100101", trigrams: { lower: "zhen", upper: "li" }, signature: { class: "across", within: { spectrum: "zhen-xun", pole: "yang" }, without: { spectrum: "kan-li", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 22, chinese: "賁", pinyin: "bì", figure: "101001", trigrams: { lower: "li", upper: "gen" }, signature: { class: "across", within: { spectrum: "kan-li", pole: "yin" }, without: { spectrum: "gen-dui", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 23, chinese: "剝", pinyin: "bō", figure: "000001", trigrams: { lower: "kun", upper: "gen" }, signature: { class: "across", within: { spectrum: "qian-kun", pole: "yin" }, without: { spectrum: "gen-dui", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 24, chinese: "復", pinyin: "fù", figure: "100000", trigrams: { lower: "zhen", upper: "kun" }, signature: { class: "across", within: { spectrum: "zhen-xun", pole: "yang" }, without: { spectrum: "qian-kun", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 25, chinese: "无妄", pinyin: "wú wàng", figure: "100111", trigrams: { lower: "zhen", upper: "qian" }, signature: { class: "across", within: { spectrum: "zhen-xun", pole: "yang" }, without: { spectrum: "qian-kun", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 26, chinese: "大畜", pinyin: "dà chù", figure: "111001", trigrams: { lower: "qian", upper: "gen" }, signature: { class: "across", within: { spectrum: "qian-kun", pole: "yang" }, without: { spectrum: "gen-dui", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 27, chinese: "頤", pinyin: "yí", figure: "100001", trigrams: { lower: "zhen", upper: "gen" }, signature: { class: "across", within: { spectrum: "zhen-xun", pole: "yang" }, without: { spectrum: "gen-dui", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 28, chinese: "大過", pinyin: "dà guò", figure: "011110", trigrams: { lower: "xun", upper: "dui" }, signature: { class: "across", within: { spectrum: "zhen-xun", pole: "yin" }, without: { spectrum: "gen-dui", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 29, chinese: "坎", pinyin: "kǎn", figure: "010010", trigrams: { lower: "kan", upper: "kan" }, signature: { class: "doubled", within: { spectrum: "kan-li", pole: "yang" }, without: { spectrum: "kan-li", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 30, chinese: "離", pinyin: "lí", figure: "101101", trigrams: { lower: "li", upper: "li" }, signature: { class: "doubled", within: { spectrum: "kan-li", pole: "yin" }, without: { spectrum: "kan-li", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 31, chinese: "咸", pinyin: "xián", figure: "001110", trigrams: { lower: "gen", upper: "dui" }, signature: { class: "crossed", within: { spectrum: "gen-dui", pole: "yang" }, without: { spectrum: "gen-dui", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 32, chinese: "恆", pinyin: "héng", figure: "011100", trigrams: { lower: "xun", upper: "zhen" }, signature: { class: "crossed", within: { spectrum: "zhen-xun", pole: "yin" }, without: { spectrum: "zhen-xun", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 33, chinese: "遯", pinyin: "dùn", figure: "001111", trigrams: { lower: "gen", upper: "qian" }, signature: { class: "across", within: { spectrum: "gen-dui", pole: "yang" }, without: { spectrum: "qian-kun", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 34, chinese: "大壯", pinyin: "dà zhuàng", figure: "111100", trigrams: { lower: "qian", upper: "zhen" }, signature: { class: "across", within: { spectrum: "qian-kun", pole: "yang" }, without: { spectrum: "zhen-xun", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 35, chinese: "晉", pinyin: "jìn", figure: "000101", trigrams: { lower: "kun", upper: "li" }, signature: { class: "across", within: { spectrum: "qian-kun", pole: "yin" }, without: { spectrum: "kan-li", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 36, chinese: "明夷", pinyin: "míng yí", figure: "101000", trigrams: { lower: "li", upper: "kun" }, signature: { class: "across", within: { spectrum: "kan-li", pole: "yin" }, without: { spectrum: "qian-kun", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 37, chinese: "家人", pinyin: "jiā rén", figure: "101011", trigrams: { lower: "li", upper: "xun" }, signature: { class: "across", within: { spectrum: "kan-li", pole: "yin" }, without: { spectrum: "zhen-xun", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 38, chinese: "睽", pinyin: "kuí", figure: "110101", trigrams: { lower: "dui", upper: "li" }, signature: { class: "across", within: { spectrum: "gen-dui", pole: "yin" }, without: { spectrum: "kan-li", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 39, chinese: "蹇", pinyin: "jiǎn", figure: "001010", trigrams: { lower: "gen", upper: "kan" }, signature: { class: "across", within: { spectrum: "gen-dui", pole: "yang" }, without: { spectrum: "kan-li", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 40, chinese: "解", pinyin: "xiè", figure: "010100", trigrams: { lower: "kan", upper: "zhen" }, signature: { class: "across", within: { spectrum: "kan-li", pole: "yang" }, without: { spectrum: "zhen-xun", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 41, chinese: "損", pinyin: "sǔn", figure: "110001", trigrams: { lower: "dui", upper: "gen" }, signature: { class: "crossed", within: { spectrum: "gen-dui", pole: "yin" }, without: { spectrum: "gen-dui", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 42, chinese: "益", pinyin: "yì", figure: "100011", trigrams: { lower: "zhen", upper: "xun" }, signature: { class: "crossed", within: { spectrum: "zhen-xun", pole: "yang" }, without: { spectrum: "zhen-xun", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 43, chinese: "夬", pinyin: "guài", figure: "111110", trigrams: { lower: "qian", upper: "dui" }, signature: { class: "across", within: { spectrum: "qian-kun", pole: "yang" }, without: { spectrum: "gen-dui", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 44, chinese: "姤", pinyin: "gòu", figure: "011111", trigrams: { lower: "xun", upper: "qian" }, signature: { class: "across", within: { spectrum: "zhen-xun", pole: "yin" }, without: { spectrum: "qian-kun", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 45, chinese: "萃", pinyin: "cuì", figure: "000110", trigrams: { lower: "kun", upper: "dui" }, signature: { class: "across", within: { spectrum: "qian-kun", pole: "yin" }, without: { spectrum: "gen-dui", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 46, chinese: "升", pinyin: "shēng", figure: "011000", trigrams: { lower: "xun", upper: "kun" }, signature: { class: "across", within: { spectrum: "zhen-xun", pole: "yin" }, without: { spectrum: "qian-kun", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 47, chinese: "困", pinyin: "kùn", figure: "010110", trigrams: { lower: "kan", upper: "dui" }, signature: { class: "across", within: { spectrum: "kan-li", pole: "yang" }, without: { spectrum: "gen-dui", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 48, chinese: "井", pinyin: "jǐng", figure: "011010", trigrams: { lower: "xun", upper: "kan" }, signature: { class: "across", within: { spectrum: "zhen-xun", pole: "yin" }, without: { spectrum: "kan-li", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 49, chinese: "革", pinyin: "gé", figure: "101110", trigrams: { lower: "li", upper: "dui" }, signature: { class: "across", within: { spectrum: "kan-li", pole: "yin" }, without: { spectrum: "gen-dui", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 50, chinese: "鼎", pinyin: "dǐng", figure: "011101", trigrams: { lower: "xun", upper: "li" }, signature: { class: "across", within: { spectrum: "zhen-xun", pole: "yin" }, without: { spectrum: "kan-li", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 51, chinese: "震", pinyin: "zhèn", figure: "100100", trigrams: { lower: "zhen", upper: "zhen" }, signature: { class: "doubled", within: { spectrum: "zhen-xun", pole: "yang" }, without: { spectrum: "zhen-xun", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 52, chinese: "艮", pinyin: "gèn", figure: "001001", trigrams: { lower: "gen", upper: "gen" }, signature: { class: "doubled", within: { spectrum: "gen-dui", pole: "yang" }, without: { spectrum: "gen-dui", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 53, chinese: "漸", pinyin: "jiàn", figure: "001011", trigrams: { lower: "gen", upper: "xun" }, signature: { class: "across", within: { spectrum: "gen-dui", pole: "yang" }, without: { spectrum: "zhen-xun", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 54, chinese: "歸妹", pinyin: "guī mèi", figure: "110100", trigrams: { lower: "dui", upper: "zhen" }, signature: { class: "across", within: { spectrum: "gen-dui", pole: "yin" }, without: { spectrum: "zhen-xun", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 55, chinese: "豐", pinyin: "fēng", figure: "101100", trigrams: { lower: "li", upper: "zhen" }, signature: { class: "across", within: { spectrum: "kan-li", pole: "yin" }, without: { spectrum: "zhen-xun", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 56, chinese: "旅", pinyin: "lǚ", figure: "001101", trigrams: { lower: "gen", upper: "li" }, signature: { class: "across", within: { spectrum: "gen-dui", pole: "yang" }, without: { spectrum: "kan-li", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 57, chinese: "巽", pinyin: "xùn", figure: "011011", trigrams: { lower: "xun", upper: "xun" }, signature: { class: "doubled", within: { spectrum: "zhen-xun", pole: "yin" }, without: { spectrum: "zhen-xun", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 58, chinese: "兌", pinyin: "duì", figure: "110110", trigrams: { lower: "dui", upper: "dui" }, signature: { class: "doubled", within: { spectrum: "gen-dui", pole: "yin" }, without: { spectrum: "gen-dui", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 59, chinese: "渙", pinyin: "huàn", figure: "010011", trigrams: { lower: "kan", upper: "xun" }, signature: { class: "across", within: { spectrum: "kan-li", pole: "yang" }, without: { spectrum: "zhen-xun", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 60, chinese: "節", pinyin: "jié", figure: "110010", trigrams: { lower: "dui", upper: "kan" }, signature: { class: "across", within: { spectrum: "gen-dui", pole: "yin" }, without: { spectrum: "kan-li", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 61, chinese: "中孚", pinyin: "zhōng fú", figure: "110011", trigrams: { lower: "dui", upper: "xun" }, signature: { class: "across", within: { spectrum: "gen-dui", pole: "yin" }, without: { spectrum: "zhen-xun", pole: "yin" } }, render: null, status: "draft", judgment: null },
+  { number: 62, chinese: "小過", pinyin: "xiǎo guò", figure: "001100", trigrams: { lower: "gen", upper: "zhen" }, signature: { class: "across", within: { spectrum: "gen-dui", pole: "yang" }, without: { spectrum: "zhen-xun", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 63, chinese: "既濟", pinyin: "jì jì", figure: "101010", trigrams: { lower: "li", upper: "kan" }, signature: { class: "crossed", within: { spectrum: "kan-li", pole: "yin" }, without: { spectrum: "kan-li", pole: "yang" } }, render: null, status: "draft", judgment: null },
+  { number: 64, chinese: "未濟", pinyin: "wèi jì", figure: "010101", trigrams: { lower: "kan", upper: "li" }, signature: { class: "crossed", within: { spectrum: "kan-li", pole: "yang" }, without: { spectrum: "kan-li", pole: "yin" } }, render: null, status: "draft", judgment: null },
 ]
 
 export const TRIGRAMS: readonly Trigram[] = [
-  { id: "qian", chinese: "乾", pinyin: "qián", figure: "111", imageChinese: "天", render: "sky", status: "draft" },
-  { id: "dui", chinese: "兌", pinyin: "duì", figure: "110", imageChinese: "澤", render: "lake", status: "draft" },
-  { id: "li", chinese: "離", pinyin: "lí", figure: "101", imageChinese: "火", render: "fire", status: "draft" },
-  { id: "zhen", chinese: "震", pinyin: "zhèn", figure: "100", imageChinese: "雷", render: "thunder", status: "draft" },
-  { id: "xun", chinese: "巽", pinyin: "xùn", figure: "011", imageChinese: "風", render: "wind", status: "draft" },
-  { id: "kan", chinese: "坎", pinyin: "kǎn", figure: "010", imageChinese: "水", render: "water", status: "draft" },
-  { id: "gen", chinese: "艮", pinyin: "gèn", figure: "001", imageChinese: "山", render: "mountain", status: "draft" },
-  { id: "kun", chinese: "坤", pinyin: "kūn", figure: "000", imageChinese: "地", render: "earth", status: "draft" },
+  { id: "qian", chinese: "乾", pinyin: "qián", figure: "111", imageChinese: "天", spectrum: "qian-kun", pole: "yang", oddLine: null, render: "sky", status: "draft" },
+  { id: "dui", chinese: "兌", pinyin: "duì", figure: "110", imageChinese: "澤", spectrum: "gen-dui", pole: "yin", oddLine: "top", render: "lake", status: "draft" },
+  { id: "li", chinese: "離", pinyin: "lí", figure: "101", imageChinese: "火", spectrum: "kan-li", pole: "yin", oddLine: "middle", render: "fire", status: "draft" },
+  { id: "zhen", chinese: "震", pinyin: "zhèn", figure: "100", imageChinese: "雷", spectrum: "zhen-xun", pole: "yang", oddLine: "bottom", render: "thunder", status: "draft" },
+  { id: "xun", chinese: "巽", pinyin: "xùn", figure: "011", imageChinese: "風", spectrum: "zhen-xun", pole: "yin", oddLine: "bottom", render: "wind", status: "draft" },
+  { id: "kan", chinese: "坎", pinyin: "kǎn", figure: "010", imageChinese: "水", spectrum: "kan-li", pole: "yang", oddLine: "middle", render: "water", status: "draft" },
+  { id: "gen", chinese: "艮", pinyin: "gèn", figure: "001", imageChinese: "山", spectrum: "gen-dui", pole: "yang", oddLine: "top", render: "mountain", status: "draft" },
+  { id: "kun", chinese: "坤", pinyin: "kūn", figure: "000", imageChinese: "地", spectrum: "qian-kun", pole: "yin", oddLine: null, render: "earth", status: "draft" },
 ]
 
 /** Figure string (bottom → top) → King Wen number. */

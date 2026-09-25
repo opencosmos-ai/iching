@@ -4,6 +4,9 @@ chinese: "兌"
 pinyin: "duì"
 lines: "110"
 image_chinese: "澤"
+spectrum: "gen-dui"
+pole: "yin"
+odd_line: "top"
 render: "lake"
 forbidden: ["the joyous", "the joyful"]
 status: draft

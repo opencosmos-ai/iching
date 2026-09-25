@@ -4,6 +4,9 @@ chinese: "震"
 pinyin: "zhèn"
 lines: "100"
 image_chinese: "雷"
+spectrum: "zhen-xun"
+pole: "yang"
+odd_line: "bottom"
 render: "thunder"
 forbidden: ["the arousing", "shock", "quake"]
 status: draft

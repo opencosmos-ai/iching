@@ -24,6 +24,7 @@
 import { readFileSync, readdirSync, existsSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { load } from 'js-yaml'
+import { signatureOf, type Pole } from './signature'
 import { HEXAGRAMS as GEN_HEXAGRAMS, TRIGRAMS as GEN_TRIGRAMS, HEXAGRAM_BY_FIGURE } from '../generated/iching-data'
 
 const ROOT = resolve(__dirname, '..')
@@ -60,8 +61,8 @@ function readNamed(dir: string): [string, Row][] {
 
 const read = (dir: string): Row[] => readNamed(dir).map(([, row]) => row)
 
-type Hex = { number: number; chinese: string; figure: string; lower: string; upper: string; render: unknown; status: unknown }
-type Tri = { id: string; chinese: string; figure: string }
+type Hex = { number: number; chinese: string; figure: string; lower: string; upper: string; signature: unknown; render: unknown; status: unknown }
+type Tri = { id: string; chinese: string; figure: string; image: string; spectrum: string; pole: string; oddLine: string | null }
 
 const hexagrams: Hex[] = read('hexagrams')
   .map(h => {
@@ -72,12 +73,21 @@ const hexagrams: Hex[] = read('hexagrams')
       figure: String(h.lines),
       lower: String(t.lower),
       upper: String(t.upper),
+      signature: h.signature,
       render: h.render,
       status: h.status,
     }
   })
   .sort((a, b) => a.number - b.number)
-const trigrams: Tri[] = read('trigrams').map(t => ({ id: String(t.id), chinese: String(t.chinese), figure: String(t.lines) }))
+const trigrams: Tri[] = read('trigrams').map(t => ({
+  id: String(t.id),
+  chinese: String(t.chinese),
+  figure: String(t.lines),
+  image: String(t.image_chinese),
+  spectrum: String(t.spectrum),
+  pole: String(t.pole),
+  oddLine: t.odd_line == null ? null : String(t.odd_line),
+}))
 
 const invert = (s: string) => [...s].reverse().join('')
 const complement = (s: string) => [...s].map(c => (c === '1' ? '0' : '1')).join('')
@@ -157,6 +167,114 @@ console.log('\ntrigrams')
     }
   }
   if (!bad) pass("every hexagram's trigrams concatenate to its figure, lower first")
+}
+
+console.log('\nthe four spectrums')
+
+/**
+ * The eight trigrams are four pairs, and the pairing is stated by the text three
+ * times over: 說卦 ch 3 pairs the images (天地定位，山澤通氣，雷風相薄，水火不相射), ch 7
+ * the actions, and ch 10 names each child by the draw its odd line came from — 一索,
+ * 再索, 三索, the bottom, middle and top line. Each pair is two complements with
+ * their odd line at the same height, and a trigram's pole is the kind of that line
+ * (繫辭下 陽卦多陰…陽卦奇). So the fields in trigrams/ are derivable from the figure,
+ * and are derived here rather than trusted. hexagram-names.md § The pattern in the
+ * formation has the argument.
+ */
+{
+  const heights = ['bottom', 'middle', 'top'] as const
+  const oddOf = (f: string) => {
+    const ones = [...f].filter(c => c === '1').length
+    if (ones === 0 || ones === 3) return { line: null, pole: ones === 3 ? 'yang' : 'yin' }
+    const minority = ones === 1 ? '1' : '0'
+    return { line: heights[f.indexOf(minority)], pole: minority === '1' ? 'yang' : 'yin' }
+  }
+  let bad = 0
+  for (const t of trigrams) {
+    const want = oddOf(t.figure)
+    if (t.oddLine !== want.line || t.pole !== want.pole) {
+      fail(`trigram ${t.id} ${t.figure}: says odd line ${t.oddLine}, pole ${t.pole}; the figure says ${want.line}, ${want.pole}`)
+      bad++
+    }
+  }
+  if (!bad) pass("every trigram's pole and odd line are the ones its figure has")
+
+  const bySpectrum = new Map<string, Tri[]>()
+  for (const t of trigrams) bySpectrum.set(t.spectrum, [...(bySpectrum.get(t.spectrum) ?? []), t])
+  const pairsBad: string[] = []
+  for (const [name, members] of bySpectrum) {
+    const [a, b] = members
+    if (members.length !== 2) pairsBad.push(`${name} has ${members.length} members`)
+    else if (complement(a.figure) !== b.figure) pairsBad.push(`${name}: ${a.figure} and ${b.figure} are not complements`)
+    else if (a.pole === b.pole) pairsBad.push(`${name}: both poles are ${a.pole}`)
+    else if (a.oddLine !== b.oddLine) pairsBad.push(`${name}: odd lines at ${a.oddLine} and ${b.oddLine}`)
+    else {
+      const [yang, yin] = a.pole === 'yang' ? [a, b] : [b, a]
+      if (name !== `${yang.id}-${yin.id}`) pairsBad.push(`${name} should be named ${yang.id}-${yin.id}, yang first`)
+    }
+  }
+  if (bySpectrum.size !== 4) pairsBad.push(`${bySpectrum.size} spectrums, expected 4`)
+  if (pairsBad.length) pairsBad.forEach(fail)
+  else pass('4 spectrums, each two complements, one yang and one yin, with the odd line at the same height')
+
+  // Against the text: 說卦 ch 3's four pairs of images must be the four spectrums.
+  const shuogua = readFileSync(join(ROOT, 'sources', 'wings', 'shuogua.md'), 'utf8')
+  const ch3 = /天地定位，山澤通氣，雷風相薄，水火不相射/.exec(shuogua)
+  if (!ch3) fail('說卦 ch 3 (天地定位…水火不相射) not found in sources/wings/shuogua.md')
+  else {
+    const textPairs = ['天地', '山澤', '雷風', '水火'].map(p => [...p].sort().join(''))
+    const ours = [...bySpectrum.values()].map(m => m.map(t => t.image).sort().join(''))
+    const missing = textPairs.filter(p => !ours.includes(p))
+    if (missing.length) fail(`說卦 ch 3 pairs ${missing.join(', ')}, which no spectrum does`)
+    else pass('the spectrums are 說卦 ch 3\'s four pairs of images: 天地 山澤 雷風 水火')
+  }
+
+  // The three classes, and the frame they make in the received order.
+  const tri = new Map(trigrams.map(t => [t.id, t]))
+  const doubled: number[] = []
+  const crossed: number[] = []
+  for (const h of hexagrams) {
+    const lo = tri.get(h.lower)
+    const up = tri.get(h.upper)
+    if (!lo || !up || lo.spectrum !== up.spectrum) continue
+    ;(lo.id === up.id ? doubled : crossed).push(h.number)
+  }
+  const across = 64 - doubled.length - crossed.length
+  if (doubled.join() !== '1,2,29,30,51,52,57,58' || crossed.join() !== '11,12,31,32,41,42,63,64' || across !== 48)
+    fail(`classes are doubled ${doubled.join()}, crossed ${crossed.join()}, ${across} across two — expected 1,2,29,30,51,52,57,58 · 11,12,31,32,41,42,63,64 · 48`)
+  else pass('8 doubled, 8 crossed on one spectrum, 48 across two')
+
+  const spectrumOf = (n: number) => tri.get(hexagrams[n - 1].lower)?.spectrum
+  const frame = [
+    [1, doubled.includes(1) && doubled.includes(2) && spectrumOf(1) === 'qian-kun', 'the upper canon opens with sky and earth doubled'],
+    [29, doubled.includes(29) && doubled.includes(30) && spectrumOf(29) === 'kan-li', 'and closes with water and fire doubled'],
+    [31, crossed.includes(31) && crossed.includes(32), 'the lower canon opens crossed'],
+    [63, crossed.includes(63) && crossed.includes(64) && spectrumOf(63) === 'kan-li', 'and closes with water and fire crossed'],
+  ] as const
+  const frameBad = frame.filter(([, ok]) => !ok)
+  const skyEarth = [...doubled, ...crossed].filter(n => spectrumOf(n) === 'qian-kun')
+  const lowerOnly = [...doubled, ...crossed].filter(n => ['zhen-xun', 'gen-dui'].includes(spectrumOf(n) ?? ''))
+  if (frameBad.length) frameBad.forEach(([n, , m]) => fail(`canon frame: ${m} — fails at ${n}`))
+  else if (!skyEarth.every(n => n <= 30) || !lowerOnly.every(n => n > 30))
+    fail(`canon frame: sky ↔ earth at ${skyEarth.join()}, thunder ↔ wind and mountain ↔ lake at ${lowerOnly.join()}`)
+  else pass('the sixteen single-spectrum hexagrams frame both canons: 1/2 · 29/30 above, 31/32 · 63/64 below')
+
+  // Each hexagram file carries its signature for a reader. It is a copy, and the
+  // derivation from the trigram data is what it must equal.
+  const sigBad: string[] = []
+  for (const h of hexagrams) {
+    const lo = tri.get(h.lower)
+    const up = tri.get(h.upper)
+    if (!lo || !up) continue
+    const want = JSON.stringify(signatureOf({ ...lo, pole: lo.pole as Pole }, { ...up, pole: up.pole as Pole }))
+    const g = h.signature as { class?: unknown; within?: { spectrum?: unknown; pole?: unknown }; without?: { spectrum?: unknown; pole?: unknown } } | null | undefined
+    // Field by field, so a hand-reordered mapping in the file is not a failure.
+    const got = g == null ? null : JSON.stringify({ class: g.class, within: { spectrum: g.within?.spectrum, pole: g.within?.pole }, without: { spectrum: g.without?.spectrum, pole: g.without?.pole } })
+    if (got === null) sigBad.push(`${h.number} ${h.chinese} has no signature`)
+    else if (got !== want) sigBad.push(`${h.number} ${h.chinese} says ${got}, its trigrams give ${want}`)
+  }
+  if (sigBad.length) fail(`hexagram signatures disagree with their trigrams: ${sigBad.slice(0, 6).join('; ')}${sigBad.length > 6 ? ` … ${sigBad.length} in all` : ''}`)
+  else pass("every hexagram's signature is the one its trigrams give")
 }
 
 console.log('\nfixture — the founding cast')
@@ -291,16 +409,19 @@ console.log('\ngenerated/iching-data.ts')
   hexSrc.forEach((h, i) => {
     const g = GEN_HEXAGRAMS[i]
     const t = h.trigrams as { lower: string; upper: string }
-    const want = [h.number, h.chinese, h.pinyin, h.lines, t.lower, t.upper, h.render ?? null, h.status, h.judgment ?? null].map(v => (v == null || v === '' ? null : String(v)))
-    const got = g ? [g.number, g.chinese, g.pinyin, g.figure, g.trigrams.lower, g.trigrams.upper, g.render, g.status, g.judgment].map(v => (v == null ? null : String(v))) : []
+    const lo = trigrams.find(x => x.id === t.lower)
+    const up = trigrams.find(x => x.id === t.upper)
+    const sig = lo && up ? JSON.stringify(signatureOf({ ...lo, pole: lo.pole as Pole }, { ...up, pole: up.pole as Pole })) : null
+    const want = [h.number, h.chinese, h.pinyin, h.lines, t.lower, t.upper, sig, h.render ?? null, h.status, h.judgment ?? null].map(v => (v == null || v === '' ? null : String(v)))
+    const got = g ? [g.number, g.chinese, g.pinyin, g.figure, g.trigrams.lower, g.trigrams.upper, JSON.stringify(g.signature), g.render, g.status, g.judgment].map(v => (v == null ? null : String(v))) : []
     if (want.join('\u0000') !== got.join('\u0000')) drift.push(`hexagram ${h.number}`)
   })
   const triSrc = read('trigrams')
   if (GEN_TRIGRAMS.length !== triSrc.length) drift.push(`${GEN_TRIGRAMS.length} trigrams against ${triSrc.length}`)
   triSrc.forEach((t, i) => {
     const g = GEN_TRIGRAMS[i]
-    const want = [t.id, t.chinese, t.pinyin, t.lines, t.image_chinese, t.render ?? null, t.status].map(v => (v == null || v === '' ? null : String(v)))
-    const got = g ? [g.id, g.chinese, g.pinyin, g.figure, g.imageChinese, g.render, g.status].map(v => (v == null ? null : String(v))) : []
+    const want = [t.id, t.chinese, t.pinyin, t.lines, t.image_chinese, t.spectrum, t.pole, t.odd_line ?? null, t.render ?? null, t.status].map(v => (v == null || v === '' ? null : String(v)))
+    const got = g ? [g.id, g.chinese, g.pinyin, g.figure, g.imageChinese, g.spectrum, g.pole, g.oddLine, g.render, g.status].map(v => (v == null ? null : String(v))) : []
     if (want.join('\u0000') !== got.join('\u0000')) drift.push(`trigram ${t.id}`)
   })
   const lookupBad = hexagrams.filter(h => HEXAGRAM_BY_FIGURE[h.figure] !== h.number)

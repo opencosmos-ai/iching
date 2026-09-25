@@ -41,11 +41,16 @@ changing the rendering or by changing the lock *in the other repository*, never 
    divergence is the live question and [`divergence-stays-open`](../method.md#6-the-principles)
    governs it.
 4. **The ruling, and what it forbids.** Name the words this rendering rules out, so the
-   next reader does not have to re-derive them. **A `forbidden:` entry almost always names a
-   translator who forgot the image on the reader's behalf** — *the Gentle*, *the Receptive*,
-   *the Abysmal*, *the Joyous*, *Heaven*, each a grasped meaning shipped with the evidence
-   discarded. That is [`method.md`](../method.md) §0, and it is the reason behind the shorter
-   objection these entries usually give (*"the action rather than the image"*).
+   next reader does not have to re-derive them. **Each exclusion states what is wrong with the
+   word** — it puts an abstraction where the Chinese has an image (*the gentle*, *the
+   receptive*: *"the action rather than the image"*), it imports what the Chinese lacks
+   (*Heaven*, a deity), it collides with a lock, or it renders the wrong thing. **Who used a word
+   is never the reason**, and if that is the only objection there is none
+   ([`convergence-is-evidence`](../principles/convergence-is-evidence.md)). That is
+   [`method.md`](../method.md) §0. **A `forbidden:` list binds what its entry rules and no
+   more** — a word barred from a trigram's image is not thereby barred from the hexagram of the
+   same character
+   ([`the-image-names-the-trigram-the-lines-name-the-hexagram`](../principles/the-image-names-the-trigram-the-lines-name-the-hexagram.md)).
 5. **The seam, named.** Where English cannot carry the Chinese, say so here rather than
    letting the rendering pretend otherwise.
 

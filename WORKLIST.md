@@ -10,7 +10,7 @@ The **rendering** goes in `hexagrams/NN.md` / `trigrams/*.md` as `render:`. **Ev
 [`sources/`](sources/PROVENANCE.md), vendored and never hand-edited. **What is owed** is here.
 **What happened** is [`CHANGELOG.md`](CHANGELOG.md). **Rules learned** are
 [`principles/`](principles/INDEX.md). **Research that is not yet a ruling** is a dated brief —
-so far one, [`tao-te-ching-relation.md`](tao-te-ching-relation.md). Nothing belongs in two of those.
+so far two, [`tao-te-ching-relation.md`](tao-te-ching-relation.md) and [`hexagram-names.md`](hexagram-names.md). Nothing belongs in two of those.
 
 **Last updated:** 2026-09-24
 
@@ -18,12 +18,14 @@ so far one, [`tao-te-ching-relation.md`](tao-te-ching-relation.md). Nothing belo
 
 ## Where the project actually stands
 
-**Five sources vendored, thirteen principles written, and the first eight English words drafted.**
-The eight trigrams carry a `render:` and eight glossary entries argue them. The 64 hexagrams are
-still `render: null`, all `status: draft`. The parent Tao Te Ching project has 50 glossary entries
+**Eight sources vendored, fifteen principles written, the eight trigrams drafted, and a proposed
+English for all 64 names.** The eight trigrams carry a `render:` and eight glossary entries argue
+them. The 64 hexagrams are still `render: null`, all `status: draft` — their candidates are in
+[`hexagram-names.md`](hexagram-names.md), awaiting Shalom's review. The lens is declared
+([`README.md`](README.md#the-lens)). The parent Tao Te Ching project has 50 glossary entries
 and 81 drafted chapters.
 
-The principles split **11 sources · 7 drafting · 6 process · 5 tooling · 1 glossary**, and
+The principles split **12 sources · 9 drafting · 6 process · 6 tooling · 3 glossary**, and
 [`principles/README.md`](principles/README.md) already names that ratio as the thing to
 watch: while it does not shift toward `drafting`, this project is building instruments
 rather than translating. It has begun to shift — the three newest entries are all about
@@ -49,10 +51,9 @@ not by position: the eight trigrams, then the verdict vocabulary as one decision
 | A4 | ⬜ | **The verdict vocabulary, decided as one set** — 吉 凶 咎 悔 吝 厲 无咎. 386 occurrences, 9.3% of the text; decide them individually and they will overlap | `glossary/` | ~7 |
 | A5 | ⬜ | **君子 (20×) and 小人 (10×)** — not in the parent glossary, so written from scratch. Register *and* gender; `universalize-and-name-the-seam` applies. **Rule it here and promote it to the parent's lock table** — 君子 is 20× here against 3× in the Laozi, and 君子終日 is the one four-character string the two books share | `glossary/` | 2 |
 | A6 | ⬜ | **貞 (111×) · 亨 (48×) · 孚 (42×)** — the divinatory/ethical fork, the deepest open question in the project. Read all three translators before touching any of them | `glossary/` | 3 |
-| A7 | ⬜ | **The 64 hexagram names** | `hexagrams/` | 64 |
+| A7 | 🔶 | **The 64 hexagram names** — every one has a proposed English and its candidates in [`hexagram-names.md`](hexagram-names.md), awaiting Shalom's review; 5 wait on A4/A6/A11 and on what 有 is here. The trigram/hexagram split is ruled | `hexagrams/` | 64 |
 | A8 | ⬜ | **The judgments and line texts** — 64 × 8 | `hexagrams/` | 512 |
 | A9 | ✅ | ~~**Hexagram-name concordance against the locks**~~ — closed 2026-09-24: [`glossary/NAMES.md`](glossary/NAMES.md), `npm run names`. 6 of 64 names carry a lock; 53 recur as a word in their own lines | `glossary/` | 1 |
-| A10 | 🔴 | **ADR 0016 — the Wings are the lens, and it is declared** — `Proposed`. Fixes whether this translates the Bronze Age core text or the book the Wings made of it; the trigram renderings already assume an answer. Accepting it adds a stated lens to `README.md` | [`0016`](https://github.com/opencosmos-ai/opencosmos/blob/main/docs/decisions/0016-the-i-ching-is-read-through-the-wings-and-the-lens-is-declared.md) | 1 |
 | A11 | 🔴 | **Does the lock on 無 bind 无?** — the Zhouyi writes the negative 无 (158× in the core, 138× in the Wings) where the parent's lock is written on 無 (2× and 5×). Same word, two graphs; until it is ruled the lock reaches almost nothing here. Decides 25 无妄 and 无咎 (A4) together | `glossary/` | 1 |
 | | | **B · Evidence — what the sources still owe** | | |
 | B1 | ⬜ | **1,075 OCR disputes still unsettled** in McClatchie — both engines disagree and neither the book's vocabulary nor the scan pass could resolve it. The live count is the file's `summary:` | `sources/mcclatchie-1876/disputed.yaml` | 1075 |
@@ -103,6 +104,9 @@ sentence from the trigram's name, and 鼎 is a cauldron on a **wood** fire. Queu
 
 ## Closed — the ledger
 
+- **2026-09-24** · **ADR 0016 accepted: the Wings are the lens, declared** (A10) — Shalom. [`README.md`](README.md#the-lens)
+  states the five terms and [`method.md`](method.md) § 5 applies them; the four spectrums the trigram system rests on are
+  stated in [`README.md`](README.md#the-shape-of-the-figures), carried as data on each trigram and checked by `npm run check`. → [CHANGELOG](CHANGELOG.md)
 - **2026-09-24** · **The names concorded; 說文, 王弼's 略例 and his 周易注 vendored** (A9, B2, B6, B8) — `glossary/NAMES.md`;
   `sources/shuowen/`, by the parent's parser held to it; `sources/wangbi/lueli.md`, graded against a
   typed witness. Surfaced: 無/无 (A11) and, from grading the 周易注 (B8, also closed), simplified graphs in our own Zhouyi (B9). → [CHANGELOG](CHANGELOG.md)

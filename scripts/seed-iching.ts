@@ -20,19 +20,28 @@
 
 import { mkdirSync, writeFileSync, existsSync, readFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
+import { signatureOf, signatureYaml } from './signature'
 
 const ROOT = resolve(__dirname, '..')
 
-/** Bottom → top, '1' = yang. Bottom-up is load-bearing everywhere in this system. */
-const TRIGRAMS: Array<{ id: string; chinese: string; pinyin: string; binary: string; image: string }> = [
-  { id: 'qian', chinese: '乾', pinyin: 'qián', binary: '111', image: '天' },
-  { id: 'dui', chinese: '兌', pinyin: 'duì', binary: '110', image: '澤' },
-  { id: 'li', chinese: '離', pinyin: 'lí', binary: '101', image: '火' },
-  { id: 'zhen', chinese: '震', pinyin: 'zhèn', binary: '100', image: '雷' },
-  { id: 'xun', chinese: '巽', pinyin: 'xùn', binary: '011', image: '風' },
-  { id: 'kan', chinese: '坎', pinyin: 'kǎn', binary: '010', image: '水' },
-  { id: 'gen', chinese: '艮', pinyin: 'gèn', binary: '001', image: '山' },
-  { id: 'kun', chinese: '坤', pinyin: 'kūn', binary: '000', image: '地' },
+/**
+ * Bottom → top, '1' = yang. Bottom-up is load-bearing everywhere in this system.
+ *
+ * `spectrum` is the 說卦 ch 3 pair a trigram belongs to (天地定位，山澤通氣，雷風相薄，水火不相射),
+ * named by its two ids. `pole` is the kind of its odd line — 繫辭下 陽卦多陰…陽卦奇, a yang trigram
+ * has one yang line among yin — and `oddLine` is where that line sits: 說卦 ch 10's first, second and
+ * third draw (一索, 再索, 三索). Sky and earth have no odd line. All three are facts about the figure,
+ * and `npm run check` derives them from it.
+ */
+const TRIGRAMS: Array<{ id: string; chinese: string; pinyin: string; binary: string; image: string; spectrum: string; pole: 'yang' | 'yin'; oddLine: 'bottom' | 'middle' | 'top' | null }> = [
+  { id: 'qian', chinese: '乾', pinyin: 'qián', binary: '111', image: '天', spectrum: 'qian-kun', pole: 'yang', oddLine: null },
+  { id: 'dui', chinese: '兌', pinyin: 'duì', binary: '110', image: '澤', spectrum: 'gen-dui', pole: 'yin', oddLine: 'top' },
+  { id: 'li', chinese: '離', pinyin: 'lí', binary: '101', image: '火', spectrum: 'kan-li', pole: 'yin', oddLine: 'middle' },
+  { id: 'zhen', chinese: '震', pinyin: 'zhèn', binary: '100', image: '雷', spectrum: 'zhen-xun', pole: 'yang', oddLine: 'bottom' },
+  { id: 'xun', chinese: '巽', pinyin: 'xùn', binary: '011', image: '風', spectrum: 'zhen-xun', pole: 'yin', oddLine: 'bottom' },
+  { id: 'kan', chinese: '坎', pinyin: 'kǎn', binary: '010', image: '水', spectrum: 'kan-li', pole: 'yang', oddLine: 'middle' },
+  { id: 'gen', chinese: '艮', pinyin: 'gèn', binary: '001', image: '山', spectrum: 'gen-dui', pole: 'yang', oddLine: 'top' },
+  { id: 'kun', chinese: '坤', pinyin: 'kūn', binary: '000', image: '地', spectrum: 'qian-kun', pole: 'yin', oddLine: null },
 ]
 
 /** The King Wen sequence: [character, pinyin, figure bottom→top]. */
@@ -63,9 +72,18 @@ const trigramFor = (binary: string) => {
 
 const pad = (n: number) => String(n).padStart(2, '0')
 
-/** Refuse to overwrite anything a human has touched. */
-const isDraft = (path: string) =>
-  !existsSync(path) || /^status:\s*draft\s*$/m.test(readFileSync(path, 'utf8'))
+/**
+ * Refuse to overwrite anything a human has touched. `status: draft` alone is not
+ * enough: a draft can already carry a rendering (the eight trigrams do) or an
+ * authored section (every hexagram's `## The signature`). The template writes
+ * neither, so either one means the file is no longer the seeder's.
+ */
+const isDraft = (path: string) => {
+  if (!existsSync(path)) return true
+  const text = readFileSync(path, 'utf8')
+  const authored = /^render:\s*(?!null\s*$)\S/m.test(text) || /^## /m.test(text)
+  return /^status:\s*draft\s*$/m.test(text) && !authored
+}
 
 function seedHexagrams() {
   const dir = join(ROOT, 'hexagrams')
@@ -91,6 +109,7 @@ chinese: "${chinese}"
 pinyin: "${pinyin}"
 lines: "${binary}"
 trigrams: { lower: "${lower.id}", upper: "${upper.id}" }
+${signatureYaml(signatureOf(lower, upper))}
 render: null
 forbidden: []
 status: draft
@@ -145,6 +164,9 @@ chinese: "${t.chinese}"
 pinyin: "${t.pinyin}"
 lines: "${t.binary}"
 image_chinese: "${t.image}"
+spectrum: "${t.spectrum}"
+pole: "${t.pole}"
+odd_line: ${t.oddLine ? `"${t.oddLine}"` : 'null'}
 render: null
 forbidden: []
 status: draft

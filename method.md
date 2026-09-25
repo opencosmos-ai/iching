@@ -26,11 +26,17 @@ sweep the images out of this book altogether.
 hands over a grasped meaning with the image thrown away has done the reader's work for them and
 discarded the evidence they needed to check it.
 
-**That is what every word on a `forbidden:` list has in common.** *The Gentle*, *the Receptive*,
-*the Abysmal*, *the Joyous*, *Heaven* — each is a translator who met the image, grasped something,
-forgot the image, and shipped the residue. 風自火出 (家人) is wind issuing from fire; it is not a
-gentleness issuing from fire. **So the rendering is the image**, which is §1's constraint stated as
-a reason, and the ruling that follows from it is in [`glossary/乾-qian.md`](glossary/乾-qian.md).
+**That is the commonest defect a word on a `forbidden:` list has.** *The gentle*, *the receptive*,
+*the abysmal*, *the joyous* each put a grasped meaning — an abstraction — where the Chinese has an
+image, so the image is gone before the reader arrives. 風自火出 (家人) is wind issuing from fire; it
+is not a gentleness issuing from fire. *Heaven* has a different defect: it imports a deity 天 does
+not carry. **In both cases the objection is to what the word does, never to who wrote it** — a word
+that has no defect is available whoever used it first
+([`convergence-is-evidence`](principles/convergence-is-evidence.md)). **So a trigram's rendering is
+its image**, which is §1's constraint stated as a reason; the ruling is in
+[`glossary/乾-qian.md`](glossary/乾-qian.md). A hexagram's name keeps what its own lines do with the
+character, which is usually just as concrete — a pit, a pair of jaws, a well
+([`the-image-names-the-trigram-the-lines-name-the-hexagram`](principles/the-image-names-the-trigram-the-lines-name-the-hexagram.md)).
 
 *This is not a principle and is deliberately not in [`principles/`](principles/INDEX.md) — it has no
 trigger, or rather it fires on everything, which is that directory's own test for what does not
@@ -49,6 +55,11 @@ Not a chapter. Four things, in this order of scope:
 | A verdict word's English | ~11 | needs a glossary, and has none yet |
 | A hexagram's name in English | 64 | `hexagrams/*.md` → `render` |
 | A judgment, an image, six line texts | 64 × 8 | `hexagrams/*.md` → `judgment`, `image`, `line_texts` |
+
+**A trigram and a hexagram that share a character are two decisions.** The trigram's English
+renders its 說卦 image; the hexagram's renders how its own lines use the character — see
+[`the-image-names-the-trigram-the-lines-name-the-hexagram`](principles/the-image-names-the-trigram-the-lines-name-the-hexagram.md).
+The candidates for all 72 are in [`hexagram-names.md`](hexagram-names.md).
 
 `render` is **one word or one short phrase** — the single term a player sees. That constraint is the hardest thing about this project and it is not negotiable: the interface has one slot.
 
@@ -176,6 +187,8 @@ The trap is specific and this project will walk into it if it is not named. **�
 
 Use them. Do not copy them.
 
+**And they are the declared lens.** Since 2026-09-24 ([ADR 0016](https://github.com/opencosmos-ai/opencosmos/blob/main/docs/decisions/0016-the-i-ching-is-read-through-the-wings-and-the-lens-is-declared.md), accepted), this project translates the 周易 as the Wings made it and says so — [`README.md`](README.md#the-lens) states the five terms. That makes the Wings the **first interpretive authority**, ahead of the three translators; it does not make them text. Every rule in this section still holds, and a reading that comes from a Wing is labelled as coming from one. The four spectrums the trigram system rests on ([`README.md`](README.md#the-shape-of-the-figures)) are the Wings' too, and are used under the same terms: the signature may suggest a candidate, and only the lines admit it.
+
 ---
 
 ## 6. The principles
@@ -194,7 +207,7 @@ Use them. Do not copy them.
 - [`witnesses-before-drafting`](https://github.com/opencosmos-ai/taoteching) — check the sources before drafting, not after. They are in the repository now; there is no excuse.
 - [`one-question-at-a-time`](https://github.com/opencosmos-ai/taoteching) — bring Shalom the deepest open question, with a recommendation. Not a menu.
 
-**And thirteen are this project's own** — see [`principles/INDEX.md`](principles/INDEX.md), which is generated and whose evidence links are build-verified. They are mostly about evidence rather than drafting, because here the evidence came first and arrived damaged: five sources were vendored before a single word was rendered. The ones that bear on the work ahead:
+**And fifteen are this project's own** — see [`principles/INDEX.md`](principles/INDEX.md), which is generated and whose evidence links are build-verified. They are mostly about evidence rather than drafting, because here the evidence came first and arrived damaged: five sources were vendored before a single word was rendered. The ones that bear on the work ahead:
 
 - [`frequency-sets-the-order`](principles/frequency-sets-the-order.md) — §3 and §7 of this file, stated as a rule. **Do not start at hexagram 1.**
 - [`a-source-shaped-like-your-answer`](principles/a-source-shaped-like-your-answer.md) — §5 of this file, stated as a rule. 雜卦's sixty-four one-line glosses are the exact shape of `render`, and that is the danger.
@@ -202,6 +215,8 @@ Use them. Do not copy them.
 - [`never-supply-what-the-source-withheld`](principles/never-supply-what-the-source-withheld.md) — the line the AI collaborator does not cross, and the reason the Chinese pages of McClatchie are not transcribed.
 - [`a-closed-set-is-one-decision`](principles/a-closed-set-is-one-decision.md) — the eight trigrams, the verdict graphs and 君子/小人 are each **one** decision, not eight, seven and two.
 - [`the-8-trigrams-are-arranged-in-4-pairs`](principles/the-8-trigrams-are-arranged-in-4-pairs.md) — where to find the ruling the text already made. 說卦 ch 3 settled 巽; the same move is available wherever the Chinese lines its terms up.
+- [`the-image-names-the-trigram-the-lines-name-the-hexagram`](principles/the-image-names-the-trigram-the-lines-name-the-hexagram.md) — the eight doubled hexagrams are named from their own lines, not their trigram's image; a trigram's `forbidden:` does not follow its character into the hexagram.
+- [`read-a-figure-through-its-spectrums`](principles/read-a-figure-through-its-spectrums.md) — place a hexagram on the four spectrums before trusting its English; the signature may suggest a candidate; only the lines admit it.
 
 ---
 

@@ -109,6 +109,16 @@ principles:
     evidence:
       - "../sources/PROVENANCE.md#harlez-1889--le-yih-king"
       - "../sources/PROVENANCE.md#mcclatchie-1876--vendored--updated-2026-09-11"
+  - id: read-a-figure-through-its-spectrums
+    title: "Read a figure through its spectrums — the signature may suggest a candidate; only the lines admit it"
+    status: active
+    since: Wed Sep 23 2026 17:00:00 GMT-0700 (Pacific Daylight Time)
+    trigger: "you are about to settle the English for a hexagram, or for one of its lines, without having placed its two trigrams on their spectrums"
+    applies: [drafting, glossary]
+    check: check
+    evidence:
+      - "../README.md#the-shape-of-the-figures"
+      - "../hexagram-names.md#the-pattern-in-the-formation"
   - id: record-the-search
     title: "A search that found nothing is a finding, and belongs on the record with its date"
     status: active
@@ -130,3 +140,13 @@ principles:
       - "../glossary/巽-xun.md#the-ruling--wind-shaloms-call-2026-09-12"
       - "../glossary/兌-dui.md#the-ruling--lake-shaloms-call-2026-09-12"
       - "../glossary/乾-qian.md#the-rendering-is-the-image-not-the-action"
+  - id: the-image-names-the-trigram-the-lines-name-the-hexagram
+    title: "The image names the trigram; the lines name the hexagram"
+    status: provisional
+    since: Wed Sep 23 2026 17:00:00 GMT-0700 (Pacific Daylight Time)
+    trigger: "you are about to give a character the English it already has at another level of the figure — the trigram's image, a word ruled out for the trigram — without checking how this level's own text uses it"
+    applies: [drafting, glossary]
+    check: none
+    evidence:
+      - "../glossary/震-zhen.md#what-is-ruled-out-and-why"
+      - "../hexagram-names.md#what-is-already-ruled"
