@@ -55,6 +55,7 @@ not by position: the eight trigrams, then the verdict vocabulary as one decision
 | A8 | ⬜ | **The judgments and line texts** — 64 × 8 | `hexagrams/` | 512 |
 | A9 | ✅ | ~~**Hexagram-name concordance against the locks**~~ — closed 2026-09-24: [`glossary/NAMES.md`](glossary/NAMES.md), `npm run names`. 6 of 64 names carry a lock; 53 recur as a word in their own lines | `glossary/` | 1 |
 | A11 | 🔴 | **Does the lock on 無 bind 无?** — the Zhouyi writes the negative 无 (158× in the core, 138× in the Wings) where the parent's lock is written on 無 (2× and 5×). Same word, two graphs; until it is ruled the lock reaches almost nothing here. Decides 25 无妄 and 无咎 (A4) together | `glossary/` | 1 |
+| A12 | 🔴 | **What the 64 readings surfaced** — writing *The heart of it* for every hexagram turned up evidence for A4/A6, name collisions with the Tao Te Ching's vocabulary, and terms with no English yet. Grouped below, for Shalom | [below](#a12--what-the-64-readings-surfaced) | ~25 |
 | | | **B · Evidence — what the sources still owe** | | |
 | B1 | ⬜ | **1,075 OCR disputes still unsettled** in McClatchie — both engines disagree and neither the book's vocabulary nor the scan pass could resolve it. The live count is the file's `summary:` | `sources/mcclatchie-1876/disputed.yaml` | 1075 |
 | B2 | ✅ | ~~**說文解字 not vendored**~~ — closed 2026-09-24: [`sources/shuowen/entries.md`](sources/shuowen/entries.md), 1,228 of 1,374 characters, by the parent's parser ported and checked against it. 146 unmatched, incl. 雷 (filed as 靁), 无, 亨 | `sources/` | 1 |
@@ -101,6 +102,33 @@ passages.
 sentence from the trigram's name, and 鼎 is a cauldron on a **wood** fire. Queued as part of A8.
 
 ---
+
+## A12 · What the 64 readings surfaced
+
+*Gathered 2026-09-25 from the reports behind each hexagram's `## The heart of it`. Each item names
+where the evidence is; the reasoning is in that hexagram's section.*
+
+**Evidence for A6 (亨, 孚, 貞) — the richest yield.**
+- **亨 sits on a different axis from 泰/否.** 泰 has it only in its judgment; 否 only in lines 1–2 (大人否。亨, "the great person is blocked; it gets through"). So 11's name must not be a synonym of 亨, and 12 does not rule out *gets through* (11, 12).
+- **亨 must be read 享, "offering", at 14.3, 46.4 and 47.2** (王弼's text writes 享 at 47.2); at 17.6 readers split between offering and 王弼's 通. 說文 羞 = 進獻也 suggests a sequence of offerings in 12.1–3.
+- **孚:** 說文 itself holds the fork — 卵孚也 ("brooding"), then 一曰信也 ("some say: 信") — which makes the collision with the 信 lock explicit (61). 49's 彖 glosses 孚 with 信 (革而信也). At 44.1 *confidence* does not fit (王弼: 務躁).
+- **貞:** 說文 records that the 籒文 script wrote 貞 with 鼎 (50). The older reading, "the inquiry", is live at 16.5 (貞疾), 17.4, 18.2 and 23.1 (蔑貞).
+
+**Evidence for A4 (the verdict words).** 28.6 reads 凶，无咎 ("ominous, no blame") — the clearest case that 凶 is an outcome, not a judgement. Whole hexagrams carry no 凶: 18, 20 (no verdict word at all), 25, 45 (every line 无咎), 59, 63.
+
+**Names that collide with the Tao Te Ching's words** (recorded in [`hexagram-names.md`](hexagram-names.md)).
+- 4 *Unknowing* ≈ the Laozi's 無知 (chs 3, 10). 14 *Great Possession* ≈ the Laozi's verbal 有 *possessing* — the evidence now favours *Great Having*. 20 *Watching*: the Laozi renders 觀 *observe*. 34 *Great Vigour*: *vigour* is 健's. 51 *Shock*: 驚 is *shock* (ch 13) and stands in 51's own judgment. 52 *Stilling*: *stillness* is 靜's (22×).
+
+**Terms that need an English, or collide.**
+- **命 wants a spoken-charge flexion:** at 6.4, 7.2, 7.6, 11.6, 56.5 and 57 it reads as an order or charge spoken over someone, and *the allotted course* strains.
+- **侯, 君, 大君 collide with 公 = *lord*** (3, 7.6, 10.3, 19, 35) — each needs its own word.
+- **晦** needs one (*dark* is 玄's; *obscurity* for now, 36). **文**: *pattern* (22) against the Laozi's *cultural form* (ch 19). **戎器**: *tools of war* (the Laozi's *tools*) or *implements* (45). **妾** *concubine* (50) against **娣** *junior wife* (54) — decide together.
+- **天** at 38.3 is the crown of the head (說文 顛也), a punishment — the *sky* lock was not made for it. **王母** (35.2) is *grandmother* in the kinship terms of the time. **天下** in 44's 大象 (天下有風) is "under the sky", against the lock's *the world*. **善** as a verb (53 善俗, *betters*) and as a category (14, 42, *good*).
+- **道** in the Wings forces "the Tao of husband and wife" (序卦, 32) — awkward.
+
+**For the Tao Te Ching side.** Its ch 9 renders 天之道 "the way of nature", although 道 is locked to *the Tao* (reported by 19); its ch 54 renders 家 *family* while 37 proposes *household*.
+
+**Seams to check before building on them:** 37 (the household's roles), 54 (the 娣 system, named plainly), 32.5 (a verdict split by gender role).
 
 ## Closed — the ledger
 

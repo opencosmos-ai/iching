@@ -19,24 +19,38 @@ This is deliberate, and the reasoning is recorded in the Xensō canon at [`docs/
 
 **The cost is chosen, not missed:** this is not the Bronze Age oracle recovered from under the philosophy. That is a different and much smaller book.
 
+## The polarity is in the lines
+
+**The oppositions in this book live in the figures, not in the words.** A trigram's partner is the figure with every line changed — mountain `001`, lake `110` — and that opposition is exact, drawn rather than spoken. The English words that describe a trigram or a hexagram — its image, its action, its name — each say what **one pole is**, on its own ground. They are not chosen to be the dictionary opposite of their partner's word. Mountain and lake are opposites because their lines are; *stopping* and *releasing* are what each does at the edge where they differ, and English has no single pair of antonyms that says both.
+
+**There are real dichotomies here, and we do not force them into pairs of single words. The figure holds the opposition, and prose says it.** Firm and yielding, within and without, the rising pole and the sinking one — each is spelled out in sentences, where English can carry both sides at once, rather than compressed into a slash between two words that were never opposites in English. This is how the Wings themselves write: 說卦 (*shuōguà*) ch 7 gives each trigram its own action — 艮，止也 (*gèn, zhǐ yě*, "the mountain: stopping"), 兌，說也 (*duì, yuè yě*, "the lake: releasing") — not a word and its negation.
+
+**Three things follow, and they govern every English word here:**
+
+1. **A spectrum is named by its figure** — by where the odd line sits and what that height is: the base (how a thing begins), the core (what it holds at its heart), the edge (how it meets what is beyond). Not by a pair of antonyms.
+2. **Each pole's English is chosen for that pole alone**, and tested on its own ground — its lines, its images — never derived as "the opposite of" its partner's word. **Where the Chinese itself sets two words as opposites** — 損 and 益, 否 and 泰, 既濟 and 未濟 — the English may follow it. Where the opposition lives only in the lines, the English does not invent one.
+3. **The readings say the opposition in prose.** *The mountain stops at its closed edge; the lake lets out through its open one* — one sentence, both poles, nothing forced.
+
+*Shalom, 2026-09-25. The stance is carried into the work by [`method.md`](method.md) § 0; the structure it rests on is below.*
+
 ## The shape of the figures
 
 **The 64 hexagrams are built from four spectrums, and the text states all three levels of them.** Every trigram is one pole of one spectrum; every hexagram is one trigram within (below) and one without (above). `npm run check` derives all of it from the figures and from 說卦 (*shuōguà*) itself, so it is measured rather than remembered.
 
 **One logic defines the four: where the odd line sits.** In six of the eight trigrams one line differs from the other two, and each spectrum is that line at one height. 說卦 ch 10 names the six children by it — the first, second and third draw (一索, 再索, 三索) — and 繫辭下 (*xìcí xià*) says a trigram's pole is the kind of that line: 陽卦多陰…陽卦奇, "a yang trigram has more yin lines; it is the odd one."
 
-| Spectrum | Odd line | Figure | Action (說卦 ch 7) | Image (說卦 ch 3) |
+| Spectrum | Odd line — what that height is | Figures | Actions (說卦 ch 7) | Images (說卦 ch 3) |
 |---|---|---|---|---|
-| sky ↔ earth · 乾 ↔ 坤 | none | `111` ↔ `000` — all firm ↔ all yielding | vigour ↔ going-along-with (健 ↔ 順) | above ↔ below — 天地定位, "they set the positions" |
-| thunder ↔ wind · 震 ↔ 巽 | bottom | `100` ↔ `011` — firm at the base ↔ open at the base | moving out ↔ entering (動 ↔ 入) | strike ↔ pervade — 雷風相薄, "they rouse each other" |
-| water ↔ fire · 坎 ↔ 離 | middle | `010` ↔ `101` — firm within ↔ hollow within | sinking in ↔ attaching (陷 ↔ 麗) | descending ↔ rising — 水火不相射, "they do not quench each other" |
-| mountain ↔ lake · 艮 ↔ 兌 | top | `001` ↔ `110` — closed at the top ↔ open at the top | holding ↔ releasing (止 ↔ 說) | height ↔ hollow — 山澤通氣, "they exchange breath" |
+| sky ↔ earth · 乾 ↔ 坤 | none — the whole figure | `111` all firm ↔ `000` all yielding | sky: vigour (健) · earth: going along (順) | sky above · earth below — 天地定位, "they set the positions" |
+| thunder ↔ wind · 震 ↔ 巽 | **bottom** — the base: how a thing begins | `100` firm at the base ↔ `011` open at the base | thunder: moving out (動) · wind: entering (入) | the strike · the pervading — 雷風相薄, "they rouse each other" |
+| water ↔ fire · 坎 ↔ 離 | **middle** — the core: what it holds at heart | `010` firm within ↔ `101` hollow within | water: sinking in (陷) · fire: attaching (麗) | descending · rising — 水火不相射, "they do not quench each other" |
+| mountain ↔ lake · 艮 ↔ 兌 | **top** — the edge: how it meets what is beyond | `001` closed at the top ↔ `110` open at the top | mountain: stopping (止) · lake: releasing (說) | height · hollow — 山澤通氣, "they exchange breath" |
 
-*Figures bottom → top. The Chinese is the text; the English in the table is this project's reading of it, argued in [`hexagram-names.md`](hexagram-names.md#the-pattern-in-the-formation).*
+*Figures bottom → top. **↔ joins figures**, which are true opposites; **· separates each pole's own word**, which is not the antonym of its partner's ([The polarity is in the lines](#the-polarity-is-in-the-lines)). The Chinese is the text; the English is this project's reading of it, argued in [`hexagram-names.md`](hexagram-names.md#the-pattern-in-the-formation).*
 
 **Three classes follow, and they frame the book.** **8 doubled** — one pole twice (1, 2, 29, 30, 51, 52, 57, 58). **8 crossed** — both poles of one spectrum (11, 12, 31, 32, 41, 42, 63, 64). **48 across two spectrums.** The sixteen single-spectrum hexagrams frame the received order: the upper canon opens with sky and earth doubled and closes with water and fire doubled; the lower canon opens crossed (31, 32) and closes with water and fire crossed (63, 64).
 
-**How it is used.** Each trigram carries `spectrum`, `pole` and `odd_line` in its frontmatter. Each hexagram carries its `signature` — `class` (`doubled`, `crossed` or `across`), and the spectrum and pole `within` (the lower trigram) and `without` (the upper). The build derives the signature from the trigram data for `generated/iching-data.ts`, so the app gets both; the copy in each hexagram file is for a reader, and `npm run check` fails if it disagrees. Every English name is read against its hexagram's signature — *holding within, releasing without* for 31 咸 — **the signature may suggest a candidate; only the lines admit it**: the names come from each hexagram's own lines ([`read-a-figure-through-its-spectrums`](principles/read-a-figure-through-its-spectrums.md)). **This is the Wings' reading of the figures** — the core text almost never mentions a trigram — which is exactly what [the lens](#the-lens) declares.
+**How it is used.** Each trigram carries `spectrum`, `pole` and `odd_line` in its frontmatter. Each hexagram carries its `signature` — `class` (`doubled`, `crossed` or `across`), and the spectrum and pole `within` (the lower trigram) and `without` (the upper). The build derives the signature from the trigram data for `generated/iching-data.ts`, so the app gets both; the copy in each hexagram file is for a reader, and `npm run check` fails if it disagrees. Every English name is read against its hexagram's signature — *stopping within, releasing without* for 31 咸 — **the signature may suggest a candidate; only the lines admit it**: the names come from each hexagram's own lines ([`read-a-figure-through-its-spectrums`](principles/read-a-figure-through-its-spectrums.md)). **This is the Wings' reading of the figures** — the core text almost never mentions a trigram — which is exactly what [the lens](#the-lens) declares.
 
 ## The arrangement
 

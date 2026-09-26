@@ -16,7 +16,7 @@ supersedes: []
 
 **The rule.** Before an English word is settled for a hexagram, place it: which spectrum and which
 pole is the trigram within, which the trigram without, and is it doubled, crossed, or across two?
-Then read the word against that signature — 31 咸 (*xián*) is *holding within, releasing without*.
+Then read the word against that signature — 31 咸 (*xián*) is *stopping within, releasing without*.
 **A word the signature cannot account for gets a second look. A word the signature suggests is a
 candidate, and nothing more: it is admitted only if it survives the hexagram's own lines**, because
 the name comes from the lines.
@@ -99,7 +99,7 @@ to prevent.
 **Not on the trigrams' own English.** A trigram *is* a pole; its English renders its image
 ([`the-image-names-the-trigram-the-lines-name-the-hexagram`](the-image-names-the-trigram-the-lines-name-the-hexagram.md)).
 
-**Not as a licence for the spectrum's own words.** *Holding* and *releasing* are this project's
+**Not as a licence for the spectrum's own words.** *Stopping* and *releasing* are this project's
 reading of 止 and 說. A signature may suggest one as a candidate, like any other word; it does not
 thereby become the English of every hexagram whose signature contains it.
 
