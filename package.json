@@ -5,7 +5,8 @@
   "license": "CC0-1.0",
   "scripts": {
     "build": "tsx scripts/build-iching.ts",
-    "check": "tsx scripts/check-iching.ts",
+    "check": "tsx scripts/check-iching.ts && tsx scripts/check-readings.ts",
+    "check:readings": "tsx scripts/check-readings.ts",
     "principles": "tsx scripts/build-iching-principles.ts",
     "glossary": "tsx scripts/build-iching-glossary.ts",
     "measure": "tsx scripts/measure-two-corpora.ts",
