@@ -2,7 +2,7 @@
 
 Notable changes to this repository. The root [`CHANGELOG.md`](https://github.com/opencosmos-ai/opencosmos/blob/main/CHANGELOG.md) covers the monorepo; this one covers a directory that has its own method, its own admission rules and its own principles, and whose changes would otherwise be legible only by reading a whole session back.
 
-**Last updated:** 2026-09-24
+**Last updated:** 2026-09-28
 
 ## What goes here, and what does not
 
@@ -40,6 +40,16 @@ This is a **chronological spine that points into them**, never a second copy.
 **Entries are milestones, not commits.** `git log` holds every change; this holds the ones that changed the shape of the work.
 
 ---
+
+## 2026-09-28 — The readings speak English: every Chinese passage glossed, no pinyin
+
+Shalom's call (2026-09-27), for the readings' first readers — players of Xensō, who read "The heart of it" in the app and don't read Chinese. It applies to the `## The heart of it` section of all 64 `hexagrams/NN.md`, and to nothing above it.
+
+- **Every Chinese passage is followed by its English, in parentheses:** 碩果不食 ("the big fruit is not eaten"), 牀 ("bed"). About 1,900 passages already carried a gloss and only lost their pinyin; about 3,200 more were glossed for the first time — from the reading's own *Words kept*, its line translations, the working glosses for the formula words (吉 "auspicious", 凶 "ominous", 无咎 "no blame", 亨 "gets through", 孚 "confidence", 貞 "holding firm"), the proposed names in [`hexagram-names.md`](hexagram-names.md), and the locks.
+- **No pinyin in the readings.** The romanization stays where it is a fact — each hexagram's `pinyin:` field and the name tables — and leaves the prose. Two readings lose a contrast they had drawn with it (the two readings of 解 in 40, of 樂 in 16) and now say "read another way"; proper names with no English (帝乙 Di Yi, the unit *li*) keep a toneless romanization.
+- **Sources and commentators are named in English**, with a short identifier on first mention in each reading: the Shuowen, Wang Bi, the Tuan, the Great Image, the Small Image, the Zagua, the Xugua, the Shuogua, the Xici, the Wenyan. Chinese stays wherever the characters themselves are being read.
+- **Checked by code, not by care.** [`scripts/check-readings.ts`](scripts/check-readings.ts), now part of `npm run check`, fails on a Chinese passage with no English after it, on any tone-marked romanization, and on a source named in Chinese. It ignores code spans and link targets.
+- **Glosses first written here are drafts,** like the readings they sit in. The ones their editors were least sure of — rare characters, a few names, a handful of places where a gloss had to choose between readings the text leaves open — are listed in the pull request for Shalom's review.
 
 ## 2026-09-25 — The heart of every hexagram
 
