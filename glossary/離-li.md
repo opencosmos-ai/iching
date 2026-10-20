@@ -22,7 +22,7 @@ in chapter 7 (離，…也) and an image in chapter 11 (離為火). The 大象�
 every hexagram operates on the **images** — across the 64 they name 天 18 times, 地 17, 雷 15,
 山 15, 澤 15, 水 11, 風 10, 火 10, against 健 once, 順 twice, 入 twice, 麗 once, and 動 陷 止 說
 not at all. Rendering by image is not promoting one Wing's gloss over another; it is the reading
-the vendored text runs on. See [`../WORKLIST.md`](../WORKLIST.md) § A1.
+the vendored text runs on. See [`../WORKLIST-CLOSED.md`](../WORKLIST-CLOSED.md) § A1.
 
 **火 is fire, in 10 of the 64 大象傳** — 火在天上 (大有), 明出地上 (晉), 木上有火 (鼎) —
 and McClatchie writes Fire 12 times.

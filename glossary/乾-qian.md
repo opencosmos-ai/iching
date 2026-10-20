@@ -26,7 +26,7 @@ every hexagram operates on the **images** — across the 64 they name 天 18 tim
 not at all. Rendering by image is not promoting one Wing's gloss over another; it is the reading
 the vendored text runs on. **Choosing the image run rules on all eight at once** — it is what
 forbids *the Gentle*, *the Receptive*, *the Abysmal* and *the Joyous* without arguing any of them
-singly. See [[the-8-trigrams-are-arranged-in-4-pairs]] and [`../WORKLIST.md`](../WORKLIST.md) § A1.
+singly. See [[the-8-trigrams-are-arranged-in-4-pairs]] and [`../WORKLIST-CLOSED.md`](../WORKLIST-CLOSED.md) § A1.
 
 **乾 is the one trigram whose English was already decided elsewhere.** Its 說卦 image is 天,
 and 天 is locked by the parent project's glossary to *sky* as a tier and *nature / the natural*
