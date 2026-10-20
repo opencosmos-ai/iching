@@ -37,6 +37,15 @@
 
 ---
 
+## Closed parts of rows still open
+
+*When a row stays open but part of it is finished, the finished part comes here, word for word, and the row in `WORKLIST.md` keeps only what is owed. The open row is the current one; this is what it no longer says. First filled at the split, 2026-10-20.*
+
+- **A7** — The trigram/hexagram split is ruled
+- **A8, A13** were not rows before the split (2026-10-20). A8's five *wood* images were the *One thing still owed here* paragraph inside *A1 · The eight trigrams — done*, below, "queued as part of A8" and named nowhere in A8. A13 was an unticked box in [PR #14](https://github.com/opencosmos-ai/iching/pull/14)'s body. Both were owed and tracked by no row.
+
+---
+
 ## Where the project stood on 2026-09-24
 
 **Eight sources vendored, fifteen principles written, the eight trigrams drafted, and a proposed
@@ -52,6 +61,10 @@ watch: while it does not shift toward `drafting`, this project is building instr
 rather than translating. It has begun to shift — the three newest entries are all about
 getting from a character to an English word — and the next thing should be the next
 rendering, not another instrument.
+
+**The order of work is set by [`method.md`](method.md) §7**, and it is set by frequency,
+not by position: the eight trigrams, then the verdict vocabulary as one decision, then
+君子/小人, then the 64 names, then the judgments and line texts.
 
 ---
 

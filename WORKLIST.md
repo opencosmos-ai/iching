@@ -12,38 +12,55 @@ The **rendering** goes in `hexagrams/NN.md` / `trigrams/*.md` as `render:`. **Ev
 [`principles/`](principles/INDEX.md). **Research that is not yet a ruling** is a dated brief —
 so far two, [`tao-te-ching-relation.md`](tao-te-ching-relation.md) and [`hexagram-names.md`](hexagram-names.md). Nothing belongs in two of those.
 
-**Last updated:** 2026-09-24
+**Each row carries its own detail.** A row whose detail will not fit in the table gets one
+section below it, headed by the row's id. Nothing else lives below the table.
+
+**Last updated:** 2026-10-20
 
 ---
 
-## Where the project actually stands
+## ▶ Start here
 
-**The order of work is set by [`method.md`](method.md) §7**, and it is set by frequency,
-not by position: the eight trigrams, then the verdict vocabulary as one decision, then
-君子/小人, then the 64 names, then the judgments and line texts.
+*The pointer for whoever picks this up cold. Rewrite it when the round changes; never append to it.*
+
+**The order of work is [`method.md`](method.md) §7**, set by frequency rather than by position.
+What it leaves, in order:
+
+1. **The verdict vocabulary, as one decision** — A4, with 貞 · 亨 · 孚 (A6) beside it.
+2. **君子 and 小人** (*jūn zǐ / xiǎo rén*) — A5.
+3. **The 64 names** — A7, only after 1 and 2, with the whole set in view.
+4. **The judgments, then the line texts** — A8.
+
+**Waiting on Shalom:** the proposed names (A7), whether the lock on 無 binds 无 (A11), what the
+64 readings surfaced (A12), and the glosses PR #14 flagged (A13).
+
+**The next thing should be a rendering, not an instrument.** [`principles/README.md`](principles/README.md)
+names the share of `drafting` principles as the thing to watch: while it does not grow, this
+project is building instruments rather than translating.
 
 ---
 
 ## The list
 
-**⬜ open · 🔶 part done · ✅ done · ⏸ deferred by Shalom · 🔴 blocked on Shalom**
+**⬜ open · 🔶 part done · ⏸ deferred by Shalom · 🔴 blocked on Shalom**
 
 | # | | Item | Where | Unit |
 |---|---|---|---|---|
 | | | **A · Drafting — the actual work** | | |
-| A4 | ⬜ | **The verdict vocabulary, decided as one set** — 吉 凶 咎 悔 吝 厲 无咎. 386 occurrences, 9.3% of the text; decide them individually and they will overlap | `glossary/` | ~7 |
+| A4 | ⬜ | **The verdict vocabulary, decided as one set** — 吉 凶 咎 悔 吝 厲 无咎. 386 occurrences, 9.3% of the text; decide them individually and they will overlap. 厲 carries a working gloss, *peril*, until this rules (2026-09-25). The readings' evidence is under A12 | `glossary/` | ~7 |
 | A5 | ⬜ | **君子 (20×) and 小人 (10×)** — not in the parent glossary, so written from scratch. Register *and* gender; `universalize-and-name-the-seam` applies. **Rule it here and promote it to the parent's lock table** — 君子 is 20× here against 3× in the Laozi, and 君子終日 is the one four-character string the two books share | `glossary/` | 2 |
-| A6 | ⬜ | **貞 (111×) · 亨 (48×) · 孚 (42×)** — the divinatory/ethical fork, the deepest open question in the project. Read all three translators before touching any of them | `glossary/` | 3 |
-| A7 | 🔶 | **The 64 hexagram names** — every one has a proposed English and its candidates in [`hexagram-names.md`](hexagram-names.md), awaiting Shalom's review; 5 wait on A4/A6/A11 and on what 有 is here. The trigram/hexagram split is ruled | `hexagrams/` | 64 |
-| A8 | ⬜ | **The judgments and line texts** — 64 × 8 | `hexagrams/` | 512 |
+| A6 | ⬜ | **貞 (111×) · 亨 (48×) · 孚 (42×)** — the divinatory/ethical fork, the deepest open question in the project. Read all three translators before touching any of them. The readings' evidence is under A12 | `glossary/` | 3 |
+| A7 | 🔶 | **The 64 hexagram names** — every one has a proposed English and its candidates in [`hexagram-names.md`](hexagram-names.md), awaiting Shalom's review; 5 wait on A4/A6/A11 and on what 有 is here. **The nine the signature strains** — 11, 12, 14, 19, 34, 51, 58, 60, 61 — want a second look before approval | `hexagrams/` | 64 |
+| A8 | ⬜ | **The judgments and line texts** — 64 × 8. **Five owe *wood* in their own `image:` field:** the 大象傳 (*dà xiàng zhuàn* — the Great Image) of 28 大過, 46 升, 48 井, 50 鼎 and 53 漸 names 木 (*mù* — wood), where the trigram 巽 (*xùn*) renders *wind*. That is a different sentence from the trigram's name, and 鼎 is a cauldron on a **wood** fire | `hexagrams/` | 512 |
 | A11 | 🔴 | **Does the lock on 無 bind 无?** — the Zhouyi writes the negative 无 (158× in the core, 138× in the Wings) where the parent's lock is written on 無 (2× and 5×). Same word, two graphs; until it is ruled the lock reaches almost nothing here. Decides 25 无妄 and 无咎 (A4) together | `glossary/` | 1 |
 | A12 | 🔴 | **What the 64 readings surfaced** — writing *The heart of it* for every hexagram turned up evidence for A4/A6, name collisions with the Tao Te Ching's vocabulary, and terms with no English yet. Grouped below, for Shalom | [below](#a12--what-the-64-readings-surfaced) | ~25 |
+| A13 | 🔴 | **The glosses PR #14 flagged as least certain** — about 3,200 Chinese passages in the readings were glossed for the first time on 2026-09-28, and the editors listed the ones they were least sure of (rare characters, some proper names, places where a gloss chose between readings) in [PR #14](https://github.com/opencosmos-ai/iching/pull/14). Its *Shalom reviews the flagged glosses* box was left unticked | `hexagrams/` | — |
 | | | **B · Evidence — what the sources still owe** | | |
 | B1 | ⬜ | **1,075 OCR disputes still unsettled** in McClatchie — both engines disagree and neither the book's vocabulary nor the scan pass could resolve it. The live count is the file's `summary:` | `sources/mcclatchie-1876/disputed.yaml` | 1075 |
 | B3 | ⏸ | **The Chinese half of McClatchie is not transcribed** — a rule, not a shortfall. Route named: `brew install tesseract-lang`, `chi_tra_vert` | `sources/` | 1 |
 | B4 | ⬜ | **Legge's footnotes not vendored** | `sources/legge-1882/` | 1 |
-| B9 | ⬜ | **Simplified graphs in the vendored Zhouyi** — 云 濟→济 几 谷 丑 愿 荐 涂, some 后 for 後, found by grading the 周易注 against it. `sources/` is never hand-edited: report them from the importer, and fix upstream on Wikisource where the scan supports it | `sources/zhouyi/` | ~15 |
 | B5 | ⬜ | **`prescrves-the «`-class errors** — multi-token blocks straddling a line break are left alone by design; a proofreading pass would need the scan | `disputed.yaml` | — |
+| B9 | ⬜ | **Simplified graphs in the vendored Zhouyi** — 云 濟→济 几 谷 丑 愿 荐 涂, some 后 for 後, found by grading the 周易注 against it. `sources/` is never hand-edited: report them from the importer, and fix upstream on Wikisource where the scan supports it | `sources/zhouyi/` | ~15 |
 
 ---
 
@@ -73,4 +90,3 @@ where the evidence is; the reasoning is in that hexagram's section.*
 **For the Tao Te Ching side.** Its ch 9 renders 天之道 "the way of nature", although 道 is locked to *the Tao* (reported by 19); its ch 54 renders 家 *family* while 37 proposes *household*.
 
 **Seams to check before building on them:** 37 (the household's roles), 54 (the 娣 system, named plainly), 32.5 (a verdict split by gender role).
-
