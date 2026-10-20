@@ -3,7 +3,7 @@
 *The single forward-looking file for this repository: **only work that is still owed.** When
 a row closes it moves, word for word, to [`WORKLIST-CLOSED.md`](WORKLIST-CLOSED.md), and so
 does any text here that described it — the reasoning already lives somewhere permanent, and
-keeping it here is how a debt list goes stale.*
+keeping it here is how a debt list goes stale. `npm run check` fails while a closed row stays.*
 
 **Where things live.** The **ruling and its argument** go in [`glossary/`](glossary/README.md).
 The **rendering** goes in `hexagrams/NN.md` / `trigrams/*.md` as `render:`. **Evidence** is

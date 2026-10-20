@@ -6,7 +6,7 @@ them is one line and it is not here: they are commentary, not text — [`method.
 
 **Counts are measured** from the vendored files and can be recomputed. **Origins and dating are
 remembered, not vendored** — flagged again where they appear, and owed a source before they bind
-anything ([`WORKLIST.md`](../../WORKLIST.md) B6 is the same debt for 王弼).
+anything ([`WORKLIST-CLOSED.md`](../../WORKLIST-CLOSED.md) B6 was the same debt for 王弼, paid 2026-09-24).
 
 ---
 

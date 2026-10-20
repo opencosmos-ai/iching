@@ -67,8 +67,8 @@ cite gets an English gloss beside it, every time: 天 (*tiān*, sky), never a ba
 
 ### 4. Improve the tooling
 
-`scripts/` is TypeScript run with `tsx`. [`WORKLIST.md`](WORKLIST.md) § C lists
-the open tooling work, and some of it is labelled
+`scripts/` is TypeScript run with `tsx`. [`WORKLIST.md`](WORKLIST.md) lists the
+open work, tooling under § C whenever there is any, and some of it is labelled
 [good first issue](https://github.com/opencosmos-ai/iching/labels/good%20first%20issue).
 
 ```bash
