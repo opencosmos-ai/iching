@@ -41,7 +41,7 @@ Only if all three are no does it belong in `principles/`. A near-match usually w
 The parent's three passes — self-declared rules, principle-shaped sentences, and **repeated reasons**, the richest — [reasoning here](https://github.com/opencosmos-ai/taoteching/blob/main/process/skills/principle-entry/SKILL.md#1-detection--three-passes-decreasing-precision). Run them over this repository's prose:
 
 ```bash
-grep -rniE "standing principle|general rule|the lesson|worth keeping" method.md sources/PROVENANCE.md glossary/ hexagrams/ trigrams/ WORKLIST.md CHANGELOG.md tao-te-ching-relation.md
+grep -rniE "standing principle|general rule|the lesson|worth keeping" method.md sources/PROVENANCE.md glossary/ hexagrams/ trigrams/ WORKLIST.md WORKLIST-CLOSED.md CHANGELOG.md tao-te-ching-relation.md
 ```
 
 **Most of what this project has learned is about evidence**, because the sources arrived damaged before a word was rendered. Look hardest in `sources/PROVENANCE.md` and in the importers' header comments.

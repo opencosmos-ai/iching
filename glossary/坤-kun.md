@@ -22,7 +22,7 @@ in chapter 7 (坤，…也) and an image in chapter 11 (坤為地). The 大象�
 every hexagram operates on the **images** — across the 64 they name 天 18 times, 地 17, 雷 15,
 山 15, 澤 15, 水 11, 風 10, 火 10, against 健 once, 順 twice, 入 twice, 麗 once, and 動 陷 止 說
 not at all. Rendering by image is not promoting one Wing's gloss over another; it is the reading
-the vendored text runs on. See [`../WORKLIST.md`](../WORKLIST.md) § A1.
+the vendored text runs on. See [`../WORKLIST-CLOSED.md`](../WORKLIST-CLOSED.md) § A1.
 
 **Settled by the same lock that settles 乾.** 天地 is locked to *sky and earth*, so 地 is
 *earth* and there is nothing to argue. It appears in 17 of the 64 大象傳 — 地中有水 (師),

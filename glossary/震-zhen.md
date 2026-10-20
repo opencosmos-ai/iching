@@ -22,7 +22,7 @@ in chapter 7 (震，…也) and an image in chapter 11 (震為雷). The 大象�
 every hexagram operates on the **images** — across the 64 they name 天 18 times, 地 17, 雷 15,
 山 15, 澤 15, 水 11, 風 10, 火 10, against 健 once, 順 twice, 入 twice, 麗 once, and 動 陷 止 說
 not at all. Rendering by image is not promoting one Wing's gloss over another; it is the reading
-the vendored text runs on. See [`../WORKLIST.md`](../WORKLIST.md) § A1.
+the vendored text runs on. See [`../WORKLIST-CLOSED.md`](../WORKLIST-CLOSED.md) § A1.
 
 **The clearest of the eight.** 雷 is thunder, in 15 of the 64 大象傳 — 雷雨作 (解), 雷風 (恆),
 雷在天上 (大壯) — and McClatchie writes Thunder 19 times. No lock touches it, the three corners

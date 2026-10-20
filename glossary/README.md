@@ -17,6 +17,7 @@ npm run principles -- --applies glossary
 | **The ruling and its whole argument** | here — one file per term |
 | **The rendering itself** | the `render:` field in [`hexagrams/NN.md`](../hexagrams/) or [`trigrams/`](../trigrams/) |
 | **What is still owed** | [`WORKLIST.md`](../WORKLIST.md) |
+| **What was owed, and how it closed** | [`WORKLIST-CLOSED.md`](../WORKLIST-CLOSED.md) |
 | **The evidence it was decided from** | [`sources/`](../sources/) |
 
 The split is not duplication. `render:` is **data** — [`build-iching.ts`](../scripts/build-iching.ts)

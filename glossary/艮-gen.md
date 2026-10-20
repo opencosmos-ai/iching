@@ -22,7 +22,7 @@ in chapter 7 (艮，…也) and an image in chapter 11 (艮為山). The 大象�
 every hexagram operates on the **images** — across the 64 they name 天 18 times, 地 17, 雷 15,
 山 15, 澤 15, 水 11, 風 10, 火 10, against 健 once, 順 twice, 入 twice, 麗 once, and 動 陷 止 說
 not at all. Rendering by image is not promoting one Wing's gloss over another; it is the reading
-the vendored text runs on. See [`../WORKLIST.md`](../WORKLIST.md) § A1.
+the vendored text runs on. See [`../WORKLIST-CLOSED.md`](../WORKLIST-CLOSED.md) § A1.
 
 **山 is mountain, in 15 of the 64 大象傳** — 山下出泉 (蒙), 山上有木 (漸), 山附於地 (剝) —
 and McClatchie writes Mountain or Mountains 15 times. No lock, no split, no live alternative.

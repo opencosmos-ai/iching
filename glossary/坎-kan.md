@@ -22,7 +22,7 @@ in chapter 7 (坎，…也) and an image in chapter 11 (坎為水). The 大象�
 every hexagram operates on the **images** — across the 64 they name 天 18 times, 地 17, 雷 15,
 山 15, 澤 15, 水 11, 風 10, 火 10, against 健 once, 順 twice, 入 twice, 麗 once, and 動 陷 止 說
 not at all. Rendering by image is not promoting one Wing's gloss over another; it is the reading
-the vendored text runs on. See [`../WORKLIST.md`](../WORKLIST.md) § A1.
+the vendored text runs on. See [`../WORKLIST-CLOSED.md`](../WORKLIST-CLOSED.md) § A1.
 
 **水 is water, in 11 of the 64 大象傳** — 水在火上 (既濟), 風行水上 (渙), 木上有水 (井) —
 and McClatchie writes Water 12 times. No lock, no split.

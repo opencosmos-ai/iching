@@ -2,7 +2,7 @@
 
 Notable changes to this repository. The root [`CHANGELOG.md`](https://github.com/opencosmos-ai/opencosmos/blob/main/CHANGELOG.md) covers the monorepo; this one covers a directory that has its own method, its own admission rules and its own principles, and whose changes would otherwise be legible only by reading a whole session back.
 
-**Last updated:** 2026-09-28
+**Last updated:** 2026-10-20
 
 ## What goes here, and what does not
 
@@ -40,6 +40,15 @@ This is a **chronological spine that points into them**, never a second copy.
 **Entries are milestones, not commits.** `git log` holds every change; this holds the ones that changed the shape of the work.
 
 ---
+
+## 2026-10-20 — The worklist holds only what is owed
+
+[`WORKLIST.md`](WORKLIST.md) said a closed item leaves it. 19 of its 31 rows had not, and a finished section held a debt that no open row named. It went from 165 lines to 92, the same fix the Tao Te Ching repository took the same day.
+
+- **[`WORKLIST.md`](WORKLIST.md)**: 13 open rows and a *Start here* block (the order of work from [`method.md`](method.md) §7, and what waits on Shalom). One section stays under the table, A12's evidence, because it belongs to an open row.
+- **[`WORKLIST-CLOSED.md`](WORKLIST-CLOSED.md)**: every closed row, the 2026-09-24 status, the A1 section and the ledger, moved word for word, so `A10` or `§ A1` cited elsewhere still resolves. The six trigram entries that cite § A1 point there.
+- **Two owed items now have rows.** A8 names the five 木 (*mù* — wood) images that A1 had queued for it, and A13 is the review of the glosses PR #14 flagged, an unticked box in a merged pull request.
+- **Checked by code:** [`scripts/check-worklist.ts`](scripts/check-worklist.ts), part of `npm run check`, fails on a closed row left in the worklist, an id in both files, an open row in the closed one, and a section under the table that heads no open row. It proves each rule on the failure it exists for before reading the real files; on the old file it reports 21.
 
 ## 2026-09-28 — The readings speak English: every Chinese passage glossed, no pinyin
 
