@@ -29,11 +29,19 @@
 
 - term: "道"
   pinyin: "dào"
-  render: "the Tao (left untranslated)"
+  render: "the Tao / way"
   forbidden: ["the Way", "the Path"]
   chapters: [1, 4, 8, 9, 14, 15, 16, 18, 21, 23, 24, 25, 30, 31, 32, 34, 35, 37, 38, 40, 41, 42, 46, 47, 48, 51, 53, 55, 59, 60, 62, 65, 67, 73, 77, 79, 81]
   status: locked
   entry: glossary/dao-道.md
+
+- term: "聖"
+  pinyin: "shèng"
+  render: "the sage · sagehood (聖 alone, ch 19)"
+  forbidden: ["holy", "saint", "blessed", "wise man", "wise one", "wise soul", "perfect man", "sage-king", "sage-ruler", "sageliness"]
+  chapters: [2, 3, 5, 7, 12, 19, 22, 27, 28, 29, 47, 49, 57, 58, 60, 63, 64, 66, 70, 71, 72, 73, 77, 78, 79, 81]
+  status: locked
+  entry: glossary/sheng-聖.md
 
 - term: "大"
   pinyin: "dà"
@@ -44,13 +52,29 @@
   entry: glossary/da-大.md
   # covers 小 -> small
 
+- term: "可"
+  pinyin: "kě"
+  render: "can be (可 + verb) / can (可以 + verb) / cannot (不可)"
+  forbidden: []
+  chapters: [1, 3, 9, 13, 14, 15, 20, 25, 27, 29, 31, 32, 34, 35, 36, 44, 56, 59, 62, 79]
+  status: locked
+  entry: glossary/ke-可.md
+  flexions:
+    - { english: "desirable", chapters: [3], why: "可欲 is a fixed phrase, what can be desired, and English has the word" }
+    - { english: "must", chapters: [20], why: "不可不 is cannot-not, which English says as must" }
+    - { english: "never", chapters: [35], why: "不可既, cannot be used up, said as it never runs out" }
+  # covers 能 -> be able
+
 - term: "常"
   pinyin: "cháng"
-  render: "the ever-present / the abiding"
-  forbidden: ["eternal", "everlasting", "the eternal"]
+  render: "the ever-present / ever / always"
+  forbidden: ["eternal", "everlasting", "eternity", "timeless"]
   chapters: [1, 3, 16, 27, 28, 32, 34, 37, 46, 48, 49, 51, 52, 55, 61, 64, 65, 74, 79]
   status: locked
   entry: glossary/chang-常.md
+  flexions:
+    - { english: "fixed", chapters: [49], why: "the shallow sense: 無常心 is a heart with no set habit, not a heart without the ever-present" }
+    - { english: "stays", chapters: [79], why: "常與 folds the always into the verb: the way of nature stays with the masterful" }
 
 - term: "生"
   pinyin: "shēng"
@@ -67,6 +91,17 @@
   chapters: [2, 8, 15, 20, 27, 30, 41, 49, 50, 54, 58, 62, 65, 66, 68, 73, 79, 81]
   status: locked
   entry: glossary/shan-善.md
+
+- term: "行"
+  pinyin: "xíng"
+  render: "go / carry out / conduct"
+  forbidden: ["action", "execute"]
+  chapters: [2, 12, 24, 25, 26, 27, 29, 33, 41, 47, 50, 53, 62, 64, 69, 70, 78]
+  status: open
+  entry: glossary/xing-行.md
+  flexions:
+    - { english: "follow", chapters: [70, 78], why: "words are followed rather than practised; Shalom's call at ch 70, and ch 78 repeats its 莫能行" }
+    - { english: "ranks", chapters: [69], why: "the second 行 of 行無行 is háng, a battle line" }
 
 - term: "德"
   pinyin: "dé"
@@ -86,6 +121,17 @@
   # covers 物 -> things / something
   # covers 萬 -> countless
 
+- term: "唯"
+  pinyin: "wéi"
+  render: "only"
+  forbidden: ["precisely"]
+  chapters: [2, 8, 15, 20, 22, 41, 42, 53, 59, 67, 70, 71, 72, 75, 77]
+  status: locked
+  entry: glossary/wei-唯.md
+  flexions:
+    - { english: "yes", chapters: [20], why: "the assent itself, 說文's own sense, set beside 阿 (ē — a careless yeah)" }
+  # covers 惟 -> only
+
 - term: "事"
   pinyin: "shì"
   render: "affairs / undertakings (noun) · to serve, to attend to (verb)"
@@ -93,6 +139,16 @@
   chapters: [2, 8, 17, 23, 30, 31, 48, 52, 57, 59, 61, 63, 64, 70]
   status: locked
   entry: glossary/shi-事.md
+
+- term: "民"
+  pinyin: "mín"
+  render: "the people"
+  forbidden: ["the masses", "the multitude", "the populace", "subjects", "citizens", "commoners", "peasants", "the governed"]
+  chapters: [3, 10, 19, 32, 57, 58, 64, 65, 66, 72, 74, 75, 80]
+  status: locked
+  entry: glossary/min-民.md
+  flexions:
+    - { english: "people", chapters: [64], why: "the one 民 with no ruler in the line, and the oldest witness reads 人 there" }
 
 - term: "強"
   pinyin: "qiáng"
@@ -110,6 +166,8 @@
   chapters: [10, 16, 22, 24, 27, 33, 36, 41, 52, 55, 65]
   status: locked
   entry: glossary/ming-明.md
+  flexions:
+    - { english: "clever", chapters: [65], why: "明 done TO a populace by its rulers — 王弼: seeing too much, craft and deceit, covering their simplicity; the lock's English would make the sages keep people from seeing clearly" }
 
 - term: "無為"
   pinyin: "wú wéi"
@@ -222,6 +280,15 @@
   chapters: [3, 30, 64, 67, 69, 73, 74]
   status: locked
   entry: glossary/gan-敢.md
+
+- term: "柔"
+  pinyin: "róu"
+  render: "soft"
+  forbidden: ["supple", "pliant", "pliable", "flexible", "gentle", "tender"]
+  chapters: [10, 36, 43, 52, 55, 76, 78]
+  status: locked
+  entry: glossary/rou-柔.md
+  # covers 剛 -> unbending
 
 - term: "爭"
   pinyin: "zhēng"
@@ -382,6 +449,31 @@
   status: locked
   entry: glossary/chi-持.md
 
+- term: "混"
+  pinyin: "hùn"
+  render: "mixed (adjective) · to mix (verb)"
+  forbidden: ["chaos", "chaotic", "undifferentiated", "blend", "merge"]
+  chapters: [14, 15, 25]
+  status: locked
+  entry: glossary/hun-混.md
+
+- term: "清"
+  pinyin: "qīng"
+  render: "clear"
+  forbidden: ["pure", "purity", "purify", "clarity"]
+  chapters: [15, 39, 45]
+  status: locked
+  entry: glossary/qing-清.md
+  # covers 濁 -> muddy
+
+- term: "百姓"
+  pinyin: "bǎi xìng"
+  render: "everyone"
+  forbidden: ["the people", "the hundred families", "the hundred surnames", "the masses", "the common people"]
+  chapters: [5, 17, 49]
+  status: locked
+  entry: glossary/baixing-百姓.md
+
 - term: "知足"
   pinyin: "zhī zú"
   render: "knowing you have enough / contentment"
@@ -397,6 +489,15 @@
   chapters: [16, 51]
   status: open
   entry: glossary/ming-命.md
+
+- term: "咎"
+  pinyin: "jiù"
+  render: "fault"
+  forbidden: ["blame", "calamity"]
+  chapters: [9, 46]
+  status: locked
+  entry: glossary/jiu-咎.md
+  binds: [taoteching]
 
 - term: "精"
   pinyin: "jīng"
@@ -415,6 +516,15 @@
   entry: glossary/quan-全.md
   # covers 曲 -> bend / bent
 
+- term: "尤"
+  pinyin: "yóu"
+  render: "blame"
+  forbidden: ["fault", "blameless"]
+  chapters: [8]
+  status: locked
+  entry: glossary/you-尤.md
+  binds: [taoteching]
+
 - term: "帝"
   pinyin: "dì"
   render: "god — *any god* at its one occurrence"
@@ -430,3 +540,12 @@
   chapters: [16]
   status: locked
   entry: glossary/fuming-復命.md
+
+- term: "魄"
+  pinyin: "pò"
+  render: "aliveness"
+  forbidden: ["soul", "spirit", "life force", "life-force", "lifeforce", "vigor"]
+  chapters: [10]
+  status: locked
+  entry: glossary/po-魄.md
+  # covers 營 -> housing
