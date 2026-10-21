@@ -41,6 +41,14 @@ This is a **chronological spine that points into them**, never a second copy.
 
 ---
 
+## 2026-10-20 — 咎 and 尤 stay in the parent: a lock can name the books it binds
+
+The parent's glossary gave 咎 (*jiù*) and 尤 (*yóu*) entries on the same day this book ruled both differently: 咎 is *fault* there and *blame* here, and 尤 is *blame* there and still open here (A15). Vendored as they stood, the parent's 咎 lock would have forbidden *blame* across all 151 occurrences of 咎 in the Zhouyi, and handed 尤 the one word A4 has already given away.
+
+- **`binds:`**, new in the parent's `terms.yaml`, names the books a lock holds in. Absent, a lock holds everywhere it is vendored, as before. The parent's 咎 and 尤 carry `binds: [taoteching]`, and each entry says why ([opencosmos-ai/taoteching](https://github.com/opencosmos-ai/taoteching) `glossary/jiu-咎.md`, `glossary/you-尤.md`).
+- **The importer, `check-iching.ts` and `build-name-concordance.ts`** skip a lock whose `binds:` leaves this book out. [`sources/locks/README.md`](sources/locks/README.md) lists such locks under *What the parent keeps to itself*.
+- **Re-vendored:** 62 entries in the parent's glossary, 60 binding here, 46 of them in the Zhouyi. The last import (2026-09-25) carried 50, and `npm run check` passes against all 60.
+
 ## 2026-10-20 — The verdict vocabulary, decided as one set and locked
 
 The first rendering since the trigrams, and [`method.md`](method.md) §7's second stage: the six verdict graphs, 386 occurrences, 9.3% of the judgments and line texts. WORKLIST A4, closed the same day. **Shalom ruled on all six, and all six are `status: locked`**, the project's first locked entries.

@@ -229,6 +229,10 @@ already settled, vendored here at [`sources/locks/terms.yaml`](sources/locks/REA
 | 器 (*qì*) · 仁 (*rén*) · 極 (*jí*) | vessel · humaneness · the far end | 12 · 8 · 6 | **0 · 0 · 0** | 12 · 10 · 9 |
 | 無為 · 自然 · 樸 · 慈 · 知足 · 復命 | — | present | **0** | **0** |
 
+Not every entry crosses. One whose `binds:` leaves out this book stays in the parent, because the
+two books rule it differently on purpose. 咎 (*jiù*) and 尤 (*yóu*) were the first
+([`sources/locks/README.md`](sources/locks/README.md) lists them).
+
 And the two books' cast of characters is not the same cast:
 
 | | Daodejing | core | Wings |

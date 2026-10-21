@@ -358,8 +358,11 @@ console.log('\nglossary references')
 // The entry's own `forbidden:`, and its glossary entry's, bind without the gate.
 console.log('\nlocks')
 {
-  type Lock = { term: string; pinyin: string; render: string; forbidden: string[] }
-  const locks = load(readFileSync(join(ROOT, 'sources', 'locks', 'terms.yaml'), 'utf8')) as Lock[]
+  type Lock = { term: string; pinyin: string; render: string; forbidden: string[]; binds?: string[] }
+  // A parent lock with `binds:` holds only in the books it names (咎 and 尤
+  // are the parent's alone; this book rules both differently, on purpose).
+  const locks = (load(readFileSync(join(ROOT, 'sources', 'locks', 'terms.yaml'), 'utf8')) as Lock[])
+    .filter(l => !l.binds || l.binds.includes('iching'))
   const cased = (needle: string) => /\p{Lu}/u.test(needle)
   const found = (text: string, needle: string) =>
     cased(needle) ? text.includes(needle) : text.toLowerCase().includes(needle.toLowerCase())

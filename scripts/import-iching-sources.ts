@@ -798,7 +798,12 @@ async function importLocks() {
   writeVendored(join(out, 'terms.yaml'), yaml)
 
   type Flexion = { english: string; chapters: number[]; why?: string }
-  const terms = load(yaml) as { term: string; pinyin: string; render: string; forbidden: string[]; status: string; flexions?: Flexion[] }[]
+  type Entry = { term: string; pinyin: string; render: string; forbidden: string[]; status: string; entry: string; binds?: string[]; flexions?: Flexion[] }
+  const all = load(yaml) as Entry[]
+  // `binds:` names the books a parent lock holds in; absent, it holds in all.
+  // check-iching.ts and build-name-concordance.ts apply the same filter.
+  const terms = all.filter(t => !t.binds || t.binds.includes('iching'))
+  const kept = all.filter(t => !terms.includes(t))
   // The parent keeps a lock's chapter-scoped secondary Englishes in `flexions:`
   // rather than inside `render:`, so the table shows them the way its own
   // index does. Left out, 執 would read "grasp" and lose *seize* at ch 74.
@@ -837,7 +842,7 @@ async function importLocks() {
     '[opencosmos-ai/taoteching](https://github.com/opencosmos-ai/taoteching) `glossary/terms.yaml`, which is itself generated',
     'from the frontmatter of that project\'s glossary entries. **Never edit either by hand** — fix it there, re-run here.*',
     '',
-    `**${terms.length} locked terms in the glossary. ${binding.length} of them occur in the Zhouyi base text.**`,
+    `**${all.length} locked terms in the glossary, ${terms.length} of them binding here. ${binding.length} of those occur in the Zhouyi base text.**`,
     '',
     'A lock is not advice. Where one of these characters appears in a hexagram name, a judgment or a line text, the',
     'English is already decided, and a rendering that reaches for the forbidden word is a defect rather than a preference.',
@@ -854,10 +859,21 @@ async function importLocks() {
     `The remaining ${rows.length - binding.length} locked terms — ${rows.filter(r => r.hits === 0).map(r => r.term).join('、')} — do not occur in the base text.`,
     'They still bind any commentary rendered here, and they bind the prose around a rendering.',
     '',
+    ...(kept.length ? [
+      '## What the parent keeps to itself',
+      '',
+      `${kept.length} of the parent's entries carry \`binds:\` without this book, and bind nothing here: the two books`,
+      'rule them differently on purpose. Each entry says why.',
+      '',
+      '| Character | Pinyin | The parent renders | Binds | Entry |',
+      '|---|---|---|---|---|',
+      ...kept.map(t => `| ${t.term} | ${t.pinyin} | ${rendered(t)} | ${t.binds!.join(', ')} | \`${t.entry}\` |`),
+      '',
+    ] : []),
   ].join('\n')
   writeVendored(join(out, 'README.md'), md)
 
-  pass(`${terms.length} locked terms vendored; ${binding.length} occur in the Zhouyi`)
+  pass(`${terms.length} locked terms vendored; ${binding.length} occur in the Zhouyi; ${kept.length} kept by the parent`)
   console.log(`  → sources/locks/`)
 }
 

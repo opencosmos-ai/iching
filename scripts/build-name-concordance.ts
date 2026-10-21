@@ -81,8 +81,10 @@ for (const f of readdirSync(join(ROOT, 'sources', 'wings')).filter(f => f.endsWi
 const allCore = hexes.map(h => h.core).join('\n')
 const allWings = hexes.map(h => h.wings).join('\n') + wingsBook
 
-type Lock = { term: string; pinyin: string; render: string; forbidden: string[]; flexions?: { english: string; chapters: number[] }[] }
-const locks = load(readFileSync(join(ROOT, 'sources', 'locks', 'terms.yaml'), 'utf8')) as Lock[]
+type Lock = { term: string; pinyin: string; render: string; forbidden: string[]; binds?: string[]; flexions?: { english: string; chapters: number[] }[] }
+// A parent lock with `binds:` holds only in the books it names.
+const locks = (load(readFileSync(join(ROOT, 'sources', 'locks', 'terms.yaml'), 'utf8')) as Lock[])
+  .filter(l => !l.binds || l.binds.includes('iching'))
 const lockChars = (l: Lock) => l.term.split('&').map(c => c.trim()).filter(Boolean)
 
 // ─── per name ───────────────────────────────────────────────────────────────
