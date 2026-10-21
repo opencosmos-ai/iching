@@ -41,6 +41,17 @@ This is a **chronological spine that points into them**, never a second copy.
 
 ---
 
+## 2026-10-20 — The verdict vocabulary, decided as one set and locked
+
+The first rendering since the trigrams, and [`method.md`](method.md) §7's second stage: the six verdict graphs, 386 occurrences, 9.3% of the judgments and line texts. WORKLIST A4, closed the same day. **Shalom ruled on all six, and all six are `status: locked`**, the project's first locked entries.
+
+- **Six entries in [`glossary/`](glossary/INDEX.md)**, the first of `kind: verdict`. They are 吉 *auspicious* · 凶 *ominous* · 咎 *blame* · 悔 *regret* · 吝 *constriction* · 厲 *peril*. Each is argued from the four corners, with the three translators measured line by line against the core text (Legge, for instance, writes *evil* for 凶 37 times in 38).
+- **The Wings arrange the set themselves.** 繫辭上 ch 2–3 has three tiers: 吉凶 for losing and getting, 悔吝 for small blemishes, 无咎 for mending a fault. **厲 is in none of them.** In 12 of the 15 lines that put it beside a verdict, it comes first, so it names the situation and is not on the scale. `method.md` § 4's "graded scale" now says that only half of it held.
+- **咎 is *blame*, Shalom's call.** The core text's own 无咎无譽 ("no blame, no praise", 2.4, 28.5) supports it. The Tao Te Ching translation keeps 咎 *fault* and 尤 *blame*, because it is a different context, so the two books differ on purpose. Inside this book, 尤 (six times in the 小象傳) now needs a word of its own (A15). [`WORKLIST-CLOSED.md` § A4](WORKLIST-CLOSED.md#a4--the-verdict-vocabulary--done).
+- **吝 is *constriction*, Shalom's call, replacing *stinting*.** The 小象傳 glosses 吝 with 窮 three times, the place running out. 王弼 glosses it as a narrow heart (褊狹, 不弘). *Stinting* had carried neither, only 說卦's 吝嗇. *Narrowness* was set aside because it reads like a trait. **The readings are retrofitted:** 55 *stinting* glosses across 22 hexagrams, plus four stray glosses of 吝 in 13 and 31.
+- **A4 waited on neither A6 nor A11.** All 56 lines where 貞 governs a verdict read under either side of A6's fork. The core's only two 無 are verdict formulae in hexagram 13, and 王弼's text writes 无 at both (new row B10).
+- **Found on the way:** 元 and 利 had no row (A14), and 尤 needs a word (A15). The check cannot yet cite a verdict entry without failing (C12). A12 said hexagram 20 has "no verdict word at all", and it has four, corrected in place.
+
 ## 2026-10-20 — The worklist holds only what is owed
 
 [`WORKLIST.md`](WORKLIST.md) said a closed item leaves it. 19 of its 31 rows had not, and a finished section held a debt that no open row named. It went from 165 lines to 92, the same fix the Tao Te Ching repository took the same day.

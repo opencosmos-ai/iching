@@ -65,7 +65,7 @@ Not a chapter. Four things, in this order of scope:
 | Unit | Count | Where the decision lives |
 |---|---|---|
 | A trigram's English | 8 | `trigrams/*.md` → `render` |
-| A verdict word's English | ~11 | needs a glossary, and has none yet |
+| A verdict word's English | ~11 | `glossary/` → `render`; the six verdict graphs drafted 2026-10-20 (WORKLIST A4) |
 | A hexagram's name in English | 64 | `hexagrams/*.md` → `render` |
 | A judgment, an image, six line texts | 64 × 8 | `hexagrams/*.md` → `judgment`, `image`, `line_texts` |
 
@@ -177,6 +177,8 @@ Two problems at once. **Register**: "the superior man" is Victorian Confucianism
 **咎** — Legge: *"error," "mistake."* Blame, fault, the thing you would be held to account for. 无咎 at ninety-two occurrences is the most-repeated phrase in the book.
 
 **悔 / 吝 / 厲** — regret, stinting/trouble, danger. A graded scale that English will flatten unless the whole scale is decided at once, as a set. Decide them individually and they will overlap.
+
+**Drafted 2026-10-20, and only half of that held** ([`WORKLIST-CLOSED.md` § A4](WORKLIST-CLOSED.md#a4--the-verdict-vocabulary--done)). 悔 and 吝 are graded, as 繫辭上 ch 3's 小疵 ("small blemishes"): *regret* and *constriction*. 厲 is not on the scale. It stands beside 吉 and 无咎 and names the situation the verdict follows, so its English is a condition: *peril*.
 
 ### 神 — and the one source that argues for the overlay
 

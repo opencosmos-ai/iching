@@ -16,6 +16,7 @@
 | A1 | ✅ | ~~**The eight trigrams**~~ — all eight rendered, 2026-09-12 | `trigrams/` | 8 |
 | A2 | ✅ | ~~**巽 is two images**~~ — **`wind`**; the five 木 hexagrams carry wood in `image:` | `trigrams/05-xun.md` | 1 |
 | A3 | ✅ | ~~**澤 — what kind of water**~~ — **`lake`**, Shalom 2026-09-12 | `trigrams/02-dui.md` | 1 |
+| A4 | ✅ | ~~**The verdict vocabulary, decided as one set**~~ — closed 2026-10-20, Shalom: *auspicious · ominous · blame · regret · constriction · peril*, all six locked in [`glossary/`](glossary/INDEX.md). 咎 is *blame* here while the Tao Te Ching keeps *fault*; 吝 is *constriction*, replacing *stinting*, with the readings retrofitted. The set is in [§ A4](#a4--the-verdict-vocabulary--done) | `glossary/` | 6 |
 | A9 | ✅ | ~~**Hexagram-name concordance against the locks**~~ — closed 2026-09-24: [`glossary/NAMES.md`](glossary/NAMES.md), `npm run names`. 6 of 64 names carry a lock; 53 recur as a word in their own lines | `glossary/` | 1 |
 | | | **B · Evidence — what the sources still owe** | | |
 | B2 | ✅ | ~~**說文解字 not vendored**~~ — closed 2026-09-24: [`sources/shuowen/entries.md`](sources/shuowen/entries.md), 1,228 of 1,374 characters, by the parent's parser ported and checked against it. 146 unmatched, incl. 雷 (filed as 靁), 无, 亨 | `sources/` | 1 |
@@ -88,10 +89,56 @@ passages.
 48 井, 50 鼎, 53 漸** — must render *wood* in their own `image:` field. That is a different
 sentence from the trigram's name, and 鼎 is a cauldron on a **wood** fire. Queued as part of A8.
 
+## A4 · The verdict vocabulary — done
+
+*Closed 2026-10-20: Shalom accepted the six, and all six are `status: locked`. Moved from `WORKLIST.md` word for word, except the last paragraph and the pointer to A15, which were written at the close.*
+
+*Drafted 2026-10-20, for Shalom. Each word's argument is in its entry. This section lays the six out
+together, as [`a-closed-set-is-one-decision`](principles/a-closed-set-is-one-decision.md) requires,
+and says what is still his to rule. Counts are the core text's, measured from `sources/`.*
+
+**The Wings arrange the set themselves, and 厲 is not in their arrangement.** 繫辭上 ch 2–3 gives
+three tiers. 說卦 ch 3 did the same for the trigrams.
+
+| 繫辭上 ch 2–3 | Graph | Core | English | Entry |
+|---|---|---|---|---|
+| 失得之象, "the images of losing and getting" | 吉 · 凶 | 147 · 58 | *auspicious* · *ominous* | [`吉-ji`](glossary/吉-ji.md) · [`凶-xiong`](glossary/凶-xiong.md) |
+| 小疵, "small blemishes"; 憂虞, "worry and apprehension" | 悔 · 吝 | 34 · 20 | *regret* · *constriction* | [`悔-hui`](glossary/悔-hui.md) · [`吝-lin`](glossary/吝-lin.md) |
+| 善補過, "being good at mending a fault" | 咎, mostly 无咎 | 100 | *blame*, *no blame* | [`咎-jiu`](glossary/咎-jiu.md) |
+| absent from 繫辭 — the situation the verdict follows | 厲 | 27 | *peril* | [`厲-li`](glossary/厲-li.md) |
+
+**The draft kept the working glosses the readings already use.** Laying them out together found
+four things the working glosses did not show:
+
+1. **厲 is a condition, not a verdict.** It stands with 吉 in 6 lines and with 咎 in 9, and it comes
+   before the verdict in 12 of the 15 lines that have both: 厲，无咎, "peril; no blame." So
+   [`method.md`](method.md) § 4's "graded scale" holds for 悔 and 吝 and not for 厲.
+2. **The readings invert the Tao Te Ching on 咎 and 尤.** Shalom has ruled on it, below.
+3. **A4 does not wait on A6.** 貞 governs a verdict word directly in 56 lines: 貞吉 34, 貞凶 10, 貞厲 8,
+   貞吝 4. Every one reads under either side of A6's fork, "holding firm: auspicious" or "the
+   inquiry: auspicious". The six can be ruled first.
+4. **Nor on A11.** See the A11 row and [`咎-jiu`](glossary/咎-jiu.md#the-seam).
+
+**咎 is *blame* (Shalom, 2026-10-20).** The Tao Te Ching keeps 咎 *fault* and 尤 *blame*, because
+it is a different context. So the two books render 咎 differently on purpose, and nothing locks
+across them. **The ruling leaves one thing inside this book:** 尤, six times in the 小象傳, needs a
+word that is neither *blame* nor *fault*. 26's reading glosses 中无尤 "no fault", and that has to
+change. *Reproach* is free. This is A15, open in [`WORKLIST.md`](WORKLIST.md).
+
+**吝 is *constriction* (Shalom, 2026-10-20).** It replaces *stinting*, which carried only the
+stinginess of 說卦's 吝嗇. *Constriction* answers to both of the Wings' strands: the place running
+out (窮, the 小象傳 three times) and the heart narrowing (王弼's 褊狹, 不弘). *Narrowness* was set
+aside because it reads like a trait. The readings were retrofitted the same day: 55 *stinting*
+glosses, plus four stray glosses of 吝 in 13 and 31 (*narrowness*, *going brings regret*). See
+[`吝-lin`](glossary/吝-lin.md).
+
+**Locked, 2026-10-20.** Shalom accepted *auspicious*, *ominous*, *regret* and *peril* as drafted, and all six entries carry `status: locked`. Three rows came out of this one: A14 (元 and 利, which no row covered), A15 (尤's word) and C12 (the check cannot yet cite a verdict entry).
+
 ---
 
 ## Closed — the ledger
 
+- **2026-10-20** · **The verdict vocabulary locked** (A4) — Shalom. 吉 *auspicious* · 凶 *ominous* · 咎 *blame* · 悔 *regret* · 吝 *constriction* · 厲 *peril*. 咎 differs from the Tao Te Ching's *fault* on purpose; 吝 replaced *stinting*, and the readings were retrofitted. → [glossary](glossary/INDEX.md)
 - **2026-09-24** · **ADR 0016 accepted: the Wings are the lens, declared** (A10) — Shalom. [`README.md`](README.md#the-lens)
   states the five terms and [`method.md`](method.md) § 5 applies them; the four spectrums the trigram system rests on are
   stated in [`README.md`](README.md#the-shape-of-the-figures), carried as data on each trigram and checked by `npm run check`. → [CHANGELOG](CHANGELOG.md)

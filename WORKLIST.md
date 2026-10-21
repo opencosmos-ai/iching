@@ -26,13 +26,14 @@ section below it, headed by the row's id. Nothing else lives below the table.
 **The order of work is [`method.md`](method.md) §7**, set by frequency rather than by position.
 What it leaves, in order:
 
-1. **The verdict vocabulary, as one decision** — A4, with 貞 · 亨 · 孚 (A6) beside it.
+1. **貞 · 亨 · 孚** (*zhēn · hēng · fú*) — A6, the divinatory/ethical fork, with 元 and 利 (A14)
+   beside them. The six verdict graphs before them are locked (A4, 2026-10-20).
 2. **君子 and 小人** (*jūn zǐ / xiǎo rén*) — A5.
 3. **The 64 names** — A7, only after 1 and 2, with the whole set in view.
 4. **The judgments, then the line texts** — A8.
 
-**Waiting on Shalom:** the proposed names (A7), whether the lock on 無 binds 无 (A11), what the
-64 readings surfaced (A12), and the glosses PR #14 flagged (A13).
+**Waiting on Shalom:** the proposed names (A7); whether the lock on 無 binds 无 (A11); what the 64 readings surfaced (A12); and
+the glosses PR #14 flagged (A13).
 
 **The next thing should be a rendering, not an instrument.** [`principles/README.md`](principles/README.md)
 names the share of `drafting` principles as the thing to watch: while it does not grow, this
@@ -47,20 +48,24 @@ project is building instruments rather than translating.
 | # | | Item | Where | Unit |
 |---|---|---|---|---|
 | | | **A · Drafting — the actual work** | | |
-| A4 | ⬜ | **The verdict vocabulary, decided as one set** — 吉 凶 咎 悔 吝 厲 无咎. 386 occurrences, 9.3% of the text; decide them individually and they will overlap. 厲 carries a working gloss, *peril*, until this rules (2026-09-25). The readings' evidence is under A12 | `glossary/` | ~7 |
 | A5 | ⬜ | **君子 (20×) and 小人 (10×)** — not in the parent glossary, so written from scratch. Register *and* gender; `universalize-and-name-the-seam` applies. **Rule it here and promote it to the parent's lock table** — 君子 is 20× here against 3× in the Laozi, and 君子終日 is the one four-character string the two books share | `glossary/` | 2 |
 | A6 | ⬜ | **貞 (111×) · 亨 (48×) · 孚 (42×)** — the divinatory/ethical fork, the deepest open question in the project. Read all three translators before touching any of them. The readings' evidence is under A12 | `glossary/` | 3 |
 | A7 | 🔶 | **The 64 hexagram names** — every one has a proposed English and its candidates in [`hexagram-names.md`](hexagram-names.md), awaiting Shalom's review; 5 wait on A4/A6/A11 and on what 有 is here. **The nine the signature strains** — 11, 12, 14, 19, 34, 51, 58, 60, 61 — want a second look before approval | `hexagrams/` | 64 |
 | A8 | ⬜ | **The judgments and line texts** — 64 × 8. **Five owe *wood* in their own `image:` field:** the 大象傳 (*dà xiàng zhuàn* — the Great Image) of 28 大過, 46 升, 48 井, 50 鼎 and 53 漸 names 木 (*mù* — wood), where the trigram 巽 (*xùn*) renders *wind*. That is a different sentence from the trigram's name, and 鼎 is a cauldron on a **wood** fire | `hexagrams/` | 512 |
-| A11 | 🔴 | **Does the lock on 無 bind 无?** — the Zhouyi writes the negative 无 (158× in the core, 138× in the Wings) where the parent's lock is written on 無 (2× and 5×). Same word, two graphs; until it is ruled the lock reaches almost nothing here. Decides 25 无妄 and 无咎 (A4) together | `glossary/` | 1 |
+| A11 | 🔴 | **Does the lock on 無 bind 无?** — the Zhouyi writes the negative 无 (158× in the core, 138× in the Wings) where the parent's lock is written on 無 (2× and 5×). Same word, two graphs; until it is ruled the lock reaches almost nothing here. Decides 25 无妄. **无咎 does not wait on it** (A4, 2026-10-20): the core's only two 無 are 13.1 無咎 and 13.6 無悔, both verdict formulae and probably the transcription's (B10), and the parent's own 無 flexes to a plain *no* (ch 8 無尤, ch 10 無疵) | `glossary/` | 1 |
 | A12 | 🔴 | **What the 64 readings surfaced** — writing *The heart of it* for every hexagram turned up evidence for A4/A6, name collisions with the Tao Te Ching's vocabulary, and terms with no English yet. Grouped below, for Shalom | [below](#a12--what-the-64-readings-surfaced) | ~25 |
 | A13 | 🔴 | **The glosses PR #14 flagged as least certain** — about 3,200 Chinese passages in the readings were glossed for the first time on 2026-09-28, and the editors listed the ones they were least sure of (rare characters, some proper names, places where a gloss chose between readings) in [PR #14](https://github.com/opencosmos-ai/iching/pull/14). Its *Shalom reviews the flagged glosses* box was left unticked | `hexagrams/` | — |
+| A14 | ⬜ | **元 (27×) and 利 (119×)**: the rest of [`method.md`](method.md) §7's stage 2, which A4 and A6 between them do not cover. 元吉 alone is 14 lines, and A4's entries leave it open. The parent's 無 & 有 entry already `covers:` 利 as *advantage* | `glossary/` | 2 |
+| A15 | ⬜ | **尤 needs a word of its own** — six times in the 小象傳 (終无尤也 at 22, 23, 39, 50, 56; 中无尤也 at 26). Not *blame*, which A4 gave 咎, and not *fault*, which 過 wants. The readings gloss it "no fault" three times (26 twice, 39), and those change with the ruling. *Reproach* is unclaimed in both books; the Tao Te Ching's 尤 *blame* binds only there (found 2026-10-20, A4) | `glossary/` · `hexagrams/` | 1 |
 | | | **B · Evidence — what the sources still owe** | | |
 | B1 | ⬜ | **1,075 OCR disputes still unsettled** in McClatchie — both engines disagree and neither the book's vocabulary nor the scan pass could resolve it. The live count is the file's `summary:` | `sources/mcclatchie-1876/disputed.yaml` | 1075 |
 | B3 | ⏸ | **The Chinese half of McClatchie is not transcribed** — a rule, not a shortfall. Route named: `brew install tesseract-lang`, `chi_tra_vert` | `sources/` | 1 |
 | B4 | ⬜ | **Legge's footnotes not vendored** | `sources/legge-1882/` | 1 |
 | B5 | ⬜ | **`prescrves-the «`-class errors** — multi-token blocks straddling a line break are left alone by design; a proofreading pass would need the scan | `disputed.yaml` | — |
 | B9 | ⬜ | **Simplified graphs in the vendored Zhouyi** — 云 濟→济 几 谷 丑 愿 荐 涂, some 后 for 後, found by grading the 周易注 against it. `sources/` is never hand-edited: report them from the importer, and fix upstream on Wikisource where the scan supports it | `sources/zhouyi/` | ~15 |
+| B10 | ⬜ | **Hexagram 13 writes 無 where the rest write 无.** 13.1 無咎 and 13.6 無悔 are the core text's only two 無, and they are what A11 counts as "2× in the core". 王弼's 周易注 writes 无咎 and 无悔 at both lines, and 无咎 in all 233 places, never 無咎. So the variant is the transcription's, not the text's. Report it from the importer, as B9 does (found 2026-10-20, A4) | `sources/zhouyi/13.md` | 2 |
+| | | **C · Tooling** | | |
+| C12 | ⬜ | **A verdict entry cannot be cited yet.** `npm run check` compares a file's `render:` with the `render:` of every entry in its `glossary_refs:`. That is right for a name and wrong for a verdict word. Once a hexagram has a name, citing [`吉-ji`](glossary/吉-ji.md) fails as a disagreement, so the six A4 entries have no citations. The check has to tell the entry that argues a name from the entries a line text uses before A8 begins | `scripts/check-iching.ts` | 1 |
 
 ---
 
@@ -75,7 +80,7 @@ where the evidence is; the reasoning is in that hexagram's section.*
 - **孚:** 說文 itself holds the fork — 卵孚也 ("brooding"), then 一曰信也 ("some say: 信") — which makes the collision with the 信 lock explicit (61). 49's 彖 glosses 孚 with 信 (革而信也). At 44.1 *confidence* does not fit (王弼: 務躁).
 - **貞:** 說文 records that the 籒文 script wrote 貞 with 鼎 (50). The older reading, "the inquiry", is live at 16.5 (貞疾), 17.4, 18.2 and 23.1 (蔑貞).
 
-**Evidence for A4 (the verdict words).** 28.6 reads 凶，无咎 ("ominous, no blame") — the clearest case that 凶 is an outcome, not a judgement. Whole hexagrams carry no 凶: 18, 20 (no verdict word at all), 25, 45 (every line 无咎), 59, 63.
+**Evidence for A4 (the verdict words).** 28.6 reads 凶，无咎 ("ominous, no blame") — the clearest case that 凶 is an outcome, not a judgement. Whole hexagrams carry no 凶: 18, 20 (no 吉 either; its verdicts are 20.1's 吝 and three 无咎 — *corrected 2026-10-20, it read "no verdict word at all"*), 25, 45 (every line 无咎), 59, 63. The full count is 26 hexagrams without 凶; see [`凶-xiong.md`](glossary/凶-xiong.md).
 
 **Names that collide with the Tao Te Ching's words** (recorded in [`hexagram-names.md`](hexagram-names.md)).
 - 4 *Unknowing* ≈ the Laozi's 無知 (chs 3, 10). 14 *Great Possession* ≈ the Laozi's verbal 有 *possessing* — the evidence now favours *Great Having*. 20 *Watching*: the Laozi renders 觀 *observe*. 34 *Great Vigour*: *vigour* is 健's. 51 *Shock*: 驚 is *shock* (ch 13) and stands in 51's own judgment. 52 *Stilling*: *stillness* is 靜's (22×).
