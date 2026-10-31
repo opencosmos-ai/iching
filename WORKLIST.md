@@ -15,8 +15,6 @@ so far two, [`tao-te-ching-relation.md`](tao-te-ching-relation.md) and [`hexagra
 **Each row carries its own detail.** A row whose detail will not fit in the table gets one
 section below it, headed by the row's id. Nothing else lives below the table.
 
-**Last updated:** 2026-10-20
-
 ---
 
 ## ▶ Start here
