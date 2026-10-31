@@ -2,8 +2,6 @@
 
 Notable changes to this repository. The root [`CHANGELOG.md`](https://github.com/opencosmos-ai/opencosmos/blob/main/CHANGELOG.md) covers the monorepo; this one covers a directory that has its own method, its own admission rules and its own principles, and whose changes would otherwise be legible only by reading a whole session back.
 
-**Last updated:** 2026-10-20
-
 ## What goes here, and what does not
 
 **The rule across every changelog in this ecosystem is one change, one changelog — the one that owns the decision.** The system is written down once, in the [opencosmos root `CHANGELOG.md`](https://github.com/opencosmos-ai/opencosmos/blob/main/CHANGELOG.md). This section says only what it means here.
